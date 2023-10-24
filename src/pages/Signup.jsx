@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { Navigate } from 'react-router-dom';
@@ -16,6 +17,9 @@ const validationSchema = Yup.object({
 });
 
 export const Signup = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -26,13 +30,18 @@ export const Signup = () => {
 
   const handleSignup = (payload) => {
     console.log(payload);
+    setLoading(true);
     return axios
       .post('/api/auth/signup', payload)
       .then((resp) => {
         console.log(resp.data);
-        <Navigate to={'/dashboard'} replace={true} />;
+        setLoading(false);
       })
-      .catch((err) => err.message);
+      .catch((err) => {
+        console.log(err.response.data.message);
+        setError(err.response.data.message);
+        setLoading(false);
+      });
   };
 
   return (
@@ -77,6 +86,7 @@ export const Signup = () => {
             Sign Up
           </button>
         </form>
+        {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
       </div>
     </div>
   );
