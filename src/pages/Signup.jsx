@@ -5,13 +5,13 @@ import { Navigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const initialValues = {
-  username: '',
+  name: '',
   email: '',
   password: '',
 };
 
 const validationSchema = Yup.object({
-  username: Yup.string().required('Required').min(5, 'Min 5 character'),
+  name: Yup.string().required('Required').min(5, 'Min 5 character'),
   email: Yup.string().required('Required'),
   password: Yup.string().required('Required').min(6, 'Min 6 character'),
 });
@@ -51,15 +51,15 @@ export const Signup = () => {
         <form onSubmit={formik.handleSubmit}>
           <input
             type="text"
-            placeholder="username"
-            className={`border p-3 rounded-md w-full mb-2  ${formik?.errors?.username && 'border-red-500'} `}
-            name="username"
-            id="username"
-            aria-label="username"
+            placeholder="name"
+            className={`border p-3 rounded-md w-full mb-2  ${formik?.errors?.name && 'border-red-500'} `}
+            name="name"
+            id="name"
+            aria-label="name"
             onChange={formik.handleChange}
-            value={formik.values.username}
+            value={formik.values.name}
           ></input>
-          {formik?.errors?.username && <div className="mb-2 text-xs rounded-sm bg-red-100 p-1 text-red-900">{formik?.errors?.username}</div>}
+          {formik?.errors?.name && <div className="mb-2 text-xs rounded-sm bg-red-100 p-1 text-red-900">{formik?.errors?.name}</div>}
           <input
             type="email"
             placeholder="email"
@@ -83,7 +83,7 @@ export const Signup = () => {
           ></input>
           {formik?.errors?.password && <div className="mb-2 text-xs rounded-sm bg-red-100 p-1 text-red-900">{formik?.errors?.password}</div>}
           <button type="submit" className="text-center bg-teal-600 text-white p-2 w-full rounded-md hover:bg-teal-700">
-            Sign Up
+            {loading ? 'Loading ...' : 'SIGN UP'}
           </button>
         </form>
         {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
