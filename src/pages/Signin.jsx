@@ -3,9 +3,17 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
+import { createDraftSafeSelector } from '@reduxjs/toolkit';
+
+/*
+THis dispatch use https://www.youtube.com/watch?v=VAaUy_Moivw&t=7808s technique, 
+in the future change use same way in POS-APP-DEMO use extra reducer and createAsyncThunk
+put to user slice
+*/
 
 const initialValues = {
-  name: '',
   email: '',
   password: '',
 };
@@ -16,8 +24,8 @@ const validationSchema = Yup.object({
 });
 
 export const Signin = () => {
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading, error } = useSelector((state) => state.user.curentUser);
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -29,19 +37,16 @@ export const Signin = () => {
   });
 
   const handleSignin = (payload) => {
-    console.log(payload);
-    setLoading(true);
+    dispatch(signInStart());
     return axios
       .post('/api/auth/signin', payload)
       .then((resp) => {
-        console.log(resp.data);
-        setLoading(false);
+        console.log(resp);
+        dispatch(signInSuccess(resp.data));
         navigate('/dashboard');
       })
       .catch((err) => {
-        console.log(err.response.data.message);
-        setError(err.response.data.message);
-        setLoading(false);
+        dispatch(signInFailure(err.response.data.message));
       });
   };
 
@@ -72,8 +77,8 @@ export const Signin = () => {
             value={formik.values.password}
           ></input>
           {formik?.errors?.password && <div className="mb-2 text-xs rounded-sm bg-red-100 p-1 text-red-900">{formik?.errors?.password}</div>}
-          <button type="submit" className="text-center bg-teal-600 text-white p-2 w-full rounded-md hover:bg-teal-700">
-            {loading ? 'Loading ...' : 'SIGN IN'}
+          <button type="submit" className="text-center bg-teal-600 text-white p-2 w-full rounded-md hover:bg-teal-700 uppercase">
+            {isLoading ? 'Loading ...' : 'Sign In'}
           </button>
         </form>
         {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
