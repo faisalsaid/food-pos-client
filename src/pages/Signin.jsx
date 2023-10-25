@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
@@ -52,7 +52,7 @@ export const Signin = () => {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto w-96">
       <h1 className="text-3xl text-center font-semibold py-7 text-slate-700">Sign In</h1>
       <div className="mx-auto w-96">
         <form onSubmit={formik.handleSubmit}>
@@ -84,6 +84,12 @@ export const Signin = () => {
         </form>
         {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
         <OAuth />
+      </div>
+      <div className="text-sm mt-2 flex gap-2">
+        <span className="text-slate-600">Dont have an acount?</span>
+        <Link to={'/signup'}>
+          <span className="text-blue-600">Sign up</span>
+        </Link>
       </div>
     </div>
   );
