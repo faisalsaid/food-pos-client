@@ -24,11 +24,11 @@ export const Signin = () => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      handleSignup(values);
+      handleSignin(values);
     },
   });
 
-  const handleSignup = (payload) => {
+  const handleSignin = (payload) => {
     console.log(payload);
     setLoading(true);
     return axios
