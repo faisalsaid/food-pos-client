@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 
 const initialValues = {
@@ -19,6 +19,7 @@ const validationSchema = Yup.object({
 export const Signup = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues,
@@ -36,6 +37,7 @@ export const Signup = () => {
       .then((resp) => {
         console.log(resp.data);
         setLoading(false);
+        navigate('/dashboard');
       })
       .catch((err) => {
         console.log(err.response.data.message);
