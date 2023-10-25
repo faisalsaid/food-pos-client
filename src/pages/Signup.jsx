@@ -93,9 +93,9 @@ export const Signup = () => {
         <OAuth />
       </div>
       <div className="text-sm mt-2 flex gap-2">
-        <span className="text-slate-600">Dont have an acount?</span>
-        <Link to={'/signup'}>
-          <span className="text-blue-600">Sign up</span>
+        <span className="text-slate-600">Already have an acount?</span>
+        <Link to={'/signin'}>
+          <span className="text-blue-600">Sign in</span>
         </Link>
       </div>
     </div>
