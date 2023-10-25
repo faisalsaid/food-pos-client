@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +5,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
+import OAuth from '../components/OAuth.jsx';
 
 /*
 THis dispatch use https://www.youtube.com/watch?v=VAaUy_Moivw&t=7808s technique, 
@@ -41,10 +41,12 @@ export const Signin = () => {
     return axios
       .post('/api/auth/signin', payload)
       .then((resp) => {
+        console.log(resp);
         dispatch(signInSuccess(resp.data));
         navigate('/dashboard');
       })
       .catch((err) => {
+        console.log(err);
         dispatch(signInFailure(err.response.data.message));
       });
   };
@@ -81,6 +83,7 @@ export const Signin = () => {
           </button>
         </form>
         {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
+        <OAuth />
       </div>
     </div>
   );
