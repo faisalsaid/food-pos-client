@@ -10,7 +10,6 @@ export default function OAuth() {
   const navigate = useNavigate();
 
   const handleGoogleClick = async () => {
-    dispatch(signInStart());
     try {
       const provider = new GoogleAuthProvider();
       const auth = getAuth(app);
@@ -28,7 +27,7 @@ export default function OAuth() {
         .then((resp) => {
           console.log(resp);
           dispatch(signInSuccess(resp.data));
-          // navigate('/dashboard');
+          navigate('/dashboard');
         })
         .catch((err) => {
           console.log(err);
