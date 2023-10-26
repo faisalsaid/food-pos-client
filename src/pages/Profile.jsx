@@ -1,40 +1,94 @@
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { MdEdit } from 'react-icons/md';
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
-
-const initialValues = {
-  name: '',
-  email: '',
-  password: '',
-};
-
-const validationSchema = Yup.object({
-  name: Yup.string().required('Required').min(5, 'Min 5 character'),
-  email: Yup.string().required('Required'),
-  password: Yup.string().required('Required').min(6, 'Min 6 character'),
-});
+import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
+import { app } from '../firebase.js';
 
 export default function Profile() {
+  const fileRef = useRef();
   const { data, isLoading, error } = useSelector((state) => state.user.curentUser);
+  const [file, setFile] = useState(undefined);
+  const [filePerc, setFilePerc] = useState(0);
+  const [fileUploadError, setFileUploadError] = useState(false);
+
+  console.log(file);
+  console.log(filePerc);
+
+  const initialValues = {
+    name: data.name,
+    email: data.email,
+    password: '',
+  };
+
+  //   console.log(formik);
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Required').min(5, 'Min 5 character'),
+    email: Yup.string().required('Required'),
+    password: Yup.string().min(6, 'Min 6 character'),
+  });
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      handleSignup(values);
+      handleEdit(values);
     },
   });
+
+  useEffect(() => {
+    file && handleFileUpload(file);
+  }, [file]);
+
+  const handleFileUpload = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getDate() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFilePerc(Math.round(progress));
+      },
+      (error) => {
+        setFileUploadError(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+          console.log(downloadUrl);
+        });
+      },
+    );
+  };
+
+  const handleEdit = (values) => {
+    console.log(values);
+  };
 
   return (
     <div className="container w-96 mx-auto">
       <h1 className="text-3xl font-semibold text-slate-700 py-4 text-center">Profile</h1>
       <div>
-        <div className="w-24 overflow-hidden relative mx-auto">
-          <button className="bg-green-700 text-white p-2 rounded-full absolute bottom-0 right-0">
+        <div className="w-24  relative mx-auto">
+          <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/.*" />
+          <button onClick={() => fileRef.current.click()} className="bg-teal-600 text-white p-2 rounded-full absolute bottom-0 right-0 hover:bg-teal-700 drop-shadow-md">
             <MdEdit />
           </button>
           <img className="rounded-full" src={data.avatar} alt="profile picture" />
+        </div>
+        <div className="mt-4 w-full text-xs">
+          {fileUploadError ? (
+            <p className="bg-red-100 px-2 py-1 rounded-md text-red-700">Error Image Upload</p>
+          ) : filePerc > 0 && filePerc < 100 ? (
+            <p className="bg-green-100 px-2 py-1 rounded-md text-green-600">{`Uploading ${filePerc}%`}</p>
+          ) : filePerc === 100 ? (
+            <p className="bg-green-100 px-2 py-1 rounded-md text-green-600">Image successfuly uploaded</p>
+          ) : (
+            ''
+          )}
         </div>
         <div
           className="mt-4
