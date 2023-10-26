@@ -3,6 +3,7 @@ import { Dashboard } from './pages/Dashboard';
 import { Signin } from './pages/Signin';
 import { Signup } from './pages/Signup';
 import Profile from './pages/Profile';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -12,7 +13,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
