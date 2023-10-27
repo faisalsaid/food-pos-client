@@ -6,7 +6,7 @@ export default function PrivateRoute({ component: Component, authenticated, ...r
   console.log(curentUser);
 
   if (curentUser.length === 0) {
-    return <Navigate to={'/signin'} />;
+    return <Navigate to={'/home'} />;
   }
   return <Outlet />;
 }

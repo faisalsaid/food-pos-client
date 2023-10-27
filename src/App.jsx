@@ -13,7 +13,7 @@ const Layout = () => {
   return (
     <div className="flex flex-row h-screen w-screen overflow-hidden bg-neutral-50 text-slate-600">
       <SideMenu />
-      <div className=" flex-1">
+      <div className="flex-1">
         <Header />
         <Outlet />
       </div>
@@ -25,16 +25,17 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Order />} />
-          <Route element={<PrivateRoute />}>
+        <Route path="/home" element={<LandingPage />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<Layout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/order" element={<Order />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/*" element={<LandingPage />} />
         </Route>
+        <Route path="/*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
   );
