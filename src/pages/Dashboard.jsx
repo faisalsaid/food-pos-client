@@ -14,11 +14,13 @@ export const Dashboard = () => {
       </div>
       <div className="flex gap-4">
         <div className="bg-white p-3 rounded-md flex-1">Chart</div>
-        <div className="bg-white p-3 rounded-md ">
-          <p className="text-xl font-semibold text-slate-500 mb-3">Payment Statistics</p>
-          {['a', 'b', 'c'].map((item, i) => (
-            <ChartPayment />
-          ))}
+        <div className="bg-white p-3 rounded-md gap ">
+          <p className="text-lg font-semibold text-slate-500 mb-3">Payment Statistics</p>
+          <div className="flex gap-3 flex-col">
+            {['a', 'b', 'c'].map((item, i) => (
+              <ChartPayment />
+            ))}
+          </div>
         </div>
       </div>
     </div>
