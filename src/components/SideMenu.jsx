@@ -1,7 +1,7 @@
 import React from 'react';
 import { IoFastFood } from 'react-icons/io5';
 import { SIDEBAR_MENU_LIST, SIDEBAR_OPTIONS_LIST } from '../libs/MenuList';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function SideMenu() {
   return (
@@ -24,12 +24,13 @@ export default function SideMenu() {
 }
 
 const MenuComps = ({ data }) => {
+  const navClass = 'flex items-center datas-center gap-2 py-3 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md';
   return (
-    <Link key={data.key} to={data.path}>
-      <div className="flex items-center datas-center gap-2 py-1 px-2 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md ">
+    <div>
+      <NavLink className={({ isActive }) => (isActive ? 'bg-orange-400 hover:bg-orange-300 text-white ' + navClass : navClass)} key={data.key} to={data.path}>
         {data.icon}
         <span>{data.label}</span>
-      </div>
-    </Link>
+      </NavLink>
+    </div>
   );
 };
