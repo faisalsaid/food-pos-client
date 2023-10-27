@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from './Avatar';
+import Avatar from './share/Avatar';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { setToggleMenu } from '../redux/layout/layout.slice.js';
 import { useDispatch } from 'react-redux';

@@ -37,7 +37,7 @@ export default function SideMenu() {
 const MenuComps = ({ data, toggle }) => {
   const navClass = 'flex items-center datas-center gap-2 py-3 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md';
   return (
-    <div>
+    <div className="text-slate-400">
       <NavLink className={({ isActive }) => (isActive ? `bg-orange-400 hover:bg-orange-300 text-white ` + navClass : navClass)} key={data.key} to={data.path}>
         {toggle ? <span>{data.icon}</span> : <span className="text-2xl">{data.icon}</span>}
 
