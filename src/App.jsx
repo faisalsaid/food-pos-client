@@ -8,6 +8,9 @@ import SideMenu from './components/SideMenu';
 import Header from './components/Header';
 import Order from './pages/Order';
 import LandingPage from './pages/LandingPage';
+import Purchase from './pages/Purchase';
+import Menu from './pages/Menu';
+import Chart from './pages/Chart';
 
 const Layout = () => {
   return (
@@ -32,7 +35,10 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/order" element={<Order />} />
+            <Route path="/purchase" element={<Purchase />} />
+            <Route path="/menu" element={<Menu />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/chart" element={<Chart />} />
           </Route>
         </Route>
         <Route path="/*" element={<LandingPage />} />
