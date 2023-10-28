@@ -4,6 +4,7 @@ import { app } from '../firebase';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
+import { apiURI } from '../config/environtment';
 
 export default function OAuth() {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export default function OAuth() {
 
       console.log(payload);
       return axios
-        .post('/api/auth/google', payload)
+        .post(`${apiURI}/auth/google`, payload)
         .then((resp) => {
           console.log(resp);
           dispatch(signInSuccess(resp.data));
