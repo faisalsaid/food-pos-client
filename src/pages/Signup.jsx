@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import { apiURI } from '../config/environtment';
 
 const initialValues = {
   name: '',
@@ -34,7 +35,7 @@ export const Signup = () => {
     console.log(payload);
     setLoading(true);
     return axios
-      .post('/api/auth/signup', payload)
+      .post(`${apiURI}/auth/signup`, payload)
       .then((resp) => {
         console.log(resp.data);
         setLoading(false);
