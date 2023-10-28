@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
-import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import OAuth from '../components/OAuth.jsx';
 
 /*
@@ -39,7 +38,7 @@ export const Signin = () => {
   const handleSignin = (payload) => {
     dispatch(signInStart());
     return axios
-      .post('https://cyclic-api-demo.cyclic.cloud/api/auth/signin', payload)
+      .post('/api/auth/signin', payload)
       .then((resp) => {
         console.log(resp);
         dispatch(signInSuccess(resp.data));
