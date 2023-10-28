@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
-import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import OAuth from '../components/OAuth.jsx';
 
 import { apiURI } from '../config/environtment.js';
@@ -15,7 +14,6 @@ in the future change use same way in POS-APP-DEMO use extra reducer and createAs
 put to user slice
 */
 
-console.log(apiURI);
 const initialValues = {
   email: '',
   password: '',

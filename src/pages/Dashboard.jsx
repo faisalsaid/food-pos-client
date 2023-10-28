@@ -18,7 +18,7 @@ export const Dashboard = () => {
           <p className="text-lg font-semibold text-slate-500 mb-3">Payment Statistics</p>
           <div className="flex gap-3 flex-col">
             {['a', 'b', 'c'].map((item, i) => (
-              <ChartPayment />
+              <ChartPayment key={i} />
             ))}
           </div>
         </div>
