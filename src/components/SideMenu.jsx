@@ -3,8 +3,12 @@ import { IoFastFood } from 'react-icons/io5';
 import { SIDEBAR_MENU_LIST, SIDEBAR_OPTIONS_LIST } from '../libs/MenuList';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { ImExit } from 'react-icons/im';
+import { useDispatch } from 'react-redux';
+import { logOut } from '../redux/user/user.slice.js';
 
 export default function SideMenu() {
+  const dispacth = useDispatch();
   const { data: toggleSideMenu } = useSelector((state) => state.layout);
 
   return (
@@ -29,6 +33,17 @@ export default function SideMenu() {
         {SIDEBAR_OPTIONS_LIST.map((item) => (
           <MenuComps key={item.key} data={item} toggle={toggleSideMenu} />
         ))}
+        <div className="text-slate-400">
+          <button
+            onClick={() => dispacth(logOut())}
+            className="w-full h-full flex items-center datas-center gap-2 py-3 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md"
+          >
+            <span>
+              <ImExit />
+            </span>
+            Exit
+          </button>
+        </div>
       </div>
     </div>
   );

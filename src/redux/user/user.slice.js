@@ -32,6 +32,11 @@ const userSlice = createSlice({
       state.curentUser.data = [];
       state.curentUser.error = action.payload;
     },
+    logOut: (state) => {
+      state.curentUser.isloading = false;
+      state.curentUser.data = [];
+      state.curentUser.error = '';
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentUser.pending, (state) => {
@@ -47,5 +52,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { signInStart, signInFailure, signInSuccess } = userSlice.actions;
+export const { signInStart, signInFailure, signInSuccess, logOut } = userSlice.actions;
 export default userSlice.reducer;

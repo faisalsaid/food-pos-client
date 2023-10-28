@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 import { apiURI } from '../config/environtment';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
 
 const initialValues = {
   name: '',
@@ -19,6 +21,7 @@ const validationSchema = Yup.object({
 });
 
 export const Signup = () => {
+  const dispatch = useDispatch();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -37,9 +40,10 @@ export const Signup = () => {
     return axios
       .post(`${apiURI}/auth/signup`, payload)
       .then((resp) => {
-        console.log(resp.data);
+        dispatch(signInSuccess(resp.data));
         setLoading(false);
         navigate('/dashboard');
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err.response.data.message);

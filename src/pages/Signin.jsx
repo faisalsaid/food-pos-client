@@ -14,7 +14,6 @@ in the future change use same way in POS-APP-DEMO use extra reducer and createAs
 put to user slice
 */
 
-console.log(apiURI);
 const initialValues = {
   email: '',
   password: '',
@@ -43,7 +42,6 @@ export const Signin = () => {
     return axios
       .post(`${apiURI}/auth/signin`, payload)
       .then((resp) => {
-        console.log(resp);
         dispatch(signInSuccess(resp.data));
         navigate('/dashboard');
       })
