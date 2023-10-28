@@ -34,7 +34,7 @@ export const Signup = () => {
     console.log(payload);
     setLoading(true);
     return axios
-      .post('/api/auth/signup', payload)
+      .post('https://cyclic-api-demo.cyclic.cloud/api/auth/signup', payload)
       .then((resp) => {
         console.log(resp.data);
         setLoading(false);

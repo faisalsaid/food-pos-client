@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard';
 import { Signin } from './pages/Signin';
 import { Signup } from './pages/Signup';
@@ -26,7 +26,7 @@ const Layout = () => {
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/home" element={<LandingPage />} />
         <Route path="/signin" element={<Signin />} />
@@ -43,7 +43,7 @@ function App() {
         </Route>
         <Route path="/*" element={<LandingPage />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
