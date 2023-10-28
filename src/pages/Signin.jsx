@@ -42,7 +42,6 @@ export const Signin = () => {
     return axios
       .post(`${apiURI}/auth/signin`, payload)
       .then((resp) => {
-        console.log(resp);
         dispatch(signInSuccess(resp.data));
         navigate('/dashboard');
       })

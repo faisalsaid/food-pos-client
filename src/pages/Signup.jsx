@@ -41,6 +41,7 @@ export const Signup = () => {
       .post(`${apiURI}/auth/signup`, payload)
       .then((resp) => {
         dispatch(signInSuccess(resp.data));
+        setLoading(false);
         navigate('/dashboard');
         setLoading(false);
       })

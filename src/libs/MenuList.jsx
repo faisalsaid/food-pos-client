@@ -4,7 +4,6 @@ import { FaUserAlt } from 'react-icons/fa';
 import { HiCash } from 'react-icons/hi';
 import { BsBarChartFill } from 'react-icons/bs';
 import { AiTwotoneSetting } from 'react-icons/ai';
-import { ImExit } from 'react-icons/im';
 
 export const SIDEBAR_MENU_LIST = [
   {
@@ -51,11 +50,5 @@ export const SIDEBAR_OPTIONS_LIST = [
     label: 'Settings',
     path: '/settings',
     icon: <AiTwotoneSetting />,
-  },
-  {
-    key: 'exit',
-    label: 'Exit',
-    path: '/signout',
-    icon: <ImExit />,
   },
 ];
