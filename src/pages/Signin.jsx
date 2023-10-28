@@ -7,12 +7,15 @@ import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.sl
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import OAuth from '../components/OAuth.jsx';
 
+import { apiURI } from '../config/environtment.js';
+
 /*
 THis dispatch use https://www.youtube.com/watch?v=VAaUy_Moivw&t=7808s technique, 
 in the future change use same way in POS-APP-DEMO use extra reducer and createAsyncThunk
 put to user slice
 */
 
+console.log(apiURI);
 const initialValues = {
   email: '',
   password: '',
@@ -39,7 +42,7 @@ export const Signin = () => {
   const handleSignin = (payload) => {
     dispatch(signInStart());
     return axios
-      .post('/api/auth/signin', payload)
+      .post(`${apiURI}/auth/signin`, payload)
       .then((resp) => {
         console.log(resp);
         dispatch(signInSuccess(resp.data));
