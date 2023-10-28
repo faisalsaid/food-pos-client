@@ -1,4 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { apiURI } from '../../config/environtment';
+
+// Fetch user data {afterl login}
+export const fetchCurrentUser = createAsyncThunk('user/fetchUser', (data) => {
+  // const payload = { _id: data._id };
+  console.log('user/fetchUser', data);
+
+  return axios.get(`${apiURI}/user/me`).then((resp) => resp.data);
+});
 
 const initialState = {
   curentUser: { isloading: false, data: [], error: '' },
@@ -22,6 +32,18 @@ const userSlice = createSlice({
       state.curentUser.data = [];
       state.curentUser.error = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCurrentUser.pending, (state) => {
+      state.curentUser.isloading = true;
+    });
+    builder.addCase(fetchCurrentUser.fulfilled, (state, { payload }) => {
+      (state.curentUser.isloading = false), (state.curentUser.data = payload);
+      state.curentUser.error = '';
+    });
+    builder.addCase(fetchCurrentUser.rejected, (state, action) => {
+      (state.curentUser.isloading = false), (state.curentUser.data = []), (state.curentUser.error = action.error);
+    });
   },
 });
 
