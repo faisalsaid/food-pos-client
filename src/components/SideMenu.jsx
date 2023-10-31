@@ -12,7 +12,7 @@ export default function SideMenu() {
   const { data: toggleSideMenu } = useSelector((state) => state.layout);
 
   return (
-    <div className={`flex flex-col bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}>
+    <div className={`flex flex-col overflow-hidden bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}>
       <Link to={'/dashboard'}>
         {toggleSideMenu ? (
           <div className="w-full flex gap-2 items-center py-2 content-center ">
@@ -24,7 +24,7 @@ export default function SideMenu() {
           </div>
         )}
       </Link>
-      <div className="flex-1 mt-3">
+      <div className="flex-1 flex flex-col mt-3">
         {SIDEBAR_MENU_LIST.map((item) => (
           <MenuComps key={item.key} data={item} toggle={toggleSideMenu} />
         ))}
@@ -61,7 +61,7 @@ export default function SideMenu() {
 const MenuComps = ({ data, toggle }) => {
   const navClass = 'flex items-center datas-center gap-2 py-2 px-3 hover:bg-orange-300 hover:text-white text-sm mt-2 rounded-md';
   return (
-    <div className="text-slate-400">
+    <div className="flex text-slate-400 overflow-hidden items-center">
       <NavLink className={({ isActive }) => (isActive ? `bg-orange-400 hover:bg-orange-300 text-white ` + navClass : navClass)} key={data.key} to={data.path}>
         {toggle ? <span className="text-sm">{data.icon}</span> : <span className="text-sm">{data.icon}</span>}
 

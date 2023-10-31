@@ -13,7 +13,7 @@ export default function Header() {
         <button onClick={() => dispatch(setToggleMenu())} className="bg-orange-100 p-2 rounded-full text-orange-500">
           <AiOutlineMenu />
         </button>
-        <p>{new Date().toLocaleDateString('en-IN', options)}</p>
+        <p className="text-sm">{new Date().toLocaleDateString('en-IN', options)}</p>
       </div>
       <Avatar />
     </div>
