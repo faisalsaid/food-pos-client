@@ -29,7 +29,7 @@ export default function SideMenu() {
           <MenuComps key={item.key} data={item} toggle={toggleSideMenu} />
         ))}
       </div>
-      <div className="mb-4 border-t-2 ">
+      <div className="mb-4 border-t ">
         {SIDEBAR_OPTIONS_LIST.map((item) => (
           <MenuComps key={item.key} data={item} toggle={toggleSideMenu} />
         ))}

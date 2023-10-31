@@ -15,7 +15,7 @@ import Chart from './pages/Chart';
 const Layout = () => {
   return (
     <div className="flex flex-row h-screen w-screen overflow-hidden bg-neutral-50 text-slate-600">
-      <div>
+      <div className=" flex">
         <SideMenu />
       </div>
       <div className="flex-1">
