@@ -12,15 +12,15 @@ export default function SideMenu() {
   const { data: toggleSideMenu } = useSelector((state) => state.layout);
 
   return (
-    <div className={`flex flex-col bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-48' : 'w-[70px]'} transition-all duration-500`}>
+    <div className={`flex flex-col bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}>
       <Link to={'/dashboard'}>
         {toggleSideMenu ? (
           <div className="w-full flex gap-2 items-center py-2 content-center ">
-            <IoFastFood className="text-2xl text-orange-600" /> <span className="font-bold text-2xl text-green-700">FOOD POS</span>
+            <IoFastFood className="text-xl text-orange-600" /> <span className="font-bold text-base text-green-700">FOOD POS</span>
           </div>
         ) : (
           <div className=" text-center flex p-2 items-center w-13 ">
-            <IoFastFood className="text-4xl text-orange-600 text-center" />
+            <IoFastFood className="text-xl text-orange-600 text-center" />
           </div>
         )}
       </Link>
@@ -36,12 +36,21 @@ export default function SideMenu() {
         <div className="text-slate-400">
           <button
             onClick={() => dispacth(logOut())}
-            className="w-full h-full flex items-center datas-center gap-2 py-3 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md"
+            className="w-full h-full flex items-center datas-center gap-2 py-2 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-2 rounded-md"
           >
-            <span>
-              <ImExit />
-            </span>
-            Exit
+            {toggleSideMenu ? (
+              <>
+                <span>
+                  <ImExit />
+                </span>{' '}
+                <span className="text-sm">Exit</span>
+              </>
+            ) : (
+              <span>
+                {' '}
+                <ImExit />
+              </span>
+            )}
           </button>
         </div>
       </div>
@@ -50,11 +59,11 @@ export default function SideMenu() {
 }
 
 const MenuComps = ({ data, toggle }) => {
-  const navClass = 'flex items-center datas-center gap-2 py-3 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md';
+  const navClass = 'flex items-center datas-center gap-2 py-2 px-3 hover:bg-orange-300 hover:text-white text-sm mt-2 rounded-md';
   return (
     <div className="text-slate-400">
       <NavLink className={({ isActive }) => (isActive ? `bg-orange-400 hover:bg-orange-300 text-white ` + navClass : navClass)} key={data.key} to={data.path}>
-        {toggle ? <span>{data.icon}</span> : <span className="text-2xl">{data.icon}</span>}
+        {toggle ? <span className="text-sm">{data.icon}</span> : <span className="text-sm">{data.icon}</span>}
 
         {toggle && <span>{data.label}</span>}
       </NavLink>
