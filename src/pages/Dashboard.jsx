@@ -16,12 +16,19 @@ const orderDataFramework = () => {
 };
 
 export const Dashboard = () => {
+  const titleOrders = ['Total Orders', 'Total Sale', 'Active Order', 'Average Order Size'];
   const ordersData = faker.helpers.multiple(orderDataFramework, { count: 4 });
+  const dataCardGrafik = ordersData.map((data, i) => {
+    return {
+      ...data,
+      title: titleOrders[i],
+    };
+  });
 
   return (
     <div className="p-6 flex flex-col gap-4 ">
       <div className="flex items-center gap-4">
-        {ordersData.map((item, i) => (
+        {dataCardGrafik.map((item, i) => (
           <CardGrafik key={i} data={item} />
         ))}
       </div>
