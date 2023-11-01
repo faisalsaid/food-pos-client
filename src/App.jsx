@@ -18,7 +18,7 @@ const Layout = () => {
       <div className=" flex">
         <SideMenu />
       </div>
-      <div className="flex-1">
+      <div className="flex-1 overflow-y-scroll">
         <Header />
         <Outlet />
       </div>
