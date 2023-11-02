@@ -3,6 +3,7 @@ import ChartPayment from '../components/share/ChartPayment';
 import { faker } from '@faker-js/faker';
 import MainChart from '../components/share/MainChart';
 import DoughnutChart from '../components/share/DoughnutChart';
+import TableEmployee from '../components/table/employee/TableEmployee';
 
 faker.seed(123);
 // Generate card grafik data dummy use faker
@@ -16,7 +17,7 @@ const orderDataFramework = () => {
 };
 
 export const Dashboard = () => {
-  const titleOrders = ['Total Orders', 'Total Sale', 'Active Order', 'Average Order Size'];
+  const titleOrders = ['Total Orders', 'Total Sale', 'Active Order', 'Average Order'];
   const ordersData = faker.helpers.multiple(orderDataFramework, { count: 4 });
   const dataCardGrafik = ordersData.map((data, i) => {
     return {
@@ -46,7 +47,9 @@ export const Dashboard = () => {
         </div>
       </div>
       <div className="flex gap-3">
-        <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300">Table</div>{' '}
+        <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300">
+          <TableEmployee />
+        </div>
         <div className="bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 min-w-min">
           <DoughnutChart />
         </div>
