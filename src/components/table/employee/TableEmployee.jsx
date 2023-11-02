@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce } from 'react-table';
+import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce, usePagination } from 'react-table';
 import MOCK_DATA from './MOCK_DATA.json';
 import { COLUMNS } from './empoyeeColumns.js';
 import ColumnFIlter from './ColumnFIlter';
@@ -30,18 +30,20 @@ export default function TableEmployee() {
     };
   });
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, setGlobalFilter } = useTable(
-    {
-      columns,
-      data,
-      defaultColumn,
-    },
-    useFilters,
-    useGlobalFilter,
-    useSortBy,
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, page, nextPage, previousPage, canNextPage, canPreviousPage, prepareRow, pageOptions, state, setGlobalFilter } =
+    useTable(
+      {
+        columns,
+        data,
+        defaultColumn,
+      },
+      useFilters,
+      useGlobalFilter,
+      useSortBy,
+      usePagination,
+    );
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex } = state;
 
   return (
     <>
@@ -49,12 +51,12 @@ export default function TableEmployee() {
         <p className="text-slate-600">Employees performance</p>
         <GlobalFilterInput filter={globalFilter} setFilter={setGlobalFilter} />
       </div>
-      <table className="bg-slate-100 w-full table-auto text-xs  " {...getTableProps()}>
+      <table className=" w-full table-auto text-sm  " {...getTableProps()}>
         <thead className="bg-orange-400  ">
           {headerGroups.map((headerGroup) => (
             <tr className="  overflow-hidden " {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th className="first:rounded-tl-md last:rounded-tr-md py-3 px-2 font-semibold text-white " {...column.getHeaderProps(column.getSortByToggleProps())}>
+                <th className="first:rounded-tl-xl last:rounded-tr-xl py-3 px-2 font-semibold text-white " {...column.getHeaderProps(column.getSortByToggleProps())}>
                   <div className="flex items-center gap-2">
                     <span>{column.render('Header')}</span>
                     <span>{column.isSorted ? column.isSortedDesc ? <AiFillCaretUp /> : <AiFillCaretDown /> : <AiFillCaretRight />}</span>
@@ -65,8 +67,8 @@ export default function TableEmployee() {
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+        <tbody className="bg-slate-100" {...getTableBodyProps()}>
+          {page.map((row) => {
             prepareRow(row);
             return (
               <tr className="bg-white border-l border-r hover:bg-orange-100 hover:border-b-2 hover:border-b-orange-400 transition-all duration-300" {...row.getRowProps()}>
@@ -80,6 +82,23 @@ export default function TableEmployee() {
           })}
         </tbody>
       </table>
+      <div className="p-2 border flex justify-between">
+        <button
+          className="bg-orange-500 py-2 text-xs rounded-md px-2 text-white disabled:bg-slate-100 disabled:text-slate-400"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          Prev
+        </button>
+        <div>
+          <p>
+            Page {pageIndex + 1} of {pageOptions.length}
+          </p>
+        </div>
+        <button className="bg-orange-500 py-2 text-xs rounded-md px-2 text-white disabled:bg-slate-100 disabled:text-slate-400" onClick={() => nextPage()} disabled={!canNextPage}>
+          Next
+        </button>
+      </div>
     </>
   );
 }
