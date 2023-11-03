@@ -53,7 +53,11 @@ const listTag = [
 
 const TagMenu = ({ tag, tagActive }) => {
   return (
-    <div className={`${tag.value === tagActive ? 'bg-orange-300 text-white' : 'bg-white'} flex items-center gap-1  rounded-md py-1 px-2 hover:bg-orange-100 text-slate-500`}>
+    <div
+      className={`${
+        tag.value === tagActive ? 'bg-orange-300 text-white' : 'bg-white'
+      } flex items-center gap-1 hover:text-slate-500 rounded-md py-1 px-2 hover:bg-orange-100 text-slate-500`}
+    >
       <span>{tag.icon}</span> <span>{tag.label}</span>
     </div>
   );
