@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker';
 
 // Import Icons
 import { BiTrash, BiFile, BiEdit } from 'react-icons/bi';
+import PurchaseModal from '../PurchaseModal';
 
 faker.seed(123);
 const purchaseDataFramework = () => {
@@ -21,18 +22,36 @@ const purchaseDataFramework = () => {
 const employeeData = faker.helpers.multiple(purchaseDataFramework, { count: 83 });
 
 const ActionComp = ({ data }) => {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [dataContent, setDataContent] = React.useState({});
+
+  const handleDetails = (data) => {
+    setDataContent(data);
+    openModal();
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
-    <div className="flex justify-center items-center gap-2">
-      <button className="p-1 bg-red-300 hover:bg-red-400 rounded-lg text-white">
-        <BiTrash />
-      </button>
-      <button className="p-1 bg-sky-300 hover:bg-sky-400 rounded-lg text-white" onClick={() => console.log(data.original)}>
-        <BiFile />
-      </button>
-      <button className="p-1 bg-green-300 hover:bg-green-400 rounded-lg text-white">
-        <BiEdit />
-      </button>
-    </div>
+    <>
+      <div className="flex justify-center items-center gap-2">
+        <button className="p-1 bg-red-300 hover:bg-red-400 rounded-lg text-white">
+          <BiTrash />
+        </button>
+        <button className="p-1 bg-sky-300 hover:bg-sky-400 rounded-lg text-white" onClick={() => handleDetails(data.original)}>
+          <BiFile />
+        </button>
+        <button className="p-1 bg-green-300 hover:bg-green-400 rounded-lg text-white">
+          <BiEdit />
+        </button>
+      </div>
+      <PurchaseModal isOpen={isModalOpen} closeModel={closeModal} content={dataContent} />
+    </>
   );
 };
 
