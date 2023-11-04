@@ -139,7 +139,7 @@ const MenuCard = () => {
 
 const ListOrderCard = ({ order }) => {
   return (
-    <div className="flex gap-2 min-w-[250px] mr-2 ">
+    <div className="flex gap-2 min-w-[250px] mr-2 mb-2 ">
       <img
         className="w-12 h-12 object-cover rounded-xl"
         src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/62c59f6365a259b03da440de3973f201/Derivates/668cba6648888c61d249c0a5d9651157a4ce3793.jpg"
@@ -180,7 +180,7 @@ export default function Order() {
     setIsModalOpen(false);
   };
   return (
-    <div className=" flex items-stretch relative ">
+    <div className=" flex items-stretch  max-h-screen relative ">
       <div className="flex-1 p-6 max-h-screen overflow-y-scroll">
         <div className=" flex justify-between">
           <div className="">
@@ -211,7 +211,7 @@ export default function Order() {
           ))}
         </div>
       </div>
-      <div className="max-w-fit bg-white sticky p-4 flex flex-col gap-4 min-h-fit max-h-screen">
+      <div className="max-w-fit bg-white  p-4 flex items-stretch flex-col gap-4  sticky ">
         <div className="flex items-center gap-2 text-sm">
           <button className="flex-1 flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
             <BiReset />
@@ -239,10 +239,10 @@ export default function Order() {
             </div>
           </div>
         </div>
-        <div className="flex-1">
-          <p className="font-semibold mb-1 max-h-full">Order Details</p>
-          <div className="flex flex-col gap-2 max-h-[260px] overflow-y-scroll">
-            {[1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => (
+        <div className="flex-1 flex flex-col">
+          <p className="font-semibold mb-1">Order Details</p>
+          <div className="overflow-y-scroll max-h-72 h-full ">
+            {[1, 2, 3, 2, 2, 2, 2, 2, 2, 2].map(() => (
               <ListOrderCard />
             ))}
           </div>
