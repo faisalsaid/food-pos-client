@@ -6,7 +6,7 @@ import Profile from './pages/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import SideMenu from './components/SideMenu';
 import Header from './components/Header';
-import Order from './pages/Order';
+import Order from './pages/order/Order';
 import LandingPage from './pages/LandingPage';
 import Purchase from './pages/Purchase';
 import Menu from './pages/Menu';
