@@ -23,7 +23,7 @@ const dataCardGrafik = ordersData.map((data, i) => {
 export default function Purchase() {
   return (
     <div className="p-4 flex flex-col gap-2">
-      <p className="font-semibold text-xl">Purhcase List</p>
+      <p className="font-semibold text-xl">Purchase List</p>
       <div className="flex gap-2">
         {dataCardGrafik.map((item, i) => (
           <CardGrafik key={i} data={item} />
