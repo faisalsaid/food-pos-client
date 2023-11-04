@@ -7,6 +7,7 @@ import { CgMenuGridO } from 'react-icons/cg';
 import { PiHamburger, PiCoffee } from 'react-icons/pi';
 import { BiBowlRice } from 'react-icons/bi';
 import { MdOutlineLocalDrink } from 'react-icons/md';
+import { BiPlus, BiMinus, BiAddToQueue } from 'react-icons/bi';
 
 const listTag = [
   {
@@ -56,9 +57,44 @@ const TagMenu = ({ tag, tagActive }) => {
     <div
       className={`${
         tag.value === tagActive ? 'bg-orange-300 text-white' : 'bg-white'
-      } flex items-center gap-1 hover:text-slate-500 rounded-md py-1 px-2 hover:bg-orange-100 text-slate-500`}
+      } flex items-center gap-1 hover:text-slate-500 rounded-md py-1 px-2 text-xs hover:bg-orange-100 text-slate-500 min-w-fit`}
     >
       <span>{tag.icon}</span> <span>{tag.label}</span>
+    </div>
+  );
+};
+
+const MenuCard = () => {
+  return (
+    <div className="max-w-[300px] bg-white p-3 rounded-lg">
+      <div className="flex gap-2">
+        <img
+          className="w-24 h-24 object-cover rounded-md"
+          src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/62c59f6365a259b03da440de3973f201/Derivates/668cba6648888c61d249c0a5d9651157a4ce3793.jpg"
+          alt=""
+        />
+        <div className="flex flex-col gap-1">
+          <h5 className="text-lg font-semibold text-slate-700">Pizza Sweet Corn</h5>
+          <p className="flex-1 text-xs text-slate-400">Lorem ipsum dolor sit amet, consectetur...</p>
+          <p className="text-sm text-teal-500">Available</p>
+        </div>
+      </div>
+      <div className="flex items-center mt-2 gap-3">
+        <p className="flex-1 font-semibold text-lg">$ 80.00</p>
+        <div className="flex items-center gap-2">
+          <span className="bg-orange-500 w-6 h-6 flex items-center justify-center rounded-lg text-white hover:bg-orange-600 cursor-pointer">
+            <BiMinus />
+          </span>
+          <span>0</span>
+          <span className="bg-orange-500 w-6 h-6 flex items-center justify-center rounded-lg text-white hover:bg-orange-600 cursor-pointer">
+            <BiPlus />
+          </span>
+        </div>
+        <button className="flex items-center bg-green-600 text-white py-1 px-2 gap-2 rounded-lg hover:bg-green-700 ">
+          <BiAddToQueue />
+          <span>Add</span>
+        </button>
+      </div>
     </div>
   );
 };
@@ -92,9 +128,16 @@ export default function Order() {
             <TagMenu key={i} tag={list} tagActive={tagActive} />
           ))}
         </div>
-        <div>List Menu</div>
+        <div className="flex gap-3 flex-wrap">
+          <MenuCard />
+          <MenuCard />
+          <MenuCard />
+          <MenuCard />
+          <MenuCard />
+          <MenuCard />
+        </div>
       </div>
-      <div className="max-w-fit bg-white p-4 ">List Order</div>
+      <div className="max-w-fit bg-white p-4  ">List Order</div>
     </div>
   );
 }
