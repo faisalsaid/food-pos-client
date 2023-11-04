@@ -139,7 +139,7 @@ const MenuCard = () => {
 
 const ListOrderCard = ({ order }) => {
   return (
-    <div className="flex gap-2 min-w-[250px] ">
+    <div className="flex gap-2 min-w-[250px] mr-2 ">
       <img
         className="w-12 h-12 object-cover rounded-xl"
         src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/62c59f6365a259b03da440de3973f201/Derivates/668cba6648888c61d249c0a5d9651157a4ce3793.jpg"
@@ -180,8 +180,8 @@ export default function Order() {
     setIsModalOpen(false);
   };
   return (
-    <div className=" flex ">
-      <div className="flex-1 p-6">
+    <div className=" flex items-stretch relative ">
+      <div className="flex-1 p-6 max-h-screen overflow-y-scroll">
         <div className=" flex justify-between">
           <div className="">
             <h3 className="text-2xl font-semibold text-slate-700">Welcome, Natasha Nauljam</h3>
@@ -205,16 +205,13 @@ export default function Order() {
             <TagMenu key={i} tag={list} tagActive={tagActive} />
           ))}
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 ">
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
-          <MenuCard />
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 ">
+          {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((menu) => (
+            <MenuCard />
+          ))}
         </div>
       </div>
-      <div className="max-w-fit bg-white p-4 flex flex-col gap-4">
+      <div className="max-w-fit bg-white sticky p-4 flex flex-col gap-4 min-h-fit max-h-screen">
         <div className="flex items-center gap-2 text-sm">
           <button className="flex-1 flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
             <BiReset />
@@ -234,18 +231,18 @@ export default function Order() {
           <div>
             <div className="flex items-center text-sm gap-2 text-slate-400 border py-1 px-2 rounded-md mb-1">
               <BiUser />
-              <input className="outline-none" type="text" placeholder="Customer Name" />
+              <input className="outline-none bg-transparent w-full" type="text" placeholder="Customer Name" />
             </div>
             <div className="flex items-center text-sm gap-2 text-slate-400 border py-1 px-2 rounded-md">
               <BiEditAlt />
-              <input className="outline-nonet" type="text" placeholder="Table" />
+              <input className="outline-none bg-transparent w-full" type="text" placeholder="Table" />
             </div>
           </div>
         </div>
-        <div>
-          <p className="font-semibold">Order Details</p>
-          <div className="flex flex-col gap-2">
-            {[1, 2, 3].map(() => (
+        <div className="flex-1">
+          <p className="font-semibold mb-1 max-h-full">Order Details</p>
+          <div className="flex flex-col gap-2 max-h-[260px] overflow-y-scroll">
+            {[1, 1, 1, 1, 1, 1, 1, 1, 1].map(() => (
               <ListOrderCard />
             ))}
           </div>
@@ -271,9 +268,9 @@ export default function Order() {
               <p>$20.00</p>
             </div>
           </div>
-          <div className="bg-slate-50 p-2 rounded-md flex justify-between">
+          <div className="bg-slate-50 p-2 rounded-md flex justify-between mb-2 font-bold">
             <p>Total </p>
-            <p>$180.00</p>
+            <p>$380.00</p>
           </div>
           <button onClick={openModal} className="bg-green-500 text-white justify-center w-full items-center rounded-lg py-1 px-2 hover:bg-green-600">
             Payment Proccess
