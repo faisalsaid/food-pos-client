@@ -8,7 +8,7 @@ import SideMenu from './components/SideMenu';
 import Header from './components/Header';
 import Order from './pages/order/Order';
 import LandingPage from './pages/LandingPage';
-import Purchase from './pages/Purchase';
+import Purchase from './pages/purchase/Purchase';
 import Menu from './pages/Menu';
 import Chart from './pages/Chart';
 
