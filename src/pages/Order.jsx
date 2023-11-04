@@ -1,4 +1,5 @@
 import React from 'react';
+import Modal from 'react-modal';
 
 // import icons
 import { CiSearch, CiPizza, CiBowlNoodles } from 'react-icons/ci';
@@ -6,9 +7,45 @@ import { IoNotifications, IoIceCreamOutline } from 'react-icons/io5';
 import { CgMenuGridO } from 'react-icons/cg';
 import { PiHamburger, PiCoffee } from 'react-icons/pi';
 import { BiBowlRice } from 'react-icons/bi';
+import { AiOutlineCloseCircle, AiOutlineClose } from 'react-icons/ai';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { MdOutlineLocalDrink } from 'react-icons/md';
 import { BiPlus, BiMinus, BiAddToQueue, BiReset, BiEdit, BiUser, BiEditAlt } from 'react-icons/bi';
+
+// init react modal
+Modal.setAppElement('#root');
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: '100',
+  },
+};
+const PaymentModal = ({ isOpen, closeModel, content }) => {
+  return (
+    <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Payment Modal" style={customStyles}>
+      <div className="max-w-md">
+        <div className="flex items-center gap-2 mb-2 border-b pb-2">
+          <p className="flex-1">Paymen Order #654</p>
+          <p className="text-slate-400 text-sm">Sunday, 01 Januari 2001</p>
+          <button onClick={closeModel} className="bg-red-600 p-1 text-white rounded-md">
+            <AiOutlineClose />
+          </button>
+        </div>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex accusamus repellat doloremque officia porro amet aspernatur alias. Quia dolores est molestiae nam, explicabo
+          voluptates rem ad ducimus aut similique dolorem!
+        </p>
+        <button onClick={closeModel}>Close</button>
+      </div>
+    </Modal>
+  );
+};
 
 const listTag = [
   {
@@ -133,6 +170,15 @@ const ListOrderCard = ({ order }) => {
 const tagActive = 'all';
 
 export default function Order() {
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className=" flex ">
       <div className="flex-1 p-6">
@@ -229,7 +275,10 @@ export default function Order() {
             <p>Total </p>
             <p>$180.00</p>
           </div>
-          <button className="bg-green-500 text-white justify-center w-full items-center rounded-lg py-1 px-2 hover:bg-green-600">Payment Proccess</button>
+          <button onClick={openModal} className="bg-green-500 text-white justify-center w-full items-center rounded-lg py-1 px-2 hover:bg-green-600">
+            Payment Proccess
+          </button>
+          <PaymentModal isOpen={isModalOpen} closeModel={closeModal} content={'This content'} />
         </div>
       </div>
     </div>
