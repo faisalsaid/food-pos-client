@@ -9,7 +9,7 @@ import Header from './components/Header';
 import Order from './pages/order/Order';
 import LandingPage from './pages/LandingPage';
 import Purchase from './pages/purchase/Purchase';
-import Menu from './pages/Menu';
+import Menu from './pages/menu/Menu';
 import Chart from './pages/Chart';
 
 const Layout = () => {
@@ -34,7 +34,7 @@ function App() {
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<PrivateRoute />}>
-          <Route path="/" element={<Layout />}>
+          <Route element={<Layout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/order" element={<Order />} />
             <Route path="/purchase" element={<Purchase />} />
