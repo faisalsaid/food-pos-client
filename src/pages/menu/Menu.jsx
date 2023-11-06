@@ -93,7 +93,7 @@ export default function Menu() {
             <TagMenu key={i} tag={list} tagActive={tagActive} />
           ))}
         </div>
-        <div className="grid grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((data, i) => (
             <MenuCard key={i} />
           ))}
