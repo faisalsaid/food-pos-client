@@ -1,5 +1,5 @@
 import React from 'react';
-import TagMenu from './TagMenu';
+import TagMenu from '../../components/share/TagMenu';
 import MenuCard from './MenuCard';
 
 import { CiSearch, CiPizza, CiBowlNoodles } from 'react-icons/ci';
