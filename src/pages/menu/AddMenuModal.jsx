@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Modal from 'react-modal';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Formik, Field, Form, useFormik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
+import { app } from '../../firebase';
 
 // Import icons
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiUpload, BiBookAdd } from 'react-icons/bi';
 import { MdOutlineCancel } from 'react-icons/md';
-import { CiPizza, CiBowlNoodles } from 'react-icons/ci';
-import { IoIceCreamOutline } from 'react-icons/io5';
-import { CgMenuGridO } from 'react-icons/cg';
-import { PiHamburger, PiCoffee } from 'react-icons/pi';
-import { BiBowlRice } from 'react-icons/bi';
-import { space } from 'postcss/lib/list';
 
 // init react modal
 Modal.setAppElement('#root');
@@ -64,14 +60,29 @@ const categories = [
 const ErrorText = ({ message }) => {
   return <span className="text-xs bg-red-50 text-red-500 rounded-sm px-2 py-1">{message}</span>;
 };
+const SuccessText = ({ message }) => {
+  return <span className="text-xs bg-green-50 text-green-500 rounded-sm px-2 py-1">{message}</span>;
+};
+
 export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
+  const fileRef = useRef();
+  const [file, setFile] = useState(undefined);
+  const [imageName, setImageName] = useState('Menu Default Image');
+  const [imageURL, setImageUrl] = useState('https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
+  const [filePerc, setFilePerc] = useState(0);
+  const [fileUploadError, setFileUploadError] = useState(false);
+
+  useEffect(() => {
+    file && handleFileUpload(file);
+  }, [file]);
+
   const initialValues = {
     title: '',
     descripton: '',
     category: '',
     image: {
-      url: 'https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png',
-      name: 'Default Menu Image',
+      url: imageURL,
+      name: imageName,
     },
     price: 0,
   };
@@ -86,9 +97,54 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
     }),
     price: Yup.number().moreThan(0.09, 'min price is $0.1').required('Required'),
   });
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+  });
+
+  const resetForm = () => {
+    setImageName('Menu Default Image');
+    setImageUrl('https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
+    formik.resetForm();
+  };
+
+  const handleFileUpload = (file) => {
+    const storage = getStorage(app);
+    const fileName = new Date().getDate() + file.name;
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    setImageName(fileName);
+
+    uploadTask.on(
+      'state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setFilePerc(Math.round(progress));
+      },
+      (error) => {
+        setFileUploadError(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
+          formik.setFieldValue('image', { url: downloadUrl, name: fileName });
+          setImageUrl(downloadUrl);
+        });
+      },
+    );
+  };
+
   const handleAddMenu = (values) => {
     console.log('PAYLOAD >> ', values);
+    resetForm();
+    closeModel();
   };
+
+  const handleCancelSubmit = () => {
+    resetForm();
+    closeModel();
+  };
+
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Payment Modal" style={customStyles}>
       <div className="w-[500px] ">
@@ -164,14 +220,27 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
                   </div>
 
                   <div className="flex items-end gap-2">
-                    <img className="w-10 h-10 object-cover rounded-lg" src={formik.values.image.url} alt="" />
+                    <img className="w-10 h-10 object-cover rounded-lg" src={imageURL} alt="" />
                     <div className="flex-1 flex flex-col gap-2 ">
-                      <p className="text-sm text-slate-500">{formik.values.image.name}</p>
-                      <div className=" bg-slate-100 h-1 rounded-full overflow-hidden">
-                        <div className="w-[0%] bg-green-400 h-1"></div>
-                      </div>
+                      <p className="text-sm text-slate-500">{imageName}</p>
+                      {fileUploadError ? (
+                        <ErrorText message={'Error Image Upload'} />
+                      ) : filePerc > 0 && filePerc < 100 ? (
+                        <div className=" bg-slate-100 h-1 rounded-full overflow-hidden">
+                          <div className={`w-[${filePerc}%] bg-green-400 h-1 transition-all duration-300`}></div>
+                        </div>
+                      ) : filePerc === 100 ? (
+                        <SuccessText message={'Upload Success'} />
+                      ) : (
+                        ''
+                      )}
                     </div>
-                    <button type="button" className=" bg-green-500 flex items-center gap-2 hover:bg-green-600 text-white rounded-md py-1 px-2">
+                    <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/.*" />
+                    <button
+                      onClick={() => fileRef.current.click()}
+                      type="button"
+                      className=" bg-green-500 flex items-center gap-2 hover:bg-green-600 text-white rounded-md py-1 px-2"
+                    >
                       <BiUpload /> <span> {isEdit ? 'Change Image' : 'Upload Image'}</span>
                     </button>
                   </div>
@@ -194,7 +263,7 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
                     </div>
                   </div>
                   <div className="py-2 flex justify-end gap-2">
-                    <button onClick={closeModel} className="flex items-center gap-1 bg-red-500 text-white py-1 px-2 rounded-md">
+                    <button onClick={handleCancelSubmit} className="flex items-center gap-1 bg-red-500 text-white py-1 px-2 rounded-md">
                       <MdOutlineCancel /> <span>Cancel</span>
                     </button>
                     <button

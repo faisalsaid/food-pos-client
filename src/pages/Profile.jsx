@@ -46,7 +46,7 @@ export default function Profile() {
     const fileName = new Date().getDate() + file.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
-
+    console.log(Formik);
     uploadTask.on(
       'state_changed',
       (snapshot) => {
