@@ -1,5 +1,7 @@
 import React from 'react';
 import TagMenu from '../../components/share/TagMenu';
+import MenuCard from './MenuCard';
+import AddMenuModal from './AddMenuModal';
 
 // imports icons
 import { BiSearch, BiAddToQueue } from 'react-icons/bi';
@@ -9,8 +11,6 @@ import { CgMenuGridO } from 'react-icons/cg';
 import { PiHamburger, PiCoffee } from 'react-icons/pi';
 import { BiBowlRice } from 'react-icons/bi';
 import { MdOutlineLocalDrink } from 'react-icons/md';
-import MenuCard from './MenuCard';
-import AddMenuModal from './AddMenuModal';
 
 const listTag = [
   {
