@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.ReactModal__Body--open,
+.ReactModal__Html--open {
+  overflow: hidden;
+  background-color: black;
+}
+
 ::-webkit-scrollbar {
   width: 4px;
 }

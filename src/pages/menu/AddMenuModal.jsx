@@ -22,7 +22,11 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     maxHeight: '70%',
-    zIndex: '100',
+    zIndex: '50',
+  },
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    zIndex: '50',
   },
 };
 
@@ -84,6 +88,7 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
       url: imageURL,
       name: imageName,
     },
+
     price: 0,
   };
 
@@ -106,6 +111,7 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
   const resetForm = () => {
     setImageName('Menu Default Image');
     setImageUrl('https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
+    setFilePerc(0);
     formik.resetForm();
   };
 
@@ -127,7 +133,6 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-          formik.setFieldValue('image', { url: downloadUrl, name: fileName });
           setImageUrl(downloadUrl);
         });
       },
@@ -135,7 +140,8 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
   };
 
   const handleAddMenu = (values) => {
-    console.log('PAYLOAD >> ', values);
+    const payload = { ...values, image: { name: imageName, url: imageURL } };
+    console.log('PAYLOAD >> ', payload);
     resetForm();
     closeModel();
   };
@@ -146,11 +152,11 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Payment Modal" style={customStyles}>
+    <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
       <div className="w-[500px] ">
         <div className="flex items-center gap-2  border-b pb-2 ">
           <p className="text-teal-500 flex-1 font-semibold">{isEdit ? 'Edit Menu' : 'Add New Menu'}</p>
-          <button onClick={closeModel} className="bg-red-600 p-1 text-white rounded-md">
+          <button onClick={handleCancelSubmit} className="bg-red-600 p-1 text-white rounded-md">
             <AiOutlineClose />
           </button>
         </div>
@@ -220,14 +226,14 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
                   </div>
 
                   <div className="flex items-end gap-2">
-                    <img className="w-10 h-10 object-cover rounded-lg" src={imageURL} alt="" />
+                    <img className="w-12 h-12 object-cover rounded-lg" src={imageURL} alt="" />
                     <div className="flex-1 flex flex-col gap-2 ">
                       <p className="text-sm text-slate-500">{imageName}</p>
                       {fileUploadError ? (
                         <ErrorText message={'Error Image Upload'} />
                       ) : filePerc > 0 && filePerc < 100 ? (
                         <div className=" bg-slate-100 h-1 rounded-full overflow-hidden">
-                          <div className={`w-[${filePerc}%] bg-green-400 h-1 transition-all duration-300`}></div>
+                          <div className={`w-[${filePerc}%] bg-green-400 h-1 `}></div>
                         </div>
                       ) : filePerc === 100 ? (
                         <SuccessText message={'Upload Success'} />
@@ -236,6 +242,8 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
                       )}
                     </div>
                     <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/.*" />
+                    <Field name={'image.url'} value={imageURL} hidden />
+                    <Field name={'image.name'} value={imageName} hidden />
                     <button
                       onClick={() => fileRef.current.click()}
                       type="button"
