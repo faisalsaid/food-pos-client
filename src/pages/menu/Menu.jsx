@@ -12,8 +12,6 @@ import { MdOutlineLocalDrink } from 'react-icons/md';
 import MenuCard from './MenuCard';
 import AddMenuModal from './AddMenuModal';
 
-const tagActive = 'all';
-
 const listTag = [
   {
     label: 'All Menu',
@@ -60,6 +58,8 @@ const listTag = [
 export default function Menu() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
+  const [tagActive, setTagActive] = React.useState('all');
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -90,7 +90,7 @@ export default function Menu() {
         </div>
         <div className="my-4 flex gap-3">
           {listTag.map((list, i) => (
-            <TagMenu key={i} tag={list} tagActive={tagActive} />
+            <TagMenu key={i} tag={list} tagActive={tagActive} setTag={setTagActive} />
           ))}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
