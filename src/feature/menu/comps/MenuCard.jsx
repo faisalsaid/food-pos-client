@@ -20,6 +20,10 @@ export default function MenuCard({ menuInfo, ...rest }) {
     openModal();
   };
 
+  const handleDelete = (id) => {
+    console.log('delete', id);
+  };
+
   return (
     <>
       <div className="p-2 bg-white rounded-lg">
@@ -37,7 +41,7 @@ export default function MenuCard({ menuInfo, ...rest }) {
             <span className="font-bold text-xl">{menuInfo.price}</span>
           </div>
           <div className="flex items-center gap-2 ">
-            <button className=" flex items-center gap-1 bg-rose-500 hover:bg-rose-600 text-white rounded-lg py-1 px-2">
+            <button onClick={() => handleDelete(menuInfo._id)} className=" flex items-center gap-1 bg-rose-500 hover:bg-rose-600 text-white rounded-lg py-1 px-2">
               <RiDeleteBinLine /> <span>Delete</span>
             </button>
             <button onClick={handleEditMenu} className="flex items-center bg-green-500 text-white rounded-lg py-1 px-2 gap-1 hover:bg-green-600">
