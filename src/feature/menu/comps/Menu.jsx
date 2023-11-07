@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TagMenu from '../../../components/share/TagMenu';
 import MenuCard from './MenuCard';
 import AddMenuModal from './AddMenuModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllMenu } from '../config/menuSlice';
 
 // imports icons
 import { BiSearch, BiAddToQueue } from 'react-icons/bi';
-import { CiSearch, CiPizza, CiBowlNoodles } from 'react-icons/ci';
-import { IoNotifications, IoIceCreamOutline } from 'react-icons/io5';
+import { CiPizza, CiBowlNoodles } from 'react-icons/ci';
+import { IoIceCreamOutline } from 'react-icons/io5';
 import { CgMenuGridO } from 'react-icons/cg';
 import { PiHamburger, PiCoffee } from 'react-icons/pi';
 import { BiBowlRice } from 'react-icons/bi';
@@ -56,9 +58,14 @@ const listTag = [
 ];
 
 export default function Menu() {
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tagActive, setTagActive] = useState('all');
+  const { listMenu, isError, isLoading, message } = useSelector((state) => state.menu);
+  const dispatch = useDispatch();
 
-  const [tagActive, setTagActive] = React.useState('all');
+  useEffect(() => {
+    dispatch(fetchAllMenu());
+  }, []);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -94,9 +101,7 @@ export default function Menu() {
           ))}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((data, i) => (
-            <MenuCard key={i} />
-          ))}
+          {listMenu.length === 0 ? <p>Menu Empty...</p> : listMenu.map((data, i) => <MenuCard menuInfo={data} key={i} />)}
         </div>
       </div>
       <AddMenuModal isOpen={isModalOpen} closeModel={closeModal} content={'This content'} />

@@ -1,10 +1,22 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import menuServices from './menuServices';
+import { async } from '@firebase/util';
 
+// handle crete new menu
 export const createNewMenu = createAsyncThunk('menu/createMenu', async (payload, thunkAPI) => {
   try {
     const token = thunkAPI.getState().user.curentUser.token;
     return await menuServices.registerMenu(payload, token);
+  } catch (error) {
+    const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+export const fetchAllMenu = createAsyncThunk('menu/fetchAllMenu', async (_, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().user.curentUser.token;
+    return await menuServices.getAllMenu(token);
   } catch (error) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
     return thunkAPI.rejectWithValue(message);
@@ -34,6 +46,19 @@ const menuSlice = createSlice({
         state.listMenu.push(action.payload);
       })
       .addCase(createNewMenu.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(fetchAllMenu.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchAllMenu.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.listMenu = action.payload;
+      })
+      .addCase(fetchAllMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
