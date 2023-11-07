@@ -1,7 +1,9 @@
 import React from 'react';
-
 import { BiEditAlt } from 'react-icons/bi';
 import AddMenuModal from './AddMenuModal';
+
+// import icons
+import { RiDeleteBinLine } from 'react-icons/ri';
 
 export default function MenuCard({ menuInfo, ...rest }) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -34,10 +36,15 @@ export default function MenuCard({ menuInfo, ...rest }) {
             <span className="text-xs">$</span>
             <span className="font-bold text-xl">{menuInfo.price}</span>
           </div>
-          <button onClick={handleEditMenu} className="flex items-center bg-green-400 text-white rounded-lg py-1 px-2 gap-2 hover:bg-green-500">
-            <BiEditAlt />
-            <span>Edit</span>
-          </button>
+          <div className="flex items-center gap-2 ">
+            <button className=" flex items-center gap-1 bg-rose-500 hover:bg-rose-600 text-white rounded-lg py-1 px-2">
+              <RiDeleteBinLine /> <span>Delete</span>
+            </button>
+            <button onClick={handleEditMenu} className="flex items-center bg-green-500 text-white rounded-lg py-1 px-2 gap-1 hover:bg-green-600">
+              <BiEditAlt />
+              <span>Edit</span>
+            </button>
+          </div>
         </div>
       </div>
       <AddMenuModal isOpen={isModalOpen} closeModel={closeModal} isEdit={true} content={'This content'} />
