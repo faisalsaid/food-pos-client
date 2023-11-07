@@ -1,12 +1,15 @@
 import React from 'react';
 import { BiEditAlt } from 'react-icons/bi';
 import AddMenuModal from './AddMenuModal';
+import { useDispatch } from 'react-redux';
+import { deleteMenu } from '../config/menuSlice';
 
 // import icons
 import { RiDeleteBinLine } from 'react-icons/ri';
 
 export default function MenuCard({ menuInfo, ...rest }) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -21,6 +24,7 @@ export default function MenuCard({ menuInfo, ...rest }) {
   };
 
   const handleDelete = (id) => {
+    dispatch(deleteMenu(id));
     console.log('delete', id);
   };
 

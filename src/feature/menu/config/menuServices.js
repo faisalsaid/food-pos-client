@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { apiURI } from '../../../config/environtment';
 
-const stringAPI = `${apiURI}/menu`;
+const stringAPI = `${apiURI}/menu/`;
 
 const registerMenu = async (userData, token) => {
   const config = {
@@ -25,8 +25,22 @@ const getAllMenu = async (token) => {
   return response.data;
 };
 
+// Delete Menu
+const deleteMenu = async (menuId, token) => {
+  console.log(menuId, ' >>>> ', token);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(stringAPI + menuId, config);
+  return response.data;
+};
+
 const menuServices = {
   registerMenu,
   getAllMenu,
+  deleteMenu,
 };
 export default menuServices;

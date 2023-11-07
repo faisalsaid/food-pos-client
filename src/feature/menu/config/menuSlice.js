@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import menuServices from './menuServices';
-import { async } from '@firebase/util';
 
 // handle crete new menu
 export const createNewMenu = createAsyncThunk('menu/createMenu', async (payload, thunkAPI) => {
@@ -13,10 +12,22 @@ export const createNewMenu = createAsyncThunk('menu/createMenu', async (payload,
   }
 });
 
+// Get all menu
 export const fetchAllMenu = createAsyncThunk('menu/fetchAllMenu', async (_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().user.curentUser.token;
     return await menuServices.getAllMenu(token);
+  } catch (error) {
+    const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+// dell menu by id
+export const deleteMenu = createAsyncThunk('menu/delete', async (menuId, thunkAPI) => {
+  try {
+    const token = thunkAPI.getState().user.curentUser.token;
+    return await menuServices.deleteMenu(menuId, token);
   } catch (error) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
     return thunkAPI.rejectWithValue(message);
@@ -37,6 +48,7 @@ const menuSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // handle add menu
       .addCase(createNewMenu.pending, (state) => {
         state.isLoading = true;
       })
@@ -50,6 +62,7 @@ const menuSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      // handle fetch menu
       .addCase(fetchAllMenu.pending, (state) => {
         state.isLoading = true;
       })
@@ -59,6 +72,20 @@ const menuSlice = createSlice({
         state.listMenu = action.payload;
       })
       .addCase(fetchAllMenu.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // handle delete
+      .addCase(deleteMenu.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteMenu.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.listMenu = state.listMenu.filter((menu) => menu._id !== action.payload);
+      })
+      .addCase(deleteMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
