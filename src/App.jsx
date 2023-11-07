@@ -1,16 +1,19 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import { Dashboard } from './pages/Dashboard';
-import { Signin } from './pages/Signin';
-import { Signup } from './pages/Signup';
-import Profile from './pages/Profile';
+import { Dashboard } from './feature/Dashboard';
+import { Signin } from './feature/outh/comps/Signin';
+import { Signup } from './feature/outh/comps/Signup';
+import Profile from './feature/profile/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import SideMenu from './components/SideMenu';
 import Header from './components/Header';
-import Order from './pages/order/Order';
-import LandingPage from './pages/LandingPage';
-import Purchase from './pages/purchase/Purchase';
-import Menu from './pages/menu/Menu';
-import Chart from './pages/Chart';
+import Order from './feature/Order';
+import LandingPage from './feature/LandingPage';
+import Purchase from './feature/Purchase';
+import Menu from './feature/Menu';
+import Chart from './feature/Chart';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = () => {
   return (
@@ -27,25 +30,31 @@ const Layout = () => {
 };
 
 function App() {
+  const { curentUser } = useSelector((state) => state.user);
   return (
-    <Router>
-      <Routes>
-        <Route path="/home" element={<LandingPage />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route element={<PrivateRoute />}>
-          <Route element={<Layout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/purchase" element={<Purchase />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/chart" element={<Chart />} />
+    <>
+      <Router>
+        <Routes>
+          <Route path="/home" element={<LandingPage />} />
+          <Route element={<PrivateRoute authenticated={curentUser} />}>
+            <Route element={<Layout />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/order" element={<Order />} />
+              <Route path="/purchase" element={<Purchase />} />
+              <Route path="/menu" element={<Menu />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/chart" element={<Chart />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="/*" element={<LandingPage />} />
-      </Routes>
-    </Router>
+          <Route element={<PrivateRoute authenticated={!curentUser} />}>
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
+          <Route path="/*" element={<LandingPage />} />
+        </Routes>
+      </Router>
+      <ToastContainer />
+    </>
   );
 }
 

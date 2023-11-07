@@ -4,21 +4,18 @@ import { MdEdit } from 'react-icons/md';
 import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
-import { app } from '../firebase.js';
+import { app } from '../../firebase.js';
 
 export default function Profile() {
   const fileRef = useRef();
-  const { data, isLoading, error } = useSelector((state) => state.user.curentUser);
+  const { curentUser, isLoading, isError } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
 
-  console.log(file);
-  console.log(filePerc);
-
   const initialValues = {
-    name: data.name,
-    email: data.email,
+    name: curentUser.name,
+    email: curentUser.email,
     password: '',
   };
 
@@ -77,7 +74,7 @@ export default function Profile() {
           <button onClick={() => fileRef.current.click()} className="bg-teal-600 text-white p-2 rounded-full absolute bottom-0 right-0 hover:bg-teal-700 drop-shadow-md">
             <MdEdit />
           </button>
-          <img className="rounded-full" src={data.avatar} alt="profile picture" />
+          <img className="rounded-full" src={curentUser.avatar} alt="profile picture" />
         </div>
         <div className="mt-4 w-full text-xs">
           {fileUploadError ? (

@@ -5,11 +5,19 @@ import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ImExit } from 'react-icons/im';
 import { useDispatch } from 'react-redux';
-import { logOut } from '../redux/user/user.slice.js';
+import { logOut, reset } from '../feature/outh/config/user.slice.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function SideMenu() {
   const dispacth = useDispatch();
+  const navigate = useNavigate();
   const { data: toggleSideMenu } = useSelector((state) => state.layout);
+
+  const handleLogout = () => {
+    dispacth(logOut());
+    dispacth(reset());
+    navigate('/');
+  };
 
   return (
     <div className={`flex flex-col overflow-hidden bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}>
@@ -35,8 +43,8 @@ export default function SideMenu() {
         ))}
         <div className="text-slate-400">
           <button
-            onClick={() => dispacth(logOut())}
-            className="w-full h-full flex items-center datas-center gap-2 py-2 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-2 rounded-md"
+            onClick={handleLogout}
+            className="w-full h-full flex items-center datas-center gap-2 py-3 px-3 hover:bg-orange-300 hover:text-white font-semibold mt-3 rounded-md"
           >
             {toggleSideMenu ? (
               <>

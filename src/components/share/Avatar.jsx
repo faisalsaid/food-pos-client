@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export default function Avatar() {
-  const { data: curentUser } = useSelector((state) => state.user.curentUser);
+  const { curentUser } = useSelector((state) => state.user);
 
   return (
     <div className="flex gap-3 items-center">
