@@ -1,12 +1,11 @@
-import axios from 'axios';
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
-import OAuth from '../components/OAuth.jsx';
-
-import { apiURI } from '../config/environtment.js';
+import { login, reset } from '../config/user.slice.js';
+import OAuth from '../../../components/OAuth.jsx';
+import { toast } from 'react-toastify';
 
 /*
 THis dispatch use https://www.youtube.com/watch?v=VAaUy_Moivw&t=7808s technique, 
@@ -26,8 +25,20 @@ const validationSchema = Yup.object({
 
 export const Signin = () => {
   const dispatch = useDispatch();
-  const { isLoading, error } = useSelector((state) => state.user.curentUser);
+  const { curentUser, isLoading, isError, isSuccess, message } = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || curentUser) {
+      navigate('/dashboard');
+    }
+
+    dispatch(reset());
+  }, [curentUser, isError, isSuccess, message, navigate, dispatch]);
 
   const formik = useFormik({
     initialValues,
@@ -38,17 +49,7 @@ export const Signin = () => {
   });
 
   const handleSignin = (payload) => {
-    dispatch(signInStart());
-    return axios
-      .post(`${apiURI}/auth/signin`, payload)
-      .then((resp) => {
-        dispatch(signInSuccess(resp.data));
-        navigate('/dashboard');
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(signInFailure(err.response.data.message));
-      });
+    dispatch(login(payload));
   };
 
   return (
@@ -82,7 +83,7 @@ export const Signin = () => {
             {isLoading ? 'Loading ...' : 'Sign In'}
           </button>
         </form>
-        {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
+        {isError && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{isError}</div>}
         <OAuth />
       </div>
       <div className="text-sm mt-2 flex gap-2">

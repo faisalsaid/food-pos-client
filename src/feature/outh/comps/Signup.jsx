@@ -1,12 +1,11 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate, Link } from 'react-router-dom';
-import OAuth from '../components/OAuth';
-import { apiURI } from '../config/environtment';
+import OAuth from '../../../components/OAuth.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInStart, signInFailure, signInSuccess } from '../redux/user/user.slice.js';
+import { register, reset } from '../config/user.slice.js';
+import { toast } from 'react-toastify';
 
 const initialValues = {
   name: '',
@@ -21,10 +20,22 @@ const validationSchema = Yup.object({
 });
 
 export const Signup = () => {
+  const { curentUser, isLoading, isError, isSuccess, message } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess || curentUser) {
+      navigate('/dashboard');
+    }
+
+    dispatch(reset());
+  }, [curentUser, isError, isSuccess, message, navigate, dispatch]);
 
   const formik = useFormik({
     initialValues,
@@ -35,21 +46,7 @@ export const Signup = () => {
   });
 
   const handleSignup = (payload) => {
-    console.log(payload);
-    setLoading(true);
-    return axios
-      .post(`${apiURI}/auth/signup`, payload)
-      .then((resp) => {
-        dispatch(signInSuccess(resp.data));
-        setLoading(false);
-        navigate('/dashboard');
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err.response.data.message);
-        setError(err.response.data.message);
-        setLoading(false);
-      });
+    dispatch(register(payload));
   };
 
   return (
@@ -91,10 +88,10 @@ export const Signup = () => {
           ></input>
           {formik?.errors?.password && <div className="mb-2 text-xs rounded-sm bg-red-100 p-1 text-red-900">{formik?.errors?.password}</div>}
           <button type="submit" className="text-center bg-teal-600 text-white p-2 w-full rounded-md hover:bg-teal-700">
-            {loading ? 'Loading ...' : 'SIGN UP'}
+            {isLoading ? 'Loading ...' : 'SIGN UP'}
           </button>
         </form>
-        {error && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{error}</div>}
+        {isError && <div className="bg-red-100 text-red-900 py-1 px-2 mt-2 text-sm">{isError}</div>}
         <OAuth />
       </div>
       <div className="text-sm mt-2 flex gap-2">
