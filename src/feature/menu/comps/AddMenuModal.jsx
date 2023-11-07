@@ -4,6 +4,8 @@ import { Formik, Field, Form, useFormik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
 import { app } from '../../../firebase';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewMenu } from '../config/menuSlice';
 
 // Import icons
 import { AiOutlineClose } from 'react-icons/ai';
@@ -76,13 +78,16 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
 
+  const { isLoading, isSuccess, isError, message } = useSelector((state) => state.menu);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     file && handleFileUpload(file);
   }, [file]);
 
   const initialValues = {
     title: '',
-    descripton: '',
+    description: '',
     category: '',
     image: {
       url: imageURL,
@@ -94,7 +99,7 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
-    descripton: Yup.string().required('Required'),
+    description: Yup.string().required('Required'),
     category: Yup.string().required('Required'),
     image: Yup.object({
       url: Yup.string().required(),
@@ -141,7 +146,7 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
 
   const handleAddMenu = (values) => {
     const payload = { ...values, image: { name: imageName, url: imageURL } };
-    console.log('PAYLOAD >> ', payload);
+    dispatch(createNewMenu(payload));
     resetForm();
     closeModel();
   };
@@ -193,18 +198,18 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
                     />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className=" text-teal-400" htmlFor="descripton">
+                    <label className=" text-teal-400" htmlFor="description">
                       Description :
                     </label>
-                    {formik.touched.descripton && formik.errors.descripton && <ErrorText message={formik.errors.descripton} />}
+                    {formik.touched.description && formik.errors.description && <ErrorText message={formik.errors.description} />}
                     <textarea
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      value={formik.values.descripton}
+                      value={formik.values.description}
                       placeholder="Type menu description..."
-                      className={`text-slate-500 p-2 border outline-slate-400 rounded-lg ${formik.touched.descripton && formik.errors.descripton && 'border-red-500'}`}
-                      id="descripton"
-                      name="descripton"
+                      className={`text-slate-500 p-2 border outline-slate-400 rounded-lg ${formik.touched.description && formik.errors.description && 'border-red-500'}`}
+                      id="description"
+                      name="description"
                       rows={6}
                     ></textarea>
                   </div>
