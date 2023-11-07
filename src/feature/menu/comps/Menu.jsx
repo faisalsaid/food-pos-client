@@ -1,5 +1,5 @@
 import React from 'react';
-import TagMenu from '../../components/share/TagMenu';
+import TagMenu from '../../../components/share/TagMenu';
 import MenuCard from './MenuCard';
 import AddMenuModal from './AddMenuModal';
 

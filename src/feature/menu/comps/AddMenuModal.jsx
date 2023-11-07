@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { Formik, Field, Form, useFormik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
-import { app } from '../../firebase';
+import { app } from '../../../firebase';
 
 // Import icons
 import { AiOutlineClose } from 'react-icons/ai';

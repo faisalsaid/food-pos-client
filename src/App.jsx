@@ -9,7 +9,7 @@ import Header from './components/Header';
 import Order from './feature/order/Order';
 import LandingPage from './feature/LandingPage';
 import Purchase from './feature/purchase/Purchase';
-import Menu from './feature/menu/Menu';
+import Menu from './feature/menu/comps/Menu';
 import Chart from './feature/chart/Chart';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { ToastContainer } from 'react-toastify';
