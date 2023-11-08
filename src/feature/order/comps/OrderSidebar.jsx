@@ -5,9 +5,11 @@ import { MdOutlineTableBar } from 'react-icons/md';
 import React from 'react';
 import ListOrderCard from './ListOrderCard';
 import PaymentModal from './PaymentModal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetListOder } from '../config/orderSlice';
 
 export default function OrderSidebar() {
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const { listOrder } = useSelector((state) => state.order);
 
@@ -21,7 +23,7 @@ export default function OrderSidebar() {
   return (
     <div className="max-w-fit bg-white  p-4 flex items-stretch flex-col gap-4 sticky ">
       <div className="flex items-center gap-2 text-sm">
-        <button className="flex-1 flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
+        <button onClick={() => dispatch(resetListOder())} className="flex-1 flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
           <BiReset />
           <span>Reset</span>
         </button>

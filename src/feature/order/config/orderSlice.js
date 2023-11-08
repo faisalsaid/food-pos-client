@@ -28,8 +28,11 @@ const orderSlice = createSlice({
       state.listOrder[payload].quantity > 1 && state.listOrder[payload].quantity--;
       state.listOrder[payload].orderPrice = state.listOrder[payload].item.price * state.listOrder[payload].quantity;
     },
+    resetListOder: (state) => {
+      state.listOrder = [];
+    },
   },
 });
 
-export const { addOrderList, removeOrderList, addQuantity, bateQuantity } = orderSlice.actions;
+export const { addOrderList, removeOrderList, addQuantity, bateQuantity, resetListOder } = orderSlice.actions;
 export default orderSlice.reducer;
