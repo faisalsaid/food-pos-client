@@ -18,6 +18,7 @@ export default function ListOrderCard() {
           <button className="text-red-700">
             <RiDeleteBinLine />
           </button>
+          ks
           <p className="flex-1 font-semibold text-sm">$150,00</p>
           <div className="flex items-center gap-2">
             <button className="  bg-orange-400 hover:bg-orange-500 flex justify-center content-center text-white p-[2px] rounded-lg">

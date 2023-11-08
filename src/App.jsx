@@ -6,7 +6,7 @@ import Profile from './feature/profile/Profile';
 import PrivateRoute from './components/PrivateRoute';
 import SideMenu from './components/SideMenu';
 import Header from './components/Header';
-import Order from './feature/order/Order';
+import Order from './feature/order/comps/Order';
 import LandingPage from './feature/LandingPage';
 import Purchase from './feature/purchase/Purchase';
 import Menu from './feature/menu/comps/Menu';

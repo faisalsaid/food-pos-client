@@ -1,13 +1,15 @@
-import React from 'react';
-import TagMenu from '../../components/share/TagMenu';
-import MenuCard from './MenuCard';
-
 import { CiSearch, CiPizza, CiBowlNoodles } from 'react-icons/ci';
 import { IoNotifications, IoIceCreamOutline } from 'react-icons/io5';
 import { CgMenuGridO } from 'react-icons/cg';
 import { PiHamburger, PiCoffee } from 'react-icons/pi';
 import { BiBowlRice } from 'react-icons/bi';
 import { MdOutlineLocalDrink } from 'react-icons/md';
+// impror icons end
+
+import React, { useState } from 'react';
+import TagMenu from '../../../components/share/TagMenu';
+import MenuCard from './MenuCard';
+import { useSelector } from 'react-redux';
 
 const listTag = [
   {
@@ -55,11 +57,26 @@ const listTag = [
 const tagActive = 'all';
 
 export default function MenusComp() {
+  const [tagActive, setTagActive] = useState('all');
+  const { curentUser } = useSelector((state) => state.user);
+
+  const filterDisplay = (category) => {
+    setTagActive(category);
+    if (category === 'all') {
+      console.log(category);
+      // setMenuDisplay(listMenu);
+    } else {
+      console.log(category);
+      // const data = listMenu.filter((menu) => menu.category === category);
+      // setMenuDisplay(data);
+    }
+  };
+
   return (
     <div className="flex-1 p-6 max-h-screen overflow-y-scroll">
       <div className=" flex justify-between">
         <div className="">
-          <h3 className="text-2xl font-semibold text-slate-700">Welcome, Natasha Nauljam</h3>
+          <h3 className="text-2xl font-semibold text-slate-700">Welcome, {curentUser.name} </h3>
           <p className="text-sm text-slate-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
         </div>
         <div className="flex items-center gap-4">
@@ -77,11 +94,11 @@ export default function MenusComp() {
       </div>
       <div className="my-4 flex gap-3">
         {listTag.map((list, i) => (
-          <TagMenu key={i} tag={list} tagActive={tagActive} />
+          <TagMenu key={i} tag={list} tagActive={tagActive} setTag={filterDisplay} />
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 ">
-        {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((menu, i) => (
+        {[1, 1].map((menu, i) => (
           <MenuCard key={i} />
         ))}
       </div>
