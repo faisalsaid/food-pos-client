@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiPlus, BiMinus, BiAddToQueue } from 'react-icons/bi';
 import { addOrderList } from '../config/orderSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function MenuCard({ menuInfo }) {
+  const { listOrder } = useSelector((state) => state.order);
+  const [listOrderId, setListOrderId] = useState([]);
+
+  useEffect(() => {
+    setListOrderId(listOrder.map((data) => data._id));
+  }, [listOrder]);
+
   const dispatch = useDispatch();
   return (
     <div className=" bg-white p-3 rounded-lg">
@@ -26,7 +33,11 @@ export default function MenuCard({ menuInfo }) {
             <BiPlus />
           </span>
         </div>
-        <button onClick={() => dispatch(addOrderList(menuInfo))} className="flex items-center bg-green-600 text-white py-1 px-2 gap-2 rounded-lg hover:bg-green-700 ">
+        <button
+          disabled={listOrderId.includes(menuInfo._id)}
+          onClick={() => dispatch(addOrderList(menuInfo))}
+          className="flex items-center bg-green-600 text-white py-1 px-2 gap-2 rounded-lg hover:bg-green-700 disabled:bg-slate-100 disabled:text-slate-400 "
+        >
           <BiAddToQueue />
           <span>Add</span>
         </button>

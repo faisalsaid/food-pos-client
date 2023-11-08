@@ -8,11 +8,7 @@ export default function ListOrderCard({ orderInfo }) {
   console.log(orderInfo);
   return (
     <div className="flex gap-2 min-w-[250px] mr-2 mb-2 ">
-      <img
-        className="w-12 h-12 object-cover rounded-xl"
-        src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/62c59f6365a259b03da440de3973f201/Derivates/668cba6648888c61d249c0a5d9651157a4ce3793.jpg"
-        alt="order_image"
-      />
+      <img className="w-12 h-12 object-cover rounded-xl" src={orderInfo.image.url} alt="order_image" />
       <div className="flex flex-col justify-between w-full">
         <p className="text-sm">{orderInfo.title}</p>
         <div className="flex gap-2 items-center text-sm">

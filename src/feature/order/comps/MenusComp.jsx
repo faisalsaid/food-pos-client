@@ -63,12 +63,10 @@ export default function MenusComp() {
   const { curentUser } = useSelector((state) => state.user);
   const { listMenu } = useSelector((state) => state.menu);
   const [menuDisplay, setMenuDisplay] = useState(listMenu);
-  console.log(menuDisplay);
 
   // fetch all menu from menu state
   useEffect(() => {
     dispatch(fetchAllMenu());
-    console.log('fetch all menu');
   }, []);
 
   // populate menu for diplay from list menu
@@ -80,10 +78,8 @@ export default function MenusComp() {
   const filterDisplay = (category) => {
     setTagActive(category);
     if (category === 'all') {
-      console.log(category);
       setMenuDisplay(listMenu);
     } else {
-      console.log(category);
       const data = listMenu.filter((menu) => menu.category === category);
       setMenuDisplay(data);
     }
