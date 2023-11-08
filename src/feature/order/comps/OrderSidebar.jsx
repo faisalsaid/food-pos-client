@@ -51,7 +51,7 @@ export default function OrderSidebar() {
         <p className="font-semibold mb-1">Order Details</p>
         <div className="overflow-y-scroll max-h-72 h-full ">
           {listOrder.map((data, i) => (
-            <ListOrderCard key={i} orderInfo={data} />
+            <ListOrderCard index={i} key={i} orderInfo={data} />
           ))}
         </div>
       </div>

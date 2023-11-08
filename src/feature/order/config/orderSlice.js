@@ -15,11 +15,13 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addOrderList: (state, { payload }) => {
-      console.log(payload);
       state.listOrder = [...state.listOrder, payload];
+    },
+    removeOrderList: (state, { payload }) => {
+      state.listOrder.splice(payload, 1);
     },
   },
 });
 
-export const { addOrderList } = orderSlice.actions;
+export const { addOrderList, removeOrderList } = orderSlice.actions;
 export default orderSlice.reducer;
