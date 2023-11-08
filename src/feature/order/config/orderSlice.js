@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 // init state
 const initialState = {
-  order: null,
+  listOrder: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -13,8 +13,13 @@ const initialState = {
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    addOrderList: (state, { payload }) => {
+      console.log(payload);
+      state.listOrder = [...state.listOrder, payload];
+    },
+  },
 });
 
-export const {} = orderSlice.actions;
+export const { addOrderList } = orderSlice.actions;
 export default orderSlice.reducer;
