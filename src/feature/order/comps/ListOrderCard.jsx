@@ -18,12 +18,12 @@ export default function ListOrderCard({ orderInfo, index }) {
           <button onClick={() => dispatch(removeOrderList(index))} className="text-red-700">
             <RiDeleteBinLine />
           </button>
-          <p className="w-7 font-semibold text-sm">${orderInfo.item.price}</p>
+          <p className="w-7 font-semibold text-sm">${orderInfo.item.price.toFixed(2)}</p>
           <div className="flex items-center gap-2">
             <button className="  bg-orange-400 hover:bg-orange-500 flex justify-center content-center text-white p-[2px] rounded-lg">
               <BiMinus onClick={() => dispatch(bateQuantity(index))} />
             </button>
-            <span>{orderInfo.quantity}</span>
+            <span className="text-center w-3">{orderInfo.quantity}</span>
             <button className=" bg-orange-400 hover:bg-orange-500 flex justify-center content-center text-white p-[2px] rounded-lg">
               <BiPlus onClick={() => dispatch(addQuantity(index))} />
             </button>
