@@ -15,3 +15,6 @@ const orderSlice = createSlice({
   initialState,
   reducers: {},
 });
+
+export const {} = orderSlice.actions;
+export default orderSlice.reducer;
