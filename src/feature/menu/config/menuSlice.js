@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import menuServices from './menuServices';
+import { toast } from 'react-toastify';
 
 // handle crete new menu
 export const createNewMenu = createAsyncThunk('menu/createMenu', async (payload, thunkAPI) => {
@@ -68,6 +69,7 @@ const menuSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.listMenu.push(action.payload);
+        toast(`Add ${action.payload.title} success`);
       })
       .addCase(createNewMenu.rejected, (state, action) => {
         state.isLoading = false;
@@ -96,6 +98,7 @@ const menuSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.listMenu = state.listMenu.filter((menu) => menu._id !== action.payload);
+        toast(`Delete menu success`);
       })
       .addCase(deleteMenu.rejected, (state, action) => {
         state.isLoading = false;
@@ -110,6 +113,7 @@ const menuSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.listMenu = state.listMenu.map((menu) => (menu._id === action.payload._id ? { ...menu, ...action.payload } : menu));
+        toast(`Update menu success`);
       })
       .addCase(updateMenu.rejected, (state, action) => {
         state.isLoading = false;
