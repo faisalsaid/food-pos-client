@@ -81,11 +81,11 @@ export default function MenusComp() {
     setTagActive(category);
     if (category === 'all') {
       console.log(category);
-      // setMenuDisplay(listMenu);
+      setMenuDisplay(listMenu);
     } else {
       console.log(category);
-      // const data = listMenu.filter((menu) => menu.category === category);
-      // setMenuDisplay(data);
+      const data = listMenu.filter((menu) => menu.category === category);
+      setMenuDisplay(data);
     }
   };
 
