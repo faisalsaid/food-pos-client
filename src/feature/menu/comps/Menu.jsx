@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import TagMenu from '../../../components/share/TagMenu';
 import MenuCard from './MenuCard';
 import AddMenuModal from './AddMenuModal';
@@ -61,11 +61,28 @@ export default function Menu() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tagActive, setTagActive] = useState('all');
   const { listMenu, isError, isLoading, message } = useSelector((state) => state.menu);
+  const [menuDisplay, setMenuDisplay] = useState([]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('fetch all menu');
     dispatch(fetchAllMenu());
   }, []);
+
+  useEffect(() => {
+    setMenuDisplay(listMenu);
+  }, [listMenu]);
+
+  const filterDisplay = (category) => {
+    setTagActive(category);
+    if (category === 'all') {
+      setMenuDisplay(listMenu);
+    } else {
+      const data = listMenu.filter((menu) => menu.category === category);
+      setMenuDisplay(data);
+    }
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -97,11 +114,11 @@ export default function Menu() {
         </div>
         <div className="my-4 flex gap-3">
           {listTag.map((list, i) => (
-            <TagMenu key={i} tag={list} tagActive={tagActive} setTag={setTagActive} />
+            <TagMenu key={i} tag={list} tagActive={tagActive} setTag={filterDisplay} />
           ))}
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          {listMenu.length === 0 ? <p>Menu Empty...</p> : listMenu.map((data, i) => <MenuCard menuInfo={data} key={i} />)}
+          {menuDisplay.length === 0 ? <p>Menu Empty...</p> : menuDisplay.map((data, i) => <MenuCard menuInfo={data} key={i} />)}
         </div>
       </div>
       <AddMenuModal isOpen={isModalOpen} closeModel={closeModal} content={'This content'} />

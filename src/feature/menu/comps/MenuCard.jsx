@@ -36,7 +36,7 @@ export default function MenuCard({ menuInfo, ...rest }) {
           <div>
             <h6 className="font-semibold text-slate-600">{menuInfo.title}</h6>
             <p className="text-xs text-slate-400">{menuInfo.description}</p>
-            <p className="text-sm text-green-400">Available</p>
+            <p className="text-sm text-green-400">{menuInfo.category}</p>
           </div>
         </div>
         <div className="flex justify-between mt-2">
