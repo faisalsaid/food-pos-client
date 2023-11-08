@@ -15,7 +15,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addOrderList: (state, { payload }) => {
-      state.listOrder = [...state.listOrder, payload];
+      state.listOrder = [...state.listOrder, { item: payload, quantity: 1, orderPrice: payload.price }];
     },
     removeOrderList: (state, { payload }) => {
       state.listOrder.splice(payload, 1);

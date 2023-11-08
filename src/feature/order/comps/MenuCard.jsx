@@ -4,6 +4,8 @@ import { addOrderList } from '../config/orderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function MenuCard({ menuInfo }) {
+  const { cretedAt, updatedAt, __v, ...payload } = menuInfo; // desctruction menuInfo to get order payload
+
   const { listOrder } = useSelector((state) => state.order);
   const [listOrderId, setListOrderId] = useState([]);
 
@@ -24,18 +26,18 @@ export default function MenuCard({ menuInfo }) {
       </div>
       <div className="flex items-center mt-2 gap-3">
         <p className="flex-1 font-semibold text-lg">$ {menuInfo.price}</p>
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <span className="bg-orange-500 w-6 h-6 flex items-center justify-center rounded-lg text-white hover:bg-orange-600 cursor-pointer">
             <BiMinus />
           </span>
-          <span>0</span>
+          <span>1</span>
           <span className="bg-orange-500 w-6 h-6 flex items-center justify-center rounded-lg text-white hover:bg-orange-600 cursor-pointer">
             <BiPlus />
           </span>
-        </div>
+        </div> */}
         <button
           disabled={listOrderId.includes(menuInfo._id)}
-          onClick={() => dispatch(addOrderList(menuInfo))}
+          onClick={() => dispatch(addOrderList(payload))}
           className="flex items-center bg-green-600 text-white py-1 px-2 gap-2 rounded-lg hover:bg-green-700 disabled:bg-slate-100 disabled:text-slate-400 "
         >
           <BiAddToQueue />
