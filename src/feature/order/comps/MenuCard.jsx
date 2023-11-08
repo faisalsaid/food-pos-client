@@ -10,7 +10,7 @@ export default function MenuCard({ menuInfo }) {
   const [listOrderId, setListOrderId] = useState([]);
 
   useEffect(() => {
-    setListOrderId(listOrder.map((data) => data._id));
+    setListOrderId(listOrder.map((data) => data.item._id));
   }, [listOrder]);
 
   const dispatch = useDispatch();

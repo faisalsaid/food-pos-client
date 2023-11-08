@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 // import Icons END
 
 import React from 'react';
-import { removeOrderList } from '../config/orderSlice';
+import { removeOrderList, addQuantity, bateQuantity } from '../config/orderSlice';
 
 export default function ListOrderCard({ orderInfo, index }) {
   const dispatch = useDispatch();
@@ -18,17 +18,17 @@ export default function ListOrderCard({ orderInfo, index }) {
           <button onClick={() => dispatch(removeOrderList(index))} className="text-red-700">
             <RiDeleteBinLine />
           </button>
-          <p className=" font-semibold text-sm">${orderInfo.item.price}</p>
+          <p className="w-7 font-semibold text-sm">${orderInfo.item.price}</p>
           <div className="flex items-center gap-2">
             <button className="  bg-orange-400 hover:bg-orange-500 flex justify-center content-center text-white p-[2px] rounded-lg">
-              <BiMinus />
+              <BiMinus onClick={() => dispatch(bateQuantity(index))} />
             </button>
             <span>{orderInfo.quantity}</span>
             <button className=" bg-orange-400 hover:bg-orange-500 flex justify-center content-center text-white p-[2px] rounded-lg">
-              <BiPlus />
+              <BiPlus onClick={() => dispatch(addQuantity(index))} />
             </button>
           </div>
-          <p className="flex-1 text-right text-lg font-semibold">${orderInfo.orderPrice}</p>
+          <p className="flex-1 text-right text-lg font-semibold">${orderInfo.orderPrice.toFixed(2)}</p>
         </div>
       </div>
     </div>

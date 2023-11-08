@@ -20,8 +20,16 @@ const orderSlice = createSlice({
     removeOrderList: (state, { payload }) => {
       state.listOrder.splice(payload, 1);
     },
+    addQuantity: (state, { payload }) => {
+      state.listOrder[payload].quantity++;
+      state.listOrder[payload].orderPrice = state.listOrder[payload].item.price * state.listOrder[payload].quantity;
+    },
+    bateQuantity: (state, { payload }) => {
+      state.listOrder[payload].quantity > 1 && state.listOrder[payload].quantity--;
+      state.listOrder[payload].orderPrice = state.listOrder[payload].item.price * state.listOrder[payload].quantity;
+    },
   },
 });
 
-export const { addOrderList, removeOrderList } = orderSlice.actions;
+export const { addOrderList, removeOrderList, addQuantity, bateQuantity } = orderSlice.actions;
 export default orderSlice.reducer;
