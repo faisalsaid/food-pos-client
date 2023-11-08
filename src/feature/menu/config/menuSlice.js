@@ -72,7 +72,7 @@ const menuSlice = createSlice({
       .addCase(createNewMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.error.message;
       })
       // handle fetch menu
       .addCase(fetchAllMenu.pending, (state) => {
@@ -86,7 +86,7 @@ const menuSlice = createSlice({
       .addCase(fetchAllMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.error.message;
       })
       // handle delete
       .addCase(deleteMenu.pending, (state) => {
@@ -100,7 +100,7 @@ const menuSlice = createSlice({
       .addCase(deleteMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.error.message;
       })
       // handle update menu
       .addCase(updateMenu.pending, (state) => {
@@ -114,7 +114,8 @@ const menuSlice = createSlice({
       .addCase(updateMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload;
+        state.message = action.error.message;
+        console.log(action);
       });
   },
 });
