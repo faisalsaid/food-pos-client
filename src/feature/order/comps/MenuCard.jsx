@@ -5,11 +5,7 @@ export default function MenuCard({ menuInfo }) {
   return (
     <div className=" bg-white p-3 rounded-lg">
       <div className="flex gap-2">
-        <img
-          className="w-24 h-24 object-cover rounded-xl"
-          src="https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/62c59f6365a259b03da440de3973f201/Derivates/668cba6648888c61d249c0a5d9651157a4ce3793.jpg"
-          alt=""
-        />
+        <img className="w-24 h-24 object-cover rounded-xl" src={menuInfo.image.url} alt="" />
         <div className="flex flex-col gap-1">
           <h5 className="text-lg font-semibold text-slate-700">{menuInfo.title}</h5>
           <p className="flex-1 text-xs text-slate-400">{menuInfo.description}</p>
