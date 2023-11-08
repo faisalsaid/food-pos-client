@@ -1,7 +1,7 @@
 import React from 'react';
 import { BiPlus, BiMinus, BiAddToQueue } from 'react-icons/bi';
 
-export default function MenuCard() {
+export default function MenuCard({ menuInfo }) {
   return (
     <div className=" bg-white p-3 rounded-lg">
       <div className="flex gap-2">
@@ -11,13 +11,13 @@ export default function MenuCard() {
           alt=""
         />
         <div className="flex flex-col gap-1">
-          <h5 className="text-lg font-semibold text-slate-700">Pizza Sweet Corn</h5>
-          <p className="flex-1 text-xs text-slate-400">Lorem ipsum dolor sit amet, consectetur...</p>
-          <p className="text-sm text-teal-500">Available</p>
+          <h5 className="text-lg font-semibold text-slate-700">{menuInfo.title}</h5>
+          <p className="flex-1 text-xs text-slate-400">{menuInfo.description}</p>
+          <p className="text-sm text-teal-500">{menuInfo.category}</p>
         </div>
       </div>
       <div className="flex items-center mt-2 gap-3">
-        <p className="flex-1 font-semibold text-lg">$ 80.00</p>
+        <p className="flex-1 font-semibold text-lg">$ {menuInfo.price}</p>
         <div className="flex items-center gap-2">
           <span className="bg-orange-500 w-6 h-6 flex items-center justify-center rounded-lg text-white hover:bg-orange-600 cursor-pointer">
             <BiMinus />

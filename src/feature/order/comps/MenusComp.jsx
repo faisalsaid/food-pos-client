@@ -6,11 +6,11 @@ import { BiBowlRice } from 'react-icons/bi';
 import { MdOutlineLocalDrink } from 'react-icons/md';
 // impror icons end
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TagMenu from '../../../components/share/TagMenu';
 import MenuCard from './MenuCard';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllMenu } from '../../menu/config/menuSlice';
 const listTag = [
   {
     label: 'All Menu',
@@ -57,9 +57,26 @@ const listTag = [
 const tagActive = 'all';
 
 export default function MenusComp() {
+  const dispatch = useDispatch();
+
   const [tagActive, setTagActive] = useState('all');
   const { curentUser } = useSelector((state) => state.user);
+  const { listMenu } = useSelector((state) => state.menu);
+  const [menuDisplay, setMenuDisplay] = useState(listMenu);
+  console.log(menuDisplay);
 
+  // fetch all menu from menu state
+  useEffect(() => {
+    dispatch(fetchAllMenu());
+    console.log('fetch all menu');
+  }, []);
+
+  // populate menu for diplay from list menu
+  useEffect(() => {
+    setMenuDisplay(listMenu);
+  }, [listMenu]);
+
+  // Filter display menu by category
   const filterDisplay = (category) => {
     setTagActive(category);
     if (category === 'all') {
@@ -98,8 +115,8 @@ export default function MenusComp() {
         ))}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 ">
-        {[1, 1].map((menu, i) => (
-          <MenuCard key={i} />
+        {menuDisplay.map((menu, i) => (
+          <MenuCard key={i} menuInfo={menu} />
         ))}
       </div>
     </div>
