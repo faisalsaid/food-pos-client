@@ -1,4 +1,4 @@
-import { BiReset, BiEdit, BiUser, BiEditAlt } from 'react-icons/bi';
+import { BiReset, BiEdit, BiUser } from 'react-icons/bi';
 import { MdOutlineTableBar } from 'react-icons/md';
 // Import icons
 

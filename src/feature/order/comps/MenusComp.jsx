@@ -6,7 +6,7 @@ import { BiBowlRice } from 'react-icons/bi';
 import { MdOutlineLocalDrink } from 'react-icons/md';
 // impror icons end
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TagMenu from '../../../components/share/TagMenu';
 import MenuCard from './MenuCard';
 import { useSelector, useDispatch } from 'react-redux';
@@ -53,8 +53,6 @@ const listTag = [
     icon: <IoIceCreamOutline />,
   },
 ];
-
-const tagActive = 'all';
 
 export default function MenusComp() {
   const dispatch = useDispatch();
