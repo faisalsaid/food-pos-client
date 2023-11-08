@@ -1,13 +1,15 @@
+import { BiReset, BiEdit, BiUser, BiEditAlt } from 'react-icons/bi';
+import { MdOutlineTableBar } from 'react-icons/md';
+// Import icons
+
 import React from 'react';
 import ListOrderCard from './ListOrderCard';
 import PaymentModal from './PaymentModal';
-
-// Import icons
-import { BiReset, BiEdit, BiUser, BiEditAlt } from 'react-icons/bi';
-import { MdOutlineTableBar } from 'react-icons/md';
+import { useSelector } from 'react-redux';
 
 export default function OrderSidebar() {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const { listOrder } = useSelector((state) => state.order);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -48,8 +50,8 @@ export default function OrderSidebar() {
       <div className="flex-1 flex flex-col">
         <p className="font-semibold mb-1">Order Details</p>
         <div className="overflow-y-scroll max-h-72 h-full ">
-          {[1, 2, 3, 2, 2, 2, 2, 2, 2, 2].map((index, i) => (
-            <ListOrderCard key={i} />
+          {listOrder.map((data, i) => (
+            <ListOrderCard key={i} orderInfo={data} />
           ))}
         </div>
       </div>
