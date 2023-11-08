@@ -34,6 +34,18 @@ export const deleteMenu = createAsyncThunk('menu/delete', async (menuId, thunkAP
   }
 });
 
+// update menu by id
+export const updateMenu = createAsyncThunk('menu/update', async (dataMenu, thunkAPI) => {
+  // console.log(dataMenu);
+  try {
+    const token = thunkAPI.getState().user.curentUser.token;
+    return await menuServices.updateMenu(dataMenu, token);
+  } catch (error) {
+    const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 const initialState = {
   listMenu: [],
   isError: false,
@@ -86,6 +98,20 @@ const menuSlice = createSlice({
         state.listMenu = state.listMenu.filter((menu) => menu._id !== action.payload);
       })
       .addCase(deleteMenu.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      // handle update menu
+      .addCase(updateMenu.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateMenu.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.listMenu = state.listMenu.map((menu) => (menu._id === action.payload._id ? { ...menu, ...action.payload } : menu));
+      })
+      .addCase(updateMenu.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

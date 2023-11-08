@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { getStorage, uploadBytesResumable, ref, getDownloadURL } from 'firebase/storage';
 import { app } from '../../../firebase';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewMenu } from '../config/menuSlice';
+import { createNewMenu, updateMenu } from '../config/menuSlice';
 
 // Import icons
 import { AiOutlineClose } from 'react-icons/ai';
@@ -71,14 +71,14 @@ const SuccessText = ({ message }) => {
 };
 
 export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
+  const { isLoading, isSuccess, isError, message } = useSelector((state) => state.menu);
   const fileRef = useRef();
   const [file, setFile] = useState(undefined);
-  const [imageName, setImageName] = useState('Menu Default Image');
-  const [imageURL, setImageUrl] = useState('https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
+  const [imageName, setImageName] = useState(isEdit ? content.image.name : 'Menu Default Image');
+  const [imageURL, setImageUrl] = useState(isEdit ? content.image.url : 'https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
   const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
 
-  const { isLoading, isSuccess, isError, message } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -114,15 +114,15 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
   });
 
   const resetForm = () => {
-    setImageName('Menu Default Image');
-    setImageUrl('https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
+    setImageName(isEdit ? content.image.name : 'Menu Default Image');
+    setImageUrl(isEdit ? content.image.url : 'https://cdn3d.iconscout.com/3d/premium/thumb/fast-food-5727930-4800414.png');
     setFilePerc(0);
     formik.resetForm();
   };
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
-    const fileName = new Date().getDate() + file.name;
+    const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
     setImageName(fileName);
@@ -144,11 +144,18 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
     );
   };
 
-  const handleAddMenu = (values) => {
+  const handleSubmitForm = (values) => {
+    if (isEdit) {
+      const payload = { ...values, image: { url: imageURL, name: imageName } };
+      // console.log(payload);
+      dispatch(updateMenu(payload));
+    } else {
+      const payload = { ...values, image: { url: imageURL, name: imageName } };
+      // console.log(payload);
+      dispatch(createNewMenu(payload));
+    }
     resetForm();
     closeModel();
-    const payload = { ...values, image: { name: imageName, url: imageURL } };
-    dispatch(createNewMenu(payload));
   };
 
   const handleCancelSubmit = () => {
@@ -166,11 +173,11 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
           </button>
         </div>
         <Formik
-          initialValues={initialValues}
+          initialValues={isEdit ? content : initialValues}
           validationSchema={validationSchema}
           onSubmit={(values, actions) => {
             setTimeout(() => {
-              handleAddMenu(values);
+              handleSubmitForm(values);
               actions.setSubmitting(false);
             }, 1000);
           }}
@@ -247,8 +254,8 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
                       )}
                     </div>
                     <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/.*" />
-                    <Field name={'image.url'} value={imageURL} hidden />
-                    <Field name={'image.name'} value={imageName} hidden />
+                    {/* <Field name={'image.url'} value={imageURL} hidden />
+                    <Field name={'image.name'} value={imageName} hidden /> */}
                     <button
                       onClick={() => fileRef.current.click()}
                       type="button"

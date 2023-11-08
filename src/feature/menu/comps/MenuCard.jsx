@@ -55,7 +55,7 @@ export default function MenuCard({ menuInfo, ...rest }) {
           </div>
         </div>
       </div>
-      <AddMenuModal isOpen={isModalOpen} closeModel={closeModal} isEdit={true} content={'This content'} />
+      <AddMenuModal isOpen={isModalOpen} closeModel={closeModal} isEdit={true} content={menuInfo} />
     </>
   );
 }
