@@ -4,7 +4,7 @@ import { addOrderList } from '../config/orderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function MenuCard({ menuInfo }) {
-  const { cretedAt, updatedAt, __v, ...payload } = menuInfo; // desctruction menuInfo to get order payload
+  const { createdAt, updatedAt, __v, ...payload } = menuInfo; // desctruction menuInfo to get order payload
 
   const { listOrder } = useSelector((state) => state.order);
   const [listOrderId, setListOrderId] = useState([]);
@@ -25,7 +25,7 @@ export default function MenuCard({ menuInfo }) {
         </div>
       </div>
       <div className="flex items-center mt-2 gap-3">
-        <p className="flex-1 font-semibold text-lg">$ {menuInfo.price}</p>
+        <p className="flex-1 font-semibold text-lg">${menuInfo.price.toFixed(2)}</p>
         {/* <div className="flex items-center gap-2">
           <span className="bg-orange-500 w-6 h-6 flex items-center justify-center rounded-lg text-white hover:bg-orange-600 cursor-pointer">
             <BiMinus />
