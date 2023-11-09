@@ -21,23 +21,20 @@ export default function OrderSidebar() {
     setIsModalOpen(false);
   };
   return (
-    <div className="max-w-fit bg-white  p-4 flex items-stretch flex-col gap-4 sticky ">
+    <div className="h-screen bg-white  p-4 flex items-stretch flex-col gap-4 sticky">
       <div className="flex items-center gap-2 text-sm">
-        <button onClick={() => dispatch(resetListOder())} className="flex-1 flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
+        <p className="flex-1 font-semibold text-lg">Order #645</p>
+        <button onClick={() => dispatch(resetListOder())} className=" flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
           <BiReset />
           <span>Reset</span>
         </button>
-        <button className="flex-1 flex items-center gap-2 justify-center bg-green-500 hover:bg-green-600 text-white py-1 rounded-lg min-w-fit px-2">
+        {/* <button className="flex-1 flex items-center gap-2 justify-center bg-green-500 hover:bg-green-600 text-white py-1 rounded-lg min-w-fit px-2">
           <BiEdit />
           <span>Create Order</span>
-        </button>
-      </div>
-      <div className="flex justify-between">
-        <p>Order #645</p>
-        <p className="text-sm text-slate-400">Date</p>
+        </button> */}
       </div>
       <div>
-        <p className="font-semibold mb-1">Customer Information</p>
+        <p className="font-semibold mb-1">Customer Information :</p>
         <div>
           <div className="flex items-center text-sm gap-2 text-slate-400 border py-1 px-2 rounded-md mb-1">
             <BiUser />
@@ -50,8 +47,8 @@ export default function OrderSidebar() {
         </div>
       </div>
       <div className="flex-1 flex flex-col">
-        <p className="font-semibold mb-1">Order Details</p>
-        <div className="overflow-y-scroll max-h-72 h-full ">
+        <p className="font-semibold mb-1">Order Details :</p>
+        <div className="overflow-y-scroll max-h-72 h-full border p-3 rounded-lg ">
           {listOrder.map((data, i) => (
             <ListOrderCard index={i} key={i} orderInfo={data} />
           ))}
