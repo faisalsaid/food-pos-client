@@ -59,10 +59,13 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   const handleSubmit = (values, props) => {
     const payload = paymentMethod === 'cash' ? { ...values, ...content, change, paymentMethod } : { ...values, ...content, paymentMethod };
     console.log(payload);
+    handleReset(values, props);
+    closeModel();
   };
 
   const handleReset = (values, props) => {
     props.setSubmitting(false);
+    formik.setValues({ date: new Date().toISOString(), amount: 0 });
     setPaymentMethod('cash');
     closeModel();
   };
