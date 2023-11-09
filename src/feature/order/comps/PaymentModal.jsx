@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 
 // Import icons
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 import { MdOutlineTableBar } from 'react-icons/md';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 // init react modal
 Modal.setAppElement('#root');
@@ -27,7 +28,7 @@ const customStyles = {
 };
 
 export default function PaymentModal({ isOpen, closeModel, content }) {
-  console.log(content);
+  const [paymentMethod, setPaymentMethod] = useState('cash');
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
       <div className="w-[500px] ">
@@ -47,9 +48,24 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
             </div>
           </div>
           <div className="flex gap-2 ">
-            <button className="flex-1 bg-slate-400 hover:bg-green-400 text-white py-1 px-2 rounded-lg ">Cash</button>
-            <button className="flex-1 bg-slate-400 hover:bg-green-400 text-white py-1 px-2 rounded-lg">Debit Card</button>
-            <button className="flex-1 bg-slate-400 hover:bg-green-400 text-white py-1 px-2 rounded-lg">Credit Card</button>
+            <button
+              onClick={() => setPaymentMethod('cash')}
+              className={`${paymentMethod === 'cash' ? 'bg-green-500' : 'bg-slate-400'} flex-1  hover:bg-green-400 text-white py-1 px-2 rounded-lg `}
+            >
+              Cash
+            </button>
+            <button
+              onClick={() => setPaymentMethod('credit_card')}
+              className={`${paymentMethod === 'credit_card' ? 'bg-green-500' : 'bg-slate-400'} flex-1  hover:bg-green-400 text-white py-1 px-2 rounded-lg `}
+            >
+              Debit Card
+            </button>
+            <button
+              onClick={() => setPaymentMethod('debit_card')}
+              className={`${paymentMethod === 'debit_card' ? 'bg-green-500' : 'bg-slate-400'} flex-1  hover:bg-green-400 text-white py-1 px-2 rounded-lg `}
+            >
+              Credit Card
+            </button>
           </div>
           <div>
             <p className="text-center text-sm mb-2 text-slate-500">Quick cash payment</p>
