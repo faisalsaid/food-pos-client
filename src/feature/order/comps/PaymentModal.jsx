@@ -57,23 +57,27 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   }, [formik.values.amount]);
 
   const handleSubmit = (values, props) => {
-    const payload = paymentMethod === 'cash' ? { ...values, ...content, change } : { ...values, ...content };
+    const payload = paymentMethod === 'cash' ? { ...values, ...content, change, paymentMethod } : { ...values, ...content, paymentMethod };
     console.log(payload);
   };
 
   const handleReset = (values, props) => {
     props.setSubmitting(false);
+    setPaymentMethod('cash');
     closeModel();
   };
 
   const handlePaymentCash = () => {
     setPaymentMethod('cash');
+    formik.setFieldValue('amount', 0);
   };
   const handlePaymentDebit = () => {
     setPaymentMethod('debit_card');
+    formik.setFieldValue('amount', content.finalPrice.toFixed(2));
   };
   const handlePaymentCredit = () => {
     setPaymentMethod('credit_card');
+    formik.setFieldValue('amount', content.finalPrice.toFixed(2));
   };
 
   console.log(formik);
@@ -95,6 +99,7 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
                 <span>$</span>
 
                 <input
+                  readOnly={paymentMethod !== 'cash'}
                   className="text-2xl font-semibold text-center w-full outline-none"
                   type="number"
                   id="amount"
@@ -109,6 +114,7 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
 
             <div className="flex gap-2 ">
               <button
+                disabled={paymentMethod === 'cash'}
                 type="button"
                 onClick={handlePaymentCash}
                 className={`${paymentMethod === 'cash' ? 'bg-green-500' : 'bg-slate-400'} flex-1  hover:bg-green-400 text-white py-1 px-2 rounded-lg `}
