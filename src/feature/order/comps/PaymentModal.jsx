@@ -95,10 +95,18 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
                 <div>
                   <p className="text-center text-sm mb-2 text-slate-500">Quick cash payment</p>
                   <div className="flex gap-2">
-                    <button className="bg-green-500 flex-1 py-1 text-white rounded-md">$5</button>
-                    <button className="bg-green-500 flex-1 py-1 text-white rounded-md">$10</button>
-                    <button className="bg-green-500 flex-1 py-1 text-white rounded-md">$50</button>
-                    <button className="bg-green-500 flex-1 py-1 text-white rounded-md">$100</button>
+                    <button type="button" onClick={() => paymentForm.setFieldValue('amount', 5)} className="bg-green-500 flex-1 py-1 text-white rounded-md">
+                      $5
+                    </button>
+                    <button type="button" onClick={() => paymentForm.setFieldValue('amount', 10)} className="bg-green-500 flex-1 py-1 text-white rounded-md">
+                      $10
+                    </button>
+                    <button type="button" onClick={() => paymentForm.setFieldValue('amount', 50)} className="bg-green-500 flex-1 py-1 text-white rounded-md">
+                      $50
+                    </button>
+                    <button type="button" onClick={() => paymentForm.setFieldValue('amount', 100)} className="bg-green-500 flex-1 py-1 text-white rounded-md">
+                      $100
+                    </button>
                   </div>
                 </div>
               </div>
