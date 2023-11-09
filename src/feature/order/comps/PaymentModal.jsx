@@ -27,6 +27,7 @@ const customStyles = {
 };
 
 export default function PaymentModal({ isOpen, closeModel, content }) {
+  console.log(content);
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
       <div className="w-[500px] ">

@@ -2,7 +2,7 @@ import { BiReset, BiEdit, BiUser } from 'react-icons/bi';
 import { MdOutlineTableBar } from 'react-icons/md';
 // Import icons
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ListOrderCard from './ListOrderCard';
 import PaymentModal from './PaymentModal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,6 +48,31 @@ export default function OrderSidebar() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const { listOrder } = useSelector((state) => state.order);
+  const [subtotal, setSubtotal] = useState(0);
+  const [discountSales, setDiscountSales] = useState(0);
+  const [saleTax, setSaleTax] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [prePayload, setPrePayload] = useState();
+
+  useEffect(() => {
+    // calculate subtotal
+    const calcSubtotal = listOrder.length ? listOrder.map((order) => order.orderPrice).reduce((total, item) => total + item) : 0;
+    setSubtotal(calcSubtotal);
+
+    // calculate discount
+    const setDiscount = 0.3;
+    const calcDiscountSales = calcSubtotal * setDiscount;
+    setDiscountSales(calcDiscountSales);
+
+    // calculate total sale tax
+    const setTax = 0.11;
+    const calcSaleTax = (calcSubtotal - calcDiscountSales) * setTax;
+    setSaleTax(calcSaleTax);
+
+    // calculate final price
+    const calcFinalPrice = calcSubtotal - calcDiscountSales + calcSaleTax;
+    setFinalPrice(calcFinalPrice);
+  }, [listOrder]);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -58,8 +83,9 @@ export default function OrderSidebar() {
   };
 
   const handleSubmit = (values, props) => {
-    console.log('halo');
-    console.log({ ...values, listOrder });
+    const prePayload = { ...values, listOrder, subtotal, discountSales, saleTax, finalPrice };
+    setPrePayload(prePayload);
+    openModal();
   };
   const handleReset = (value, props) => {
     props.setSubmitting(false);
@@ -76,10 +102,6 @@ export default function OrderSidebar() {
                 <BiReset />
                 <span>Reset</span>
               </button>
-              {/* <button className="flex-1 flex items-center gap-2 justify-center bg-green-500 hover:bg-green-600 text-white py-1 rounded-lg min-w-fit px-2">
-          <BiEdit />
-          <span>Create Order</span>
-        </button> */}
             </div>
             <div>
               <p className="font-semibold mb-1">Customer Information :</p>
@@ -118,27 +140,33 @@ export default function OrderSidebar() {
             <div className="">
               <div className="flex bg-green-50 py-1 px-2 rounded-lg text-xs gap-2 mb-2">
                 <span className="flex-1 font-semibold">Add</span>
-                <button className="text-slate-500">Discound</button>
-                <button className="text-slate-500">Coupon Code</button>
-                <button className="text-slate-500">Note</button>
+                <button type="button" className="text-slate-500">
+                  Discound
+                </button>
+                <button type="button" className="text-slate-500">
+                  Coupon Code
+                </button>
+                <button type="button" className="text-slate-500">
+                  Note
+                </button>
               </div>
               <div className="bg-slate-50 p-2 rounded-lg text-xs border-b">
                 <div className="flex items-center justify-between">
                   <p>Subtotal</p>
-                  <p>$400.00</p>
+                  <p>${subtotal.toFixed(2)}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p>Discount sales</p>
-                  <p>-$20.00</p>
+                  <p>-${discountSales.toFixed(2)}</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <p>Total sale tax</p>
-                  <p>$20.00</p>
+                  <p>${saleTax.toFixed(2)}</p>
                 </div>
               </div>
               <div className="bg-slate-50 p-2 rounded-md flex justify-between mb-2 font-bold">
                 <p>Total </p>
-                <p>$380.00</p>
+                <p>${finalPrice.toFixed(2)}</p>
               </div>
               <button
                 disabled={!formik.dirty || (!formik.dirty && listOrder.length === 0)}
@@ -147,7 +175,7 @@ export default function OrderSidebar() {
               >
                 Payment Proccess
               </button>
-              <PaymentModal isOpen={isModalOpen} closeModel={closeModal} content={'This content'} />
+              <PaymentModal isOpen={isModalOpen} closeModel={closeModal} content={prePayload} />
             </div>
           </div>
         </Form>
