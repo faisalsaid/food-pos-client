@@ -20,11 +20,15 @@ const customStyles = {
     maxHeight: '70%',
     zIndex: '100',
   },
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    zIndex: '50',
+  },
 };
 
 export default function PaymentModal({ isOpen, closeModel, content }) {
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Payment Modal" style={customStyles}>
+    <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
       <div className="w-[500px] ">
         <div className="flex items-center gap-2  border-b pb-2 ">
           <p className="flex-1">Paymen Order #654</p>
