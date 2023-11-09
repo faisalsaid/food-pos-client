@@ -53,7 +53,8 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   });
 
   useEffect(() => {
-    setChange(formik.values.amount - content?.finalPrice);
+    const calcChange = formik.values.amount - content?.finalPrice;
+    setChange(parseFloat(calcChange.toFixed(2)));
   }, [formik.values.amount]);
 
   const handleSubmit = (values, props) => {
@@ -83,7 +84,7 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
     formik.setFieldValue('amount', content.finalPrice.toFixed(2));
   };
 
-  console.log(formik);
+  // console.log(formik);
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
       <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
@@ -207,7 +208,7 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
               Cancel
             </button>
             <button
-              disabled={formik.values.amount < 0 || change < 0}
+              disabled={(formik.values.amount <= 0 && paymentMethod === 'cash') || (paymentMethod === 'cash' && change < 0)}
               type="submit"
               className="disabled:bg-slate-100 disabled:text-slate-400 flex-1 bg-green-500 text-white py-1 px-2 rounded-md  text-center"
             >

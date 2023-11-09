@@ -57,21 +57,23 @@ export default function OrderSidebar() {
   useEffect(() => {
     // calculate subtotal
     const calcSubtotal = listOrder.length ? listOrder.map((order) => order.orderPrice).reduce((total, item) => total + item) : 0;
-    setSubtotal(calcSubtotal);
+    setSubtotal(parseFloat(calcSubtotal.toFixed(2)));
+    // console.log(parseFloat(calcSubtotal.toFixed(2)));
 
     // calculate discount
     const setDiscount = 0;
     const calcDiscountSales = calcSubtotal * setDiscount;
-    setDiscountSales(calcDiscountSales);
+    setDiscountSales(parseFloat(calcDiscountSales.toFixed(2)));
 
     // calculate total sale tax
     const setTax = 0.11;
     const calcSaleTax = (calcSubtotal - calcDiscountSales) * setTax;
-    setSaleTax(calcSaleTax);
+    setSaleTax(parseFloat(calcSaleTax.toFixed(2)));
+    // console.log(parseFloat(calcSaleTax.toFixed(2)));
 
     // calculate final price
     const calcFinalPrice = calcSubtotal - calcDiscountSales + calcSaleTax;
-    setFinalPrice(calcFinalPrice);
+    setFinalPrice(parseFloat(calcFinalPrice.toFixed(2)));
   }, [listOrder]);
 
   const openModal = () => {
