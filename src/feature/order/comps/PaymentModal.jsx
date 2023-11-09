@@ -110,9 +110,11 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
             <div className="flex justify-between text-xl font-semibold">
               <p>Total</p> <p>${content?.finalPrice.toFixed(2)}</p>
             </div>
-            <div className="flex justify-between">
-              <p>Change</p> <p>$40</p>
-            </div>
+            {paymentMethod === 'cash' && (
+              <div className="flex justify-between">
+                <p>Change</p> <p>$40</p>
+              </div>
+            )}
           </div>
         </div>
         <div className="py-2 flex gap-2">
