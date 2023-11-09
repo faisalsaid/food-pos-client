@@ -60,7 +60,7 @@ export default function OrderSidebar() {
     setSubtotal(calcSubtotal);
 
     // calculate discount
-    const setDiscount = 0.3;
+    const setDiscount = 0;
     const calcDiscountSales = calcSubtotal * setDiscount;
     setDiscountSales(calcDiscountSales);
 
@@ -95,7 +95,7 @@ export default function OrderSidebar() {
     <Formik enableReinitialize initialValues={initialValues} onReset={handleReset} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {(formik) => (
         <Form>
-          <div className="h-screen bg-white  p-4 flex items-stretch flex-col gap-4 sticky">
+          <div className="h-screen bg-white min-w-[320px]  p-4 flex items-stretch flex-col gap-4 sticky">
             <div className="flex items-center gap-2 text-sm">
               <p className="flex-1 font-semibold text-lg">Order #645</p>
               <button type="reset" className=" flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">

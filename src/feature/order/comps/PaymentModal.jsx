@@ -68,31 +68,31 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
               <span>
                 <BiUser />
               </span>
-              <span>Michael Angelo</span>
+              <span>{content?.customerName}</span>
             </p>
             <p className="flex gap-2 items-center">
               <span>
                 <MdOutlineTableBar />
               </span>
-              <span>Table 1</span>
+              <span>{content?.table}</span>
             </p>
           </div>
         </div>
         <div>
           <div className="bg-slate-100 p-2 rounded-md text-sm text-slate-500 border-b">
             <div className="flex justify-between">
-              <p>Subtotal</p> <p>$200.00</p>
+              <p>Subtotal</p> <p>${content?.subtotal.toFixed(2)}</p>
             </div>
             <div className="flex justify-between">
-              <p>Discount sales</p> <p>-$20.00</p>
+              <p>Discount sales</p> <p>-${content?.discountSales.toFixed(2)}</p>
             </div>
             <div className="flex justify-between">
-              <p>Total sales tax</p> <p>$2.00</p>
+              <p>Total sales tax</p> <p>${content?.saleTax.toFixed(2)}</p>
             </div>
           </div>
           <div className="bg-slate-100 p-2 rounded-lg">
             <div className="flex justify-between text-xl font-semibold">
-              <p>Total</p> <p>$160</p>
+              <p>Total</p> <p>${content?.finalPrice.toFixed(2)}</p>
             </div>
             <div className="flex justify-between">
               <p>Change</p> <p>$40</p>
