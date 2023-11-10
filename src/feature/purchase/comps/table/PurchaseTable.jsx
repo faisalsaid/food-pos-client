@@ -57,6 +57,34 @@ const ActionComp = ({ data }) => {
   );
 };
 
+const tables = [
+  {
+    label: 'Tabel 1',
+    value: 'table1',
+  },
+  {
+    label: 'Tabel 2',
+    value: 'table1',
+  },
+  {
+    label: 'Tabel 3',
+    value: 'table1',
+  },
+  {
+    label: 'VIP 1',
+    value: 'vip1',
+  },
+  {
+    label: 'VIP 2',
+    value: 'vip2',
+  },
+];
+
+const printTable = (theTable, tables) => {
+  const foundTable = tables.find((table) => table.value === theTable);
+  return foundTable ? foundTable.label : 'Take Away';
+};
+
 const tableColumns = [
   {
     Header: 'Order',
@@ -69,17 +97,17 @@ const tableColumns = [
   {
     Header: 'Table',
     accessor: 'table',
-    Cell: ({ cell: { value } }) => <p> {value}</p>,
+    Cell: ({ cell: { value } }) => <> {printTable(value, tables)}</>,
   },
   {
     Header: 'Total Item',
     accessor: 'listOrder',
-    Cell: ({ cell: { value } }) => <p> {value.length > 0 ? value.map((item) => item.quantity).reduce((total, item) => total + item) : 0}</p>,
+    Cell: ({ cell: { value } }) => <> {value.length > 0 ? value.map((item) => item.quantity).reduce((total, item) => total + item) : 0}</>,
   },
   {
     Header: 'Price',
     accessor: 'finalPrice',
-    Cell: ({ cell: { value } }) => <p className="text-right">${parseFloat(value.toFixed(2))}</p>,
+    Cell: ({ cell: { value } }) => <>${parseFloat(value.toFixed(2))}</>,
   },
   {
     Header: 'Payment Method',
@@ -134,7 +162,7 @@ export default function PurchaseTable() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b" key={i} {...row.getRowProps()}>
+                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-center" key={i} {...row.getRowProps()}>
                   {row.cells.map((cell, i) => (
                     <td key={i} className="text-slate-500 p-2 " {...cell.getCellProps}>
                       {cell.render('Cell')}
