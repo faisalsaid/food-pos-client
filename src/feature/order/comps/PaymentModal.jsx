@@ -30,7 +30,6 @@ const customStyles = {
 };
 
 const initialValues = {
-  date: new Date().toISOString(),
   amount: 0,
 };
 const validationSchema = Yup.object({
@@ -66,7 +65,6 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
 
   const handleReset = (values, props) => {
     props.setSubmitting(false);
-    formik.setValues({ date: new Date().toISOString(), amount: 0 });
     setPaymentMethod('cash');
     closeModel();
   };
