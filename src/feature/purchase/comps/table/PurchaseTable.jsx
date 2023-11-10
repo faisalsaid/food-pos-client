@@ -72,9 +72,9 @@ const tableColumns = [
     Cell: ({ cell: { value } }) => <p> {value}</p>,
   },
   {
-    Header: 'Menu',
+    Header: 'Total Item',
     accessor: 'listOrder',
-    Cell: ({ cell: { value } }) => <p> {value.length}</p>,
+    Cell: ({ cell: { value } }) => <p> {value.length > 0 ? value.map((item) => item.quantity).reduce((total, item) => total + item) : 0}</p>,
   },
   {
     Header: 'Price',

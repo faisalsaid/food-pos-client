@@ -73,7 +73,9 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
     console.log(values);
 
     const payload =
-      paymentMethod === 'cash' ? { ...rest, ...values, newListOrder, change, paymentMethod, orderRef } : { ...rest, ...values, listOrder: newListOrder, paymentMethod, orderRef };
+      paymentMethod === 'cash'
+        ? { ...rest, ...values, listOrder: newListOrder, change, paymentMethod, orderRef }
+        : { ...rest, ...values, listOrder: newListOrder, paymentMethod, orderRef };
     console.log(payload);
     dispatch(createPurchase(payload));
 
@@ -238,18 +240,18 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
 }
 
 const generateRefOrder = () => {
-  // Generate a random 6-character alphanumeric string
+  // Generate a random 3-character alphanumeric string
   const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let orderRef = '';
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 3; i++) {
     const randomIndex = Math.floor(Math.random() * randomChars.length);
     orderRef += randomChars.charAt(randomIndex);
   }
 
   // Add a timestamp to make it unique (optional)
   const timestamp = new Date().getTime();
-  orderRef += timestamp.toString().slice(-4); // Take the last 4 digits of the timestamp
+  orderRef += timestamp.toString().slice(-3); // Take the last 3 digits of the timestamp
 
   return orderRef;
 };
