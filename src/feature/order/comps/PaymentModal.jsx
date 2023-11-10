@@ -39,6 +39,7 @@ const validationSchema = Yup.object({
 export default function PaymentModal({ isOpen, closeModel, content }) {
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [change, setChange] = useState(0);
+  const [orderRef, setOrderRef] = useState('');
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -52,12 +53,16 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   });
 
   useEffect(() => {
+    setOrderRef(generateRefOrder());
+  }, []);
+
+  useEffect(() => {
     const calcChange = formik.values.amount - content?.finalPrice;
     setChange(parseFloat(calcChange.toFixed(2)));
   }, [formik.values.amount]);
 
   const handleSubmit = (values, props) => {
-    const payload = paymentMethod === 'cash' ? { ...values, ...content, change, paymentMethod } : { ...values, ...content, paymentMethod };
+    const payload = paymentMethod === 'cash' ? { ...values, ...content, change, paymentMethod, orderRef } : { ...values, ...content, paymentMethod, orderRef };
     console.log(payload);
     handleReset(values, props);
     closeModel();
@@ -88,7 +93,7 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
       <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
         <div className="w-[500px] ">
           <div className="flex items-center gap-2  border-b pb-2 ">
-            <p className="flex-1">Paymen Order #654</p>
+            <p className="flex-1">Paymen Order #{orderRef}</p>
             <p className="text-slate-400 text-sm">Sunday, 01 Januari 2001</p>
             <button type="reset" className="bg-red-600 p-1 text-white rounded-md">
               <AiOutlineClose />
@@ -218,3 +223,20 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
     </Modal>
   );
 }
+
+const generateRefOrder = () => {
+  // Generate a random 6-character alphanumeric string
+  const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let orderRef = '';
+
+  for (let i = 0; i < 6; i++) {
+    const randomIndex = Math.floor(Math.random() * randomChars.length);
+    orderRef += randomChars.charAt(randomIndex);
+  }
+
+  // Add a timestamp to make it unique (optional)
+  const timestamp = new Date().getTime();
+  orderRef += timestamp.toString().slice(-4); // Take the last 4 digits of the timestamp
+
+  return orderRef;
+};
