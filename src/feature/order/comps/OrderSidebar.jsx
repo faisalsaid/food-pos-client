@@ -171,7 +171,7 @@ export default function OrderSidebar() {
                 <p>${finalPrice.toFixed(2)}</p>
               </div>
               <button
-                disabled={!formik.dirty || (!formik.dirty && listOrder.length === 0)}
+                disabled={!formik.dirty || (formik.dirty && listOrder.length === 0)}
                 type="submit"
                 className="disabled:bg-slate-100 disabled:text-slate-400 bg-green-500 text-white justify-center w-full items-center rounded-lg py-1 px-2 hover:bg-green-600"
               >
