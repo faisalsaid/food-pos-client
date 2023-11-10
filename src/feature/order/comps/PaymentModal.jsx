@@ -8,6 +8,8 @@ import { MdOutlineTableBar } from 'react-icons/md';
 import { Formik, Form, Field, ErrorMessage, useFormik } from 'formik';
 import * as Yup from 'yup';
 import ErrorCompsFormik from '../../../components/share/ErrorCompsFormik';
+import { useDispatch } from 'react-redux';
+import { createPurchase } from '../../purchase/config/purchaseSlice';
 
 // init react modal
 Modal.setAppElement('#root');
@@ -37,6 +39,7 @@ const validationSchema = Yup.object({
 });
 
 export default function PaymentModal({ isOpen, closeModel, content }) {
+  const dispatch = useDispatch();
   const [paymentMethod, setPaymentMethod] = useState('cash');
   const [change, setChange] = useState(0);
   const [orderRef, setOrderRef] = useState('');
@@ -64,6 +67,8 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   const handleSubmit = (values, props) => {
     const payload = paymentMethod === 'cash' ? { ...values, ...content, change, paymentMethod, orderRef } : { ...values, ...content, paymentMethod, orderRef };
     console.log(payload);
+    dispatch(createPurchase(payload));
+
     handleReset(values, props);
     closeModel();
   };

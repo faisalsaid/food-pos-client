@@ -1,6 +1,6 @@
 import React from 'react';
 import { faker } from '@faker-js/faker';
-import CardGrafik from '../../components/share/CardGrafik';
+import CardGrafik from '../../../components/share/CardGrafik';
 import PurchaseTable from './table/PurchaseTable';
 
 const orderDataFramework = () => {
