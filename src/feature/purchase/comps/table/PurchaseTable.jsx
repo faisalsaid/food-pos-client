@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce, usePagination } from 'react-table';
 import { faker } from '@faker-js/faker';
 
 // Import Icons
 import { BiTrash, BiFile, BiEdit } from 'react-icons/bi';
 import PurchaseModal from '../PurchaseModal';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllPurchase } from '../../config/purchaseSlice';
 
 faker.seed(123);
 const purchaseDataFramework = () => {
@@ -58,29 +60,30 @@ const ActionComp = ({ data }) => {
 const tableColumns = [
   {
     Header: 'Order',
-    accessor: 'order',
+    accessor: 'orderRef',
   },
   {
     Header: 'Customer',
-    accessor: 'customer_name',
+    accessor: 'customerName',
   },
   {
     Header: 'Table',
     accessor: 'table',
-    Cell: ({ cell: { value } }) => <p>Table {value}</p>,
+    Cell: ({ cell: { value } }) => <p> {value}</p>,
   },
   {
-    Header: 'Items',
-    accessor: 'items',
+    Header: 'Menu',
+    accessor: 'listOrder',
+    Cell: ({ cell: { value } }) => <p> {value.length}</p>,
   },
   {
     Header: 'Price',
-    accessor: 'price',
-    Cell: ({ cell: { value } }) => <p className="text-right">${value}</p>,
+    accessor: 'finalPrice',
+    Cell: ({ cell: { value } }) => <p className="text-right">${parseFloat(value.toFixed(2))}</p>,
   },
   {
-    Header: 'Sales Name',
-    accessor: 'sales_name',
+    Header: 'Payment Method',
+    accessor: 'paymentMethod',
   },
   {
     Header: 'Action',
@@ -90,8 +93,20 @@ const tableColumns = [
 ];
 
 export default function PurchaseTable() {
+  const dispatch = useDispatch();
+  const allOrder = useSelector((state) => state.purchase.listPurchase);
+  const [data, setData] = useState([]);
   const columns = useMemo(() => tableColumns, []);
-  const data = useMemo(() => employeeData, []);
+
+  console.log(data);
+
+  useEffect(() => {
+    dispatch(getAllPurchase());
+  }, []);
+
+  useEffect(() => {
+    setData(allOrder);
+  }, [allOrder]);
 
   const { getTableProps, getTableBodyProps, prepareRow, headerGroups, page, nextPage, previousPage, canNextPage, canPreviousPage, pageOptions, state, setGlobalFilter } = useTable(
     { columns, data },

@@ -65,7 +65,15 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   }, [formik.values.amount]);
 
   const handleSubmit = (values, props) => {
-    const payload = paymentMethod === 'cash' ? { ...values, ...content, change, paymentMethod, orderRef } : { ...values, ...content, paymentMethod, orderRef };
+    const { listOrder, ...rest } = content;
+    const newListOrder = listOrder.map((order) => ({ item: order.item._id, quantity: order.quantity, orderPrice: order.orderPrice }));
+    console.log(rest);
+    console.log(listOrder);
+    console.log(newListOrder);
+    console.log(values);
+
+    const payload =
+      paymentMethod === 'cash' ? { ...rest, ...values, newListOrder, change, paymentMethod, orderRef } : { ...rest, ...values, listOrder: newListOrder, paymentMethod, orderRef };
     console.log(payload);
     dispatch(createPurchase(payload));
 
