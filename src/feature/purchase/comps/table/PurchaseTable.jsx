@@ -131,7 +131,7 @@ const tableColumns = [
       </div>
     ),
     accessor: 'finalPrice',
-    Cell: ({ cell: { value } }) => <p className="text-right">${parseFloat(value.toFixed(2))}</p>,
+    Cell: ({ cell: { value } }) => <p className="text-right">${value.toFixed(2)}</p>,
   },
   {
     Header: () => (
