@@ -32,13 +32,12 @@ const ListOrder = ({ info }) => {
   return (
     <div className="flex gap-2">
       <img className="w-14 h-14 object-cover rounded-xl" src={info?.item?.image?.url} alt="menu image" />
-      <div className="flex-1 flex  flex-col">
-        <p className="text-sm text-slate-600 font-semibold">{info?.item?.title}</p>
-        <p className="text-xs flex-1 text-slate-400">{info?.item?.description}</p>
-        <div className="flex justify-between items-center text-xs">
-          <p>{info?.quantity}</p> <p className="font-semibold">${info?.orderPrice.toFixed(2)}</p>
-        </div>
+      <div className="flex-1 flex flex-col text-sm">
+        <p className=" text-slate-600 font-semibold">{info?.item?.title}</p>
+        <p className=" flex-1 text-slate-400">{info?.item?.description}</p>
+        <p className="">{info?.quantity}</p>
       </div>
+      <p className="text-base font-semibold">${info?.orderPrice.toFixed(2)}</p>
     </div>
   );
 };
@@ -80,7 +79,7 @@ export default function PurchaseModal({ isOpen, closeModel, content, tableOption
             </p>
           </div>
         </div>
-        <div className="py-2 border-b">
+        <div className="p-2 border rounded-md  mb-2">
           <div className="flex justify-between">
             <p className="">Order Details :</p>
             <div className="flex gap-3 items-center text-sm">
