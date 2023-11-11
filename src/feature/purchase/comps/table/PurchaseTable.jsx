@@ -251,7 +251,7 @@ export default function PurchaseTable() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-left" key={i} {...row.getRowProps()}>
+                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-left min-w-fit" key={i} {...row.getRowProps()}>
                   {row.cells.map((cell, i) => (
                     <td key={i} className="text-slate-500 p-2 min-w-fit" {...cell.getCellProps}>
                       {cell.render('Cell')}
