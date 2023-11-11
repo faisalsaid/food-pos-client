@@ -1,6 +1,10 @@
 // Customer table option
 export const tableOptions = [
   {
+    label: 'Take Away',
+    value: 'take_away',
+  },
+  {
     label: 'Tabel 1',
     value: 'table1',
   },

@@ -84,7 +84,7 @@ const tableColumns = [
     Cell: ({ cell: { value } }) => <>${parseFloat(value.toFixed(2))}</>,
   },
   {
-    Header: 'Payment Method',
+    Header: 'Payment',
     accessor: 'paymentMethod',
     Cell: ({ cell: { value } }) => <> {printOption(value, paymentMethodOtptions)}</>,
   },
