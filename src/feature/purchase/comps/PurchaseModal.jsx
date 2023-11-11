@@ -21,6 +21,10 @@ const customStyles = {
     maxHeight: '70%',
     zIndex: '100',
   },
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,0.8)',
+    zIndex: '50',
+  },
 };
 
 const ListOrder = ({ info }) => {
@@ -43,7 +47,7 @@ export default function PurchaseModal({ isOpen, closeModel, content, tableOption
   const { listOrder } = content;
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Purchase Modal" style={customStyles}>
+    <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Purchase Modal" style={customStyles} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false}>
       <div className="w-[500px] ">
         <div className="flex items-center gap-2  border-b pb-2 ">
           <p className="flex-1 font-semibold">Paymen Order #{content?.orderRef}</p>
