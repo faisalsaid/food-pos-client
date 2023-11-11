@@ -4,7 +4,7 @@ import MenusComp from './MenusComp';
 
 export default function Order() {
   return (
-    <div className=" flex items-stretch  max-h-screen relative ">
+    <div className="  h-[calc(100vh-60px)] flex  ">
       <MenusComp />
       <OrderSidebar />
     </div>
