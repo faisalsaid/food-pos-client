@@ -8,12 +8,12 @@ export default function Header() {
   const dispatch = useDispatch();
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   return (
-    <div className="p-3 flex bg-white drop-shadow-sm ">
+    <div className="p-3 flex bg-white drop-shadow-sm sticky top-0 z-20 ">
       <div className="flex-1 flex items-center gap-3">
         <button onClick={() => dispatch(setToggleMenu())} className="bg-orange-100 p-2 rounded-full text-orange-500">
           <AiOutlineMenu />
         </button>
-        <p>{new Date().toLocaleDateString('en-IN', options)}</p>
+        <p className="text-sm">{new Date().toLocaleDateString('en-IN', options)}</p>
       </div>
       <Avatar />
     </div>

@@ -1,25 +1,16 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userReducer from './user/user.slice.js';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import layoutSlice from './layout/layout.slice.js';
-
-const rootReducer = combineReducers({ user: userReducer, layout: layoutSlice });
-
-const persistConfig = {
-  key: 'root',
-  storage,
-  version: 1,
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+import { configureStore } from '@reduxjs/toolkit';
+import userReducer from '../feature/outh/config/user.slice.js';
+import layoutReducer from './layout/layout.slice.js';
+import menuReducer from '../feature/menu/config/menuSlice.js';
+import orderReducer from '../feature/order/config/orderSlice.js';
+import purchaseReducer from '../feature/purchase/config/purchaseSlice.js';
 
 export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+  reducer: {
+    user: userReducer,
+    layout: layoutReducer,
+    menu: menuReducer,
+    order: orderReducer,
+    purchase: purchaseReducer,
+  },
 });
-
-export const persistore = persistStore(store);
