@@ -11,6 +11,7 @@ import { printOption } from '../../../../config/helper';
 import { tableOptions, paymentMethodOtptions } from '../../../../config/staticState';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import TableRowHead from '../../../../components/share/TableRowHead';
 
 faker.seed(123);
 const purchaseDataFramework = () => {
@@ -63,6 +64,11 @@ const ActionComp = ({ data }) => {
 
 const tableColumns = [
   {
+    Header: () => <TableRowHead />,
+    accessor: 'rowHead',
+    Cell: ({ cell: { value } }) => <TableRowHead />,
+  },
+  {
     Header: 'Order',
     accessor: 'orderRef',
   },
@@ -76,7 +82,7 @@ const tableColumns = [
     Cell: ({ cell: { value } }) => <> {printOption(value, tableOptions)}</>,
   },
   {
-    Header: 'Total Item',
+    Header: 'Item',
     accessor: 'listOrder',
     Cell: ({ cell: { value } }) => <> {value.length > 0 ? value.map((item) => item.quantity).reduce((total, item) => total + item) : 0}</>,
   },
@@ -171,7 +177,7 @@ export default function PurchaseTable() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-center" key={i} {...row.getRowProps()}>
+                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-left" key={i} {...row.getRowProps()}>
                   {row.cells.map((cell, i) => (
                     <td key={i} className="text-slate-500 p-2 " {...cell.getCellProps}>
                       {cell.render('Cell')}
