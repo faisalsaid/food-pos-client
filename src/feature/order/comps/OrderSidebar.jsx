@@ -1,5 +1,6 @@
 import { BiReset, BiEdit, BiUser } from 'react-icons/bi';
 import { MdOutlineTableBar, MdOutlineSwipeUp } from 'react-icons/md';
+import { BiGridHorizontal } from 'react-icons/bi';
 
 // Import icons
 
@@ -86,9 +87,9 @@ export default function OrderSidebar() {
     <Formik enableReinitialize initialValues={initialValues} onReset={handleReset} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {(formik) => (
         <Form>
-          <div className="h-[calc(100vh-60px)] w-full sm:w-[310px]  bg-white p-3 border-t-2 sm:border-0 ">
-            <div className="flex sm:hidden text-center justify-center">
-              <MdOutlineSwipeUp />
+          <div className="h-[calc(100vh-60px)] w-full sm:w-[310px]  bg-white p-3  ">
+            <div className="flex sm:hidden text-center justify-center bg-slate-200 py-1 mb-2">
+              <BiGridHorizontal />
             </div>
             <div className="flex flex-col  gap-3 h-full ">
               <div className="flex items-center gap-2 text-sm">

@@ -106,7 +106,7 @@ export default function PaymentModal({ isOpen, closeModel, content }) {
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
       <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
-        <div className="w-[500px] ">
+        <div className="w-full sm:w-[500px] ">
           <div className="flex items-center gap-2  border-b pb-2 ">
             <p className="flex-1">Paymen Order #{orderRef}</p>
             <p className="text-slate-400 text-sm">Sunday, 01 Januari 2001</p>
