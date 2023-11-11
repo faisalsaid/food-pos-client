@@ -6,6 +6,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { BiReset, BiEdit, BiUser, BiEditAlt, BiWallet } from 'react-icons/bi';
 import { MdOutlineTableBar } from 'react-icons/md';
 import { render } from 'react-dom';
+import { printOption } from '../../../config/helper';
 
 Modal.setAppElement('#root');
 
@@ -38,9 +39,9 @@ const ListOrder = ({ info }) => {
   );
 };
 
-export default function PurchaseModal({ isOpen, closeModel, content }) {
+export default function PurchaseModal({ isOpen, closeModel, content, tableOptions, paymentMethodOtptions }) {
   const { listOrder } = content;
-  console.log(content);
+
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Purchase Modal" style={customStyles}>
       <div className="w-[500px] ">
@@ -72,13 +73,13 @@ export default function PurchaseModal({ isOpen, closeModel, content }) {
               <span>
                 <MdOutlineTableBar />
               </span>
-              <span>Table {content?.table}</span>
+              <span>{printOption(content?.table, tableOptions)}</span>
             </p>
             <p className="flex gap-2 items-center">
               <span>
                 <BiWallet />
               </span>
-              <span>{content?.paymentMethod}</span>
+              <span>{printOption(content?.paymentMethod, paymentMethodOtptions)}</span>
             </p>
           </div>
         </div>

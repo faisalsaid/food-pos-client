@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce, usePagination } from 'react-table';
-import { faker } from '@faker-js/faker';
-
-// Import Icons
 import { BiTrash, BiFile, BiEdit } from 'react-icons/bi';
 import PurchaseModal from '../PurchaseModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPurchase } from '../../config/purchaseSlice';
+// Import Icons END
+
+import React, { useEffect, useMemo, useState } from 'react';
+import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce, usePagination } from 'react-table';
+import { faker } from '@faker-js/faker';
+import { printOption } from '../../../../config/helper';
+import { tableOptions, paymentMethodOtptions } from '../../../../config/staticState';
 
 faker.seed(123);
 const purchaseDataFramework = () => {
@@ -52,37 +54,9 @@ const ActionComp = ({ data }) => {
           <BiEdit />
         </button>
       </div>
-      <PurchaseModal isOpen={isModalOpen} closeModel={closeModal} content={dataContent} />
+      <PurchaseModal isOpen={isModalOpen} closeModel={closeModal} content={dataContent} tableOptions={tableOptions} paymentMethodOtptions={paymentMethodOtptions} />
     </>
   );
-};
-
-const tables = [
-  {
-    label: 'Tabel 1',
-    value: 'table1',
-  },
-  {
-    label: 'Tabel 2',
-    value: 'table1',
-  },
-  {
-    label: 'Tabel 3',
-    value: 'table1',
-  },
-  {
-    label: 'VIP 1',
-    value: 'vip1',
-  },
-  {
-    label: 'VIP 2',
-    value: 'vip2',
-  },
-];
-
-const printTable = (theTable, tables) => {
-  const foundTable = tables.find((table) => table.value === theTable);
-  return foundTable ? foundTable.label : 'Take Away';
 };
 
 const tableColumns = [
@@ -97,7 +71,7 @@ const tableColumns = [
   {
     Header: 'Table',
     accessor: 'table',
-    Cell: ({ cell: { value } }) => <> {printTable(value, tables)}</>,
+    Cell: ({ cell: { value } }) => <> {printOption(value, tableOptions)}</>,
   },
   {
     Header: 'Total Item',
@@ -112,6 +86,7 @@ const tableColumns = [
   {
     Header: 'Payment Method',
     accessor: 'paymentMethod',
+    Cell: ({ cell: { value } }) => <> {printOption(value, paymentMethodOtptions)}</>,
   },
   {
     Header: 'Action',
