@@ -28,6 +28,7 @@ const customStyles = {
 };
 
 const ListOrder = ({ info }) => {
+  // console.log(info);
   return (
     <div className="flex gap-2">
       <img className="w-14 h-14 object-cover rounded-xl" src={info?.item?.image?.url} alt="menu image" />
