@@ -13,11 +13,11 @@ export const tableOptions = [
   },
   {
     label: 'Tabel 2',
-    value: 'table1',
+    value: 'table2',
   },
   {
     label: 'Tabel 3',
-    value: 'table1',
+    value: 'table3',
   },
   {
     label: 'VIP 1',
