@@ -47,7 +47,7 @@ export default function PurchaseModal({ isOpen, closeModel, content, tableOption
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Purchase Modal" style={customStyles} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false}>
-      <div className="w-[500px] ">
+      <div className="w-full sm:w-[500px] ">
         <div className="flex items-center gap-2  border-b pb-2 ">
           <p className=" font-semibold">Paymen Order #{content?.orderRef}</p>
           <p className="text-slate-400 text-sm flex-1">{new Date(content?.createdAt).toDateString()}</p>

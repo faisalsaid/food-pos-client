@@ -24,7 +24,7 @@ export default function Purchase() {
   return (
     <div className="p-4 flex flex-col gap-4">
       <p className="font-semibold text-xl">Purchase List</p>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         {dataCardGrafik.map((item, i) => (
           <CardGrafik key={i} data={item} />
         ))}

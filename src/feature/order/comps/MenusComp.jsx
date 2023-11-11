@@ -84,8 +84,8 @@ export default function MenusComp() {
   };
 
   return (
-    <div className="flex-1 p-6 max-h-screen overflow-y-scroll">
-      <div className=" flex justify-between">
+    <div className="flex-1 p-3 sm:p-6 h-[80%] md:h-full overflow-y-scroll">
+      <div className=" flex flex-col lg:flex-row gap-2 justify-between">
         <div className="">
           <h3 className="text-2xl font-semibold text-slate-700">Welcome, {curentUser.name} </h3>
           <p className="text-sm text-slate-400">Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
@@ -98,17 +98,17 @@ export default function MenusComp() {
             </div>
             <button className="bg-orange-400 hover:bg-orange-500 py-2 px-3 rounded-lg text-white">Search</button>
           </div>
-          <div className="flex justify-center items-center bg-orange-400 w-10 h-10 rounded-lg text-white text-2xl">
+          {/* <div className="flex justify-center items-center bg-orange-400 w-10 h-10 rounded-lg text-white text-2xl">
             <IoNotifications />
-          </div>
+          </div> */}
         </div>
       </div>
-      <div className="my-4 flex gap-3">
+      <div className="my-4 overflow-x-scroll pb-1 flex gap-3">
         {listTag.map((list, i) => (
           <TagMenu key={i} tag={list} tagActive={tagActive} setTag={filterDisplay} />
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 ">
         {menuDisplay.map((menu, i) => (
           <MenuCard key={i} menuInfo={menu} />
         ))}

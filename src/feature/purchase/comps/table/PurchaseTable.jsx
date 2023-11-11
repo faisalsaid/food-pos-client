@@ -106,7 +106,7 @@ const tableColumns = [
     ),
     accessor: 'table',
     Cell: ({ cell: { value } }) => (
-      <div className={`${value == 'vip1' || value == 'vip2' ? 'bg-orange-200 ' : 'bg-teal-100'} px-2 rounded-md`}> {printOption(value, tableOptions)}</div>
+      <div className={`${value == 'vip1' || value == 'vip2' ? 'bg-orange-200 ' : 'bg-teal-100'} px-2 rounded-md w-24 min-w-fit `}> {printOption(value, tableOptions)}</div>
     ),
   },
   {
@@ -122,6 +122,7 @@ const tableColumns = [
     Cell: ({ cell: { value } }) => <> {value.length > 0 ? value.map((item) => item.quantity).reduce((total, item) => total + item) : 0}</>,
   },
   {
+    // price
     Header: () => (
       <div className="flex gap-1 items-center">
         <span>
@@ -131,9 +132,10 @@ const tableColumns = [
       </div>
     ),
     accessor: 'finalPrice',
-    Cell: ({ cell: { value } }) => <p className="text-right">${parseFloat(value.toFixed(2))}</p>,
+    Cell: ({ cell: { value } }) => <p className="text-right">${value.toFixed(2)}</p>,
   },
   {
+    // pyament
     Header: () => (
       <div className="flex gap-1 items-center">
         <span>
@@ -144,14 +146,15 @@ const tableColumns = [
     ),
     accessor: 'paymentMethod',
     Cell: ({ cell: { value } }) => (
-      <div className="flex gap-2 items-center">
-        <span>{value === 'cash' ? <BsCashStack /> : <BsCreditCard2Back />}</span> <span>{printOption(value, paymentMethodOtptions)}</span>
+      <div className="flex gap-2 items-center min-h-fit min-w-[120px]">
+        <span>{value === 'cash' ? <BsCashStack /> : <BsCreditCard2Back />}</span> <span className="min-w-fit">{printOption(value, paymentMethodOtptions)}</span>
       </div>
     ),
   },
   {
+    // date
     Header: () => (
-      <div className="flex gap-1 items-center ">
+      <div className="flex gap-1 items-center min-w-[130px] ">
         <span>
           <BiCalendar />
         </span>
@@ -200,9 +203,9 @@ export default function PurchaseTable() {
   return (
     <div>
       {/* filter Bar START */}
-      <div className="flex justify-between mb-2 bg-slate-100 rounded-lg mt-3 p-2">
-        <div className="flex gap-2">
-          <div className="flex gap-1 items-center max-w-[120px] bg-white border text-slate-500 py-1 px-2 rounded-md texs">
+      <div className="flex flex-col sm:flex-row gap-2 justify-between mb-2 bg-slate-100 rounded-lg mt-3 p-2">
+        <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex  gap-1 items-center sm:max-w-[120px] bg-white border text-slate-500 py-1 px-2 rounded-md texs">
             <span>
               <BiCalendar />
             </span>
@@ -219,11 +222,11 @@ export default function PurchaseTable() {
           <button className="py-1 px-2 bg-orange-400 hover:bg-orange-500 text-white rounded-lg">Filter</button>
         </div>
         <div className="flex gap-2">
-          <div className="flex gap-1 text-slate-500 items-center py-1 px-2 border rounded-md bg-white">
+          <div className="flex flex-1 gap-1 text-slate-500 items-center py-1 px-2 border rounded-md bg-white">
             <span>
               <BiSearchAlt />
             </span>
-            <input type="text" id="searchGlobal" name="searchGlobal" placeholder="Search payment" className="outline-none bg-transparent " />
+            <input type="text" id="searchGlobal" name="searchGlobal" placeholder="Search payment" className="outline-none bg-transparent  " />
           </div>
           <button className="py-1 px-2 bg-orange-400 hover:bg-orange-500 text-white rounded-lg">Search</button>
         </div>
@@ -231,8 +234,8 @@ export default function PurchaseTable() {
       {/* filter Bar END */}
 
       {/* Table START */}
-      <div>
-        <table className="table-auto w-full" {...getTableProps()}>
+      <div className="overflow-x-scroll">
+        <table className=" table-auto w-full" {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
               <tr key={i} {...headerGroup.getHeaderGroupProps()}>
@@ -248,9 +251,9 @@ export default function PurchaseTable() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-left" key={i} {...row.getRowProps()}>
+                <tr className="bg-white hover:bg-green-50 hover:border-b-green-400 border-b text-left min-w-fit" key={i} {...row.getRowProps()}>
                   {row.cells.map((cell, i) => (
-                    <td key={i} className="text-slate-500 p-2 " {...cell.getCellProps}>
+                    <td key={i} className="text-slate-500 p-2 min-w-fit" {...cell.getCellProps}>
                       {cell.render('Cell')}
                     </td>
                   ))}
@@ -259,27 +262,27 @@ export default function PurchaseTable() {
             })}
           </tbody>
         </table>
-        <div className="p-2 rounded-b-lg bg-slate-100 flex justify-between">
-          <button
-            className="bg-green-300 hover:bg-green-400 py-2 text-xs rounded-md px-2 text-white disabled:bg-slate-100 disabled:text-slate-400 disabled:border"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            Prev
-          </button>
-          <div>
-            <p>
-              Page {pageIndex + 1} of {pageOptions.length}
-            </p>
-          </div>
-          <button
-            className="bg-green-300 hover:bg-green-400 py-2 text-xs rounded-md px-2 text-white disabled:bg-slate-100 disabled:text-slate-400 disabled:border"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          >
-            Next
-          </button>
+      </div>
+      <div className="p-2 rounded-b-lg bg-slate-100 flex justify-between">
+        <button
+          className="bg-green-300 hover:bg-green-400 py-2 text-xs rounded-md px-2 text-white disabled:bg-slate-100 disabled:text-slate-400 disabled:border"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          Prev
+        </button>
+        <div>
+          <p>
+            Page {pageIndex + 1} of {pageOptions.length}
+          </p>
         </div>
+        <button
+          className="bg-green-300 hover:bg-green-400 py-2 text-xs rounded-md px-2 text-white disabled:bg-slate-100 disabled:text-slate-400 disabled:border"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          Next
+        </button>
       </div>
       {/* Table END */}
     </div>
