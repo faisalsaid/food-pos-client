@@ -1,3 +1,5 @@
+import { BsCashStack, BsCreditCard2Back } from 'react-icons/bs';
+
 // Customer table option
 export const tableOptions = [
   {

@@ -3,6 +3,7 @@ import { RiCoupon3Line } from 'react-icons/ri';
 import { MdOutlineTableBar, MdOutlinePayments } from 'react-icons/md';
 import { IoFastFoodOutline } from 'react-icons/io5';
 import { LuSettings } from 'react-icons/lu';
+import { BsCashStack, BsCreditCard2Back } from 'react-icons/bs';
 // Import Icons END
 
 import PurchaseModal from '../PurchaseModal';
@@ -105,7 +106,7 @@ const tableColumns = [
     ),
     accessor: 'table',
     Cell: ({ cell: { value } }) => (
-      <div className={`${value == 'vip1' || (value == 'vip2' ? 'bg-orange-200 ' : 'bg-teal-100')} px-2 rounded-md`}> {printOption(value, tableOptions)}</div>
+      <div className={`${value == 'vip1' || value == 'vip2' ? 'bg-orange-200 ' : 'bg-teal-100'} px-2 rounded-md`}> {printOption(value, tableOptions)}</div>
     ),
   },
   {
@@ -142,7 +143,11 @@ const tableColumns = [
       </div>
     ),
     accessor: 'paymentMethod',
-    Cell: ({ cell: { value } }) => <> {printOption(value, paymentMethodOtptions)}</>,
+    Cell: ({ cell: { value } }) => (
+      <div className="flex gap-2 items-center">
+        <span>{value === 'cash' ? <BsCashStack /> : <BsCreditCard2Back />}</span> <span>{printOption(value, paymentMethodOtptions)}</span>
+      </div>
+    ),
   },
   {
     Header: () => (
@@ -221,7 +226,7 @@ export default function PurchaseTable() {
             {headerGroups.map((headerGroup, i) => (
               <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column, i) => (
-                  <th key={i} className="bg-green-600  text-white font-normal p-2 first:rounded-tl-xl last:rounded-tr-xl text-left" {...column.getHeaderProps()}>
+                  <th key={i} className="bg-green-600  text-white font-semibold p-2 first:rounded-tl-xl last:rounded-tr-xl text-left" {...column.getHeaderProps()}>
                     {column.render('Header')}
                   </th>
                 ))}
