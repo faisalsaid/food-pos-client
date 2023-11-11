@@ -23,12 +23,12 @@ export default function SideMenu() {
     <div className={`flex flex-col overflow-hidden bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}>
       <Link className="min-w-fit" to={'/dashboard'}>
         {toggleSideMenu ? (
-          <div className="w-full flex gap-2 items-center py-2 content-center min-w-fit ">
+          <div className="w-full flex gap-2 items-center py-2 content-center min-w-fit h-9 ">
             <IoFastFood className="text-xl text-orange-600 min-w-fit" /> <span className="font-bold text-base text-green-700 min-w-fit">FOOD</span>
           </div>
         ) : (
-          <div className=" text-center flex p-2 items-center w-13 min-w-fit ">
-            <IoFastFood className="text-xl text-orange-600 text-center min-w-fit" />
+          <div className=" text-center flex p-2 items-center w-13 min-w-fit h-9 bg-green-500 rounded-lg text-white ">
+            <IoFastFood className="text-xl  text-center min-w-fit" />
           </div>
         )}
       </Link>
