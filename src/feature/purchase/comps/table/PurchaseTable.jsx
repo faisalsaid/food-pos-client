@@ -1,4 +1,4 @@
-import { BiTrash, BiFile, BiEdit } from 'react-icons/bi';
+import { BiTrash, BiFile, BiEdit, BiSearchAlt, BiCalendar } from 'react-icons/bi';
 import PurchaseModal from '../PurchaseModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPurchase } from '../../config/purchaseSlice';
@@ -9,6 +9,8 @@ import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce, use
 import { faker } from '@faker-js/faker';
 import { printOption } from '../../../../config/helper';
 import { tableOptions, paymentMethodOtptions } from '../../../../config/staticState';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 faker.seed(123);
 const purchaseDataFramework = () => {
@@ -100,6 +102,7 @@ export default function PurchaseTable() {
   const allOrder = useSelector((state) => state.purchase.listPurchase);
   const [data, setData] = useState([]);
   const columns = useMemo(() => tableColumns, []);
+  const [startDate, setStartDate] = React.useState(new Date());
 
   console.log(data);
 
@@ -119,7 +122,38 @@ export default function PurchaseTable() {
   const { globalFilter, pageIndex } = state;
   return (
     <div>
-      <div>serach filter bar</div>
+      {/* filter Bar START */}
+      <div className="flex justify-between mb-2">
+        <div className="flex gap-2">
+          <div className="flex gap-1 items-center max-w-[120px] bg-white border text-slate-500 py-1 px-2 rounded-md texs">
+            <span>
+              <BiCalendar />
+            </span>
+            <DatePicker className="bg-transparent outline-none w-full" selected={startDate} onChange={(date) => setStartDate(date)} />
+          </div>
+          <div>
+            <div className="flex gap-1 text-slate-500 items-center py-1 px-2 border rounded-md bg-white">
+              <span>
+                <BiSearchAlt />
+              </span>
+              <input type="text" id="customerNameFilter" name="customerNameFilter" placeholder="Customer name" className="outline-none bg-transparent " />
+            </div>
+          </div>
+          <button className="py-1 px-2 bg-orange-400 hover:bg-orange-500 text-white rounded-lg">Filter</button>
+        </div>
+        <div className="flex gap-2">
+          <div className="flex gap-1 text-slate-500 items-center py-1 px-2 border rounded-md bg-white">
+            <span>
+              <BiSearchAlt />
+            </span>
+            <input type="text" id="searchGlobal" name="searchGlobal" placeholder="Search payment" className="outline-none bg-transparent " />
+          </div>
+          <button className="py-1 px-2 bg-orange-400 hover:bg-orange-500 text-white rounded-lg">Search</button>
+        </div>
+      </div>
+      {/* filter Bar END */}
+
+      {/* Table START */}
       <div>
         <table className="table-auto w-full" {...getTableProps()}>
           <thead>
@@ -170,6 +204,7 @@ export default function PurchaseTable() {
           </button>
         </div>
       </div>
+      {/* Table END */}
     </div>
   );
 }
