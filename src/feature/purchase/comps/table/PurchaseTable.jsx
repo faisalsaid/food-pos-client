@@ -1,9 +1,13 @@
-import { BiTrash, BiFile, BiEdit, BiSearchAlt, BiCalendar } from 'react-icons/bi';
+import { BiTrash, BiFile, BiEdit, BiSearchAlt, BiCalendar, BiUser, BiDollarCircle } from 'react-icons/bi';
+import { RiCoupon3Line } from 'react-icons/ri';
+import { MdOutlineTableBar, MdOutlinePayments } from 'react-icons/md';
+import { IoFastFoodOutline } from 'react-icons/io5';
+import { LuSettings } from 'react-icons/lu';
+// Import Icons END
+
 import PurchaseModal from '../PurchaseModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPurchase } from '../../config/purchaseSlice';
-// Import Icons END
-
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTable, useSortBy, useGlobalFilter, useFilters, useAsyncDebounce, usePagination } from 'react-table';
 import { faker } from '@faker-js/faker';
@@ -69,35 +73,86 @@ const tableColumns = [
     Cell: ({ cell: { value } }) => <TableRowHead />,
   },
   {
-    Header: 'Order',
+    Header: () => (
+      <div className="flex gap-1 items-center">
+        <span>
+          <RiCoupon3Line />
+        </span>
+        <span>Order</span>
+      </div>
+    ),
     accessor: 'orderRef',
   },
   {
-    Header: 'Customer',
+    Header: () => (
+      <div className="flex gap-1 items-center">
+        <span>
+          <BiUser />
+        </span>
+        <span>Customer</span>
+      </div>
+    ),
     accessor: 'customerName',
   },
   {
-    Header: 'Table',
+    Header: () => (
+      <div className="flex gap-1 items-center">
+        <span>
+          <MdOutlineTableBar />
+        </span>
+        <span>Table</span>
+      </div>
+    ),
     accessor: 'table',
-    Cell: ({ cell: { value } }) => <> {printOption(value, tableOptions)}</>,
+    Cell: ({ cell: { value } }) => (
+      <div className={`${value == 'vip1' || (value == 'vip2' ? 'bg-orange-200 ' : 'bg-teal-100')} px-2 rounded-md`}> {printOption(value, tableOptions)}</div>
+    ),
   },
   {
-    Header: 'Item',
+    Header: () => (
+      <div className="flex gap-1 items-center">
+        <span>
+          <IoFastFoodOutline />
+        </span>
+        <span>Item</span>
+      </div>
+    ),
     accessor: 'listOrder',
     Cell: ({ cell: { value } }) => <> {value.length > 0 ? value.map((item) => item.quantity).reduce((total, item) => total + item) : 0}</>,
   },
   {
-    Header: 'Price',
+    Header: () => (
+      <div className="flex gap-1 items-center">
+        <span>
+          <BiDollarCircle />
+        </span>
+        <span>Price</span>
+      </div>
+    ),
     accessor: 'finalPrice',
     Cell: ({ cell: { value } }) => <>${parseFloat(value.toFixed(2))}</>,
   },
   {
-    Header: 'Payment',
+    Header: () => (
+      <div className="flex gap-1 items-center">
+        <span>
+          <MdOutlinePayments />
+        </span>
+        <span>Payment</span>
+      </div>
+    ),
     accessor: 'paymentMethod',
     Cell: ({ cell: { value } }) => <> {printOption(value, paymentMethodOtptions)}</>,
   },
   {
-    Header: 'Action',
+    Header: () => (
+      <div className="flex gap-1 items-center justify-center">
+        <span>
+          <LuSettings />
+        </span>
+        <span>Action</span>
+      </div>
+    ),
     accessor: 'action',
     Cell: ({ row }) => <ActionComp data={row} />,
   },
@@ -166,7 +221,7 @@ export default function PurchaseTable() {
             {headerGroups.map((headerGroup, i) => (
               <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column, i) => (
-                  <th key={i} className="bg-green-200 font-normal p-2 first:rounded-tl-xl last:rounded-tr-xl" {...column.getHeaderProps()}>
+                  <th key={i} className="bg-green-600  text-white font-normal p-2 first:rounded-tl-xl last:rounded-tr-xl text-left" {...column.getHeaderProps()}>
                     {column.render('Header')}
                   </th>
                 ))}
