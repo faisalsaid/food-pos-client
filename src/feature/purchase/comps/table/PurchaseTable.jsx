@@ -131,7 +131,7 @@ const tableColumns = [
       </div>
     ),
     accessor: 'finalPrice',
-    Cell: ({ cell: { value } }) => <>${parseFloat(value.toFixed(2))}</>,
+    Cell: ({ cell: { value } }) => <p className="text-right">${parseFloat(value.toFixed(2))}</p>,
   },
   {
     Header: () => (
@@ -148,6 +148,19 @@ const tableColumns = [
         <span>{value === 'cash' ? <BsCashStack /> : <BsCreditCard2Back />}</span> <span>{printOption(value, paymentMethodOtptions)}</span>
       </div>
     ),
+  },
+  {
+    Header: () => (
+      <div className="flex gap-1 items-center ">
+        <span>
+          <BiCalendar />
+        </span>
+        <span>Date</span>
+      </div>
+    ),
+
+    accessor: 'createdAt',
+    Cell: ({ cell: { value } }) => new Date(value).toDateString(),
   },
   {
     Header: () => (
@@ -170,8 +183,6 @@ export default function PurchaseTable() {
   const columns = useMemo(() => tableColumns, []);
   const [startDate, setStartDate] = React.useState(new Date());
 
-  console.log(data);
-
   useEffect(() => {
     dispatch(getAllPurchase());
   }, []);
@@ -189,7 +200,7 @@ export default function PurchaseTable() {
   return (
     <div>
       {/* filter Bar START */}
-      <div className="flex justify-between mb-2">
+      <div className="flex justify-between mb-2 bg-slate-100 rounded-lg mt-3 p-2">
         <div className="flex gap-2">
           <div className="flex gap-1 items-center max-w-[120px] bg-white border text-slate-500 py-1 px-2 rounded-md texs">
             <span>
