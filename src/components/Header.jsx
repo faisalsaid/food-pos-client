@@ -28,7 +28,7 @@ export default function Header() {
         <button onClick={() => toggleSidebar()} className="bg-orange-100 p-2 rounded-full text-orange-500">
           <AiOutlineMenu />
         </button>
-        <p className="text-sm">{new Date().toLocaleDateString('en-IN', options)}</p>
+        <p className="hidden sm:block text-sm">{new Date().toLocaleDateString('en-IN', options)}</p>
       </div>
       <Avatar />
     </div>

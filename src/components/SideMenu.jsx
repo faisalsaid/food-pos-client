@@ -20,7 +20,9 @@ export default function SideMenu() {
   };
 
   return (
-    <div className={`flex flex-col overflow-hidden bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}>
+    <div
+      className={`${toggleSideMenu && 'hidden'}  md:flex flex-col overflow-hidden bg-white p-3  drop-shadow-sm ${toggleSideMenu ? 'w-40' : 'w-[60px]'} transition-all duration-500`}
+    >
       <Link className="min-w-fit" to={'/dashboard'}>
         {toggleSideMenu ? (
           <div className="w-full ml-3 flex gap-2 items-center py-2 content-center min-w-fit h-9 ">
