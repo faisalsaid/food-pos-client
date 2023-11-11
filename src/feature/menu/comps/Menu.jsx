@@ -99,16 +99,16 @@ export default function Menu() {
   return (
     <>
       <div className="p-4">
-        <div className="flex gap-4 items-center">
+        <div className="flex flex-col gap-4 ">
           <h5 className="font-semibold text-xl flex-1">Menu</h5>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-2 bg-white border rounded-lg px-2 py-1">
               <BiSearch className="text-slate-400" />
-              <input className="outline-none bg-transparent" type="text" placeholder="Search menu..." />
+              <input className="outline-none bg-transparent " type="text" placeholder="Search menu..." />
             </div>
             <button className="bg-orange-400 text-white py-1 px-2 rounded-lg hover:bg-orange-500 text-base">Search</button>
           </div>
-          <button onClick={handleAddMenu} className="flex items-center gap-2 bg-orange-400 rounded-lg py-1 px-2 text-white hover:bg-orange-500">
+          <button onClick={handleAddMenu} className="flex items-center justify-center gap-2 bg-orange-400 rounded-lg py-1 px-2 text-white hover:bg-orange-500">
             <BiAddToQueue /> <span>Add new menu</span>
           </button>
         </div>

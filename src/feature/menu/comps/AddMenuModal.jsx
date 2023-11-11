@@ -165,7 +165,7 @@ export default function AddMenuModal({ isOpen, closeModel, content, isEdit }) {
 
   return (
     <Modal isOpen={isOpen} onRequestClose={closeModel} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false} contentLabel="Payment Modal" style={customStyles}>
-      <div className="w-[500px] ">
+      <div className=" md:w-[500px] ">
         <div className="flex items-center gap-2  border-b pb-2 ">
           <p className="text-teal-500 flex-1 font-semibold">{isEdit ? 'Edit Menu' : 'Add New Menu'}</p>
           <button onClick={handleCancelSubmit} className="bg-red-600 p-1 text-white rounded-md">
