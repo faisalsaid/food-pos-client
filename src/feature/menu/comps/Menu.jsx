@@ -99,20 +99,20 @@ export default function Menu() {
   return (
     <>
       <div className="p-4">
-        <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col sm:flex-row gap-4 ">
           <h5 className="font-semibold text-xl flex-1">Menu</h5>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2 bg-white border rounded-lg px-2 py-1">
+            <div className="flex flex-1 items-center gap-2 bg-white border rounded-lg px-2 py-1">
               <BiSearch className="text-slate-400" />
-              <input className="outline-none bg-transparent " type="text" placeholder="Search menu..." />
+              <input className=" w-full outline-none bg-transparent  " type="text" placeholder="Search menu..." />
             </div>
-            <button className="bg-orange-400 text-white py-1 px-2 rounded-lg hover:bg-orange-500 text-base">Search</button>
+            <button className=" hidden sm:block bg-orange-400 text-white py-1 px-2 rounded-lg hover:bg-orange-500 text-base">Search</button>
           </div>
           <button onClick={handleAddMenu} className="flex items-center justify-center gap-2 bg-orange-400 rounded-lg py-1 px-2 text-white hover:bg-orange-500">
             <BiAddToQueue /> <span>Add new menu</span>
           </button>
         </div>
-        <div className="my-4 flex gap-3">
+        <div className="my-4 flex gap-3 overflow-x-scroll pb-2">
           {listTag.map((list, i) => (
             <TagMenu key={i} tag={list} tagActive={tagActive} setTag={filterDisplay} />
           ))}

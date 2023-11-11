@@ -23,7 +23,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    maxHeight: '70%',
+    maxHeight: '80%',
     zIndex: '50',
   },
   overlay: {
