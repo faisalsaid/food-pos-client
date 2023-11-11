@@ -1,4 +1,5 @@
 import { BsCashStack, BsCreditCard2Back } from 'react-icons/bs';
+import storage from 'redux-persist/lib/storage';
 
 // Customer table option
 export const tableOptions = [

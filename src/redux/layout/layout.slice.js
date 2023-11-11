@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  data: true,
+  data: localStorage.getItem('sidebarOpen'),
 };
 
 const layoutSlice = createSlice({
@@ -9,7 +9,7 @@ const layoutSlice = createSlice({
   initialState,
   reducers: {
     setToggleMenu: (state, action) => {
-      state.data = !state.data;
+      state.data = action.payload;
     },
   },
 });
