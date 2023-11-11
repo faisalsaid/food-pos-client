@@ -36,7 +36,7 @@ const ListOrder = ({ info }) => {
         <p className="text-sm text-slate-600 font-semibold">{info?.item?.title}</p>
         <p className="text-xs flex-1 text-slate-400">{info?.item?.description}</p>
         <div className="flex justify-between items-center text-xs">
-          <p>{info?.quantity}</p> <p className="font-bold">${info?.orderPrice.toFixed(2)}</p>
+          <p>{info?.quantity}</p> <p className="font-semibold">${info?.orderPrice.toFixed(2)}</p>
         </div>
       </div>
     </div>
@@ -50,23 +50,16 @@ export default function PurchaseModal({ isOpen, closeModel, content, tableOption
     <Modal isOpen={isOpen} onRequestClose={closeModel} contentLabel="Purchase Modal" style={customStyles} shouldCloseOnEsc={false} shouldCloseOnOverlayClick={false}>
       <div className="w-[500px] ">
         <div className="flex items-center gap-2  border-b pb-2 ">
-          <p className="flex-1 font-semibold">Paymen Order #{content?.orderRef}</p>
-          <p className="text-slate-400 text-sm">Sunday, 01 Januari 2001</p>
+          <p className=" font-semibold">Paymen Order #{content?.orderRef}</p>
+          <p className="text-slate-400 text-sm flex-1">{new Date(content?.createdAt).toDateString()}</p>
           <button onClick={closeModel} className="bg-red-600 p-1 text-white rounded-md">
             <AiOutlineClose />
           </button>
         </div>
-        <div className="py-2 border-b">
-          <p className="">Order Details</p>
-          <div className="py-2 flex flex-col gap-2">
-            {listOrder?.map((data, i) => (
-              <ListOrder key={i} info={data} />
-            ))}
-          </div>
-        </div>
+
         <div className="py-2">
-          <p className="text-sm text-slate-400 mb-1">Customer Information :</p>
-          <div>
+          <p className=" text-slate-600 mb-1">Customer Information :</p>
+          <div className="flex gap-6 flex-wrap text-lg">
             <p className="flex gap-2 items-center">
               <span>
                 <BiUser />
@@ -85,6 +78,20 @@ export default function PurchaseModal({ isOpen, closeModel, content, tableOption
               </span>
               <span>{printOption(content?.paymentMethod, paymentMethodOtptions)}</span>
             </p>
+          </div>
+        </div>
+        <div className="py-2 border-b">
+          <div className="flex justify-between">
+            <p className="">Order Details :</p>
+            <div className="flex gap-3 items-center text-sm">
+              <p className="bg-green-100 px-2 rounded-md text-green-700">{listOrder?.length} Menu</p>
+              <p className="bg-green-100 px-2 rounded-md text-green-700">{listOrder?.map((item) => item.quantity).reduce((total, item) => total + item)} Quantity</p>
+            </div>
+          </div>
+          <div className="py-2 flex flex-col gap-2">
+            {listOrder?.map((data, i) => (
+              <ListOrder key={i} info={data} />
+            ))}
           </div>
         </div>
         <div>
@@ -111,7 +118,7 @@ export default function PurchaseModal({ isOpen, closeModel, content, tableOption
           </div>
         </div>
         <div className="py-2 flex justify-end">
-          <button className="bg-red-500 py-1 text-white px-2 rounded-lg textwh" onClick={closeModel}>
+          <button className="bg-red-500 py-1 text-white px-2 rounded-lg " onClick={closeModel}>
             Close
           </button>
         </div>
