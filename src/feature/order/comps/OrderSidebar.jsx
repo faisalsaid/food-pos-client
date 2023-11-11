@@ -1,5 +1,6 @@
 import { BiReset, BiEdit, BiUser } from 'react-icons/bi';
-import { MdOutlineTableBar } from 'react-icons/md';
+import { MdOutlineTableBar, MdOutlineSwipeUp } from 'react-icons/md';
+
 // Import icons
 
 import React, { useEffect, useState } from 'react';
@@ -85,8 +86,11 @@ export default function OrderSidebar() {
     <Formik enableReinitialize initialValues={initialValues} onReset={handleReset} validationSchema={validationSchema} onSubmit={handleSubmit}>
       {(formik) => (
         <Form>
-          <div className="h-[calc(100vh-60px)] bg-white p-3 ">
-            <div className="flex flex-col w-80 gap-3 h-full ">
+          <div className="h-[calc(100vh-60px)] w-full sm:w-[310px]  bg-white p-3 border-t-2 sm:border-0 ">
+            <div className="flex sm:hidden text-center justify-center">
+              <MdOutlineSwipeUp />
+            </div>
+            <div className="flex flex-col  gap-3 h-full ">
               <div className="flex items-center gap-2 text-sm">
                 <p className="flex-1 font-semibold text-lg">Order #645</p>
                 <button type="reset" className=" flex items-center gap-2 justify-center bg-red-500 hover:bg-red-600 text-white py-1 rounded-lg px-2">
@@ -122,14 +126,13 @@ export default function OrderSidebar() {
               </div>
               <div className="flex-1 overflow-hidden min-h-[80px] flex flex-col border rounded-lg p-2">
                 <p className="font-semibold mb-1">Order Details :</p>
-
-                <div className="overflow-y-scroll   ">
+                <div className="overflow-y-scroll">
                   {listOrder.map((data, i) => (
                     <ListOrderCard index={i} key={i} orderInfo={data} />
                   ))}
                 </div>
               </div>
-              <div className="">
+              <div className="py-3">
                 <div className="flex bg-green-50 py-1 px-2 rounded-lg text-xs gap-2 mb-2">
                   <span className="flex-1 font-semibold">Add</span>
                   <button type="button" className="text-slate-500">
