@@ -10,49 +10,27 @@ import { resetListOder } from '../config/orderSlice';
 import { Field, Formik, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import ErrorCompsFormik from '../../../components/share/ErrorCompsFormik';
-
-const initialValues = {
-  customerName: '',
-  table: '',
-};
+import { tableOptions } from '../../../config/staticState';
 
 const validationSchema = Yup.object({
   customerName: Yup.string().required('Please type customer name').min(3, 'Min 3 character'),
   table: Yup.string().required('Please select table'),
 });
 
-const tables = [
-  {
-    label: 'Tabel 1',
-    value: 'table1',
-  },
-  {
-    label: 'Tabel 2',
-    value: 'table1',
-  },
-  {
-    label: 'Tabel 3',
-    value: 'table1',
-  },
-  {
-    label: 'VIP 1',
-    value: 'vip1',
-  },
-  {
-    label: 'VIP 2',
-    value: 'vip2',
-  },
-];
-
 export default function OrderSidebar() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const { listOrder } = useSelector((state) => state.order);
+  const { listPurchase } = useSelector((state) => state.purchase);
   const [subtotal, setSubtotal] = useState(0);
   const [discountSales, setDiscountSales] = useState(0);
   const [saleTax, setSaleTax] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
   const [prePayload, setPrePayload] = useState();
+  const [initialValues, setInitalValues] = useState({
+    customerName: '',
+    table: '',
+  });
 
   useEffect(() => {
     // calculate subtotal
@@ -76,6 +54,16 @@ export default function OrderSidebar() {
     setFinalPrice(parseFloat(calcFinalPrice.toFixed(2)));
   }, [listOrder]);
 
+  useEffect(() => {
+    if (listPurchase) {
+      dispatch(resetListOder());
+      setInitalValues({
+        customerName: '',
+        table: '',
+      });
+    }
+  }, [listPurchase]);
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -90,7 +78,7 @@ export default function OrderSidebar() {
     openModal();
   };
   const handleReset = (value, props) => {
-    props.setSubmitting(false);
+    props?.setSubmitting(false);
     dispatch(resetListOder());
   };
   return (
@@ -120,7 +108,7 @@ export default function OrderSidebar() {
                     <MdOutlineTableBar />
                     <Field as="select" className="outline-none bg-transparent w-full" name="table" placeholder="Table">
                       <option value="">Select Table</option>
-                      {tables.map((table, i) => (
+                      {tableOptions.map((table, i) => (
                         <option key={i} value={table.value}>
                           {table.label}
                         </option>
