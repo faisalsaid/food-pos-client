@@ -19,5 +19,9 @@ export const data = {
 };
 
 export default function DoughnutChart() {
-  return <Doughnut data={data} />;
+  const options = {
+    // responsive: true,
+    maintainAspectRatio: false,
+  };
+  return <Doughnut options={options} data={data} />;
 }

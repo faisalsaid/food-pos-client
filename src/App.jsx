@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import { Dashboard } from './feature/Dashboard';
+import { Dashboard } from './feature/dashboard/comps/Dashboard';
 import { Signin } from './feature/outh/comps/Signin';
 import { Signup } from './feature/outh/comps/Signup';
 import Profile from './feature/profile/Profile';

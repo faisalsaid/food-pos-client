@@ -18,13 +18,13 @@ export default function MainChart() {
     datasets: [
       {
         fill: true,
-        label: 'Order',
+        label: 'Menu',
         data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
         backgroundColor: 'rgba(129, 226, 162, 0.5)',
       },
       {
         fill: true,
-        label: 'Deliver',
+        label: 'Item',
         data: labels.map(() => faker.number.int({ min: 0, max: 1000 })),
         backgroundColor: 'rgba(255, 109, 197, 0.5)',
       },
