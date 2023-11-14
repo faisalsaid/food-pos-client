@@ -57,7 +57,7 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 md:flex-row">
         <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 ">
           <LastOrderTables />
         </div>
