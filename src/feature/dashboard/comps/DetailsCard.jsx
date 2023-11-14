@@ -10,7 +10,7 @@ const Tooltip = ({ type, data }) => {
   }, [type]);
 
   return (
-    <div className={`${bgColor} py-1 px-2 rounded-xl text-sm`}>
+    <div className={`${bgColor}  px-1 rounded-xl text-xs`}>
       <span className="mr-1">{data}</span>
       <span>{type === 'menu' ? 'Menu' : 'Item'}</span>
     </div>
@@ -19,24 +19,24 @@ const Tooltip = ({ type, data }) => {
 
 export default function DetailsCard() {
   return (
-    <div className="bg-white p-4 rounded-2xl justify-between flex gap-4 min-w-fit sm:h-32">
-      <div className="flex flex-col gap-1">
+    <div className="bg-white p-3 rounded-2xl justify-between flex gap-2 min-w-fit ">
+      <div className="flex flex-col justify-between ">
         <div className="flex gap-2 items-end">
-          <p className="font-semibold">Breakfast</p> <span className="text-sm text-slate-400">Last 7 days</span>
+          <p className="font-semibold">Breakfast</p> <span className="text-xs text-slate-400">Last 7 days</span>
         </div>
-        <p className="text-2xl font-semibold">$345.34</p>
+        <p className="text-xl font-semibold">$345.34</p>
         <div className="flex gap-2">
           <Tooltip type={'menu'} data={12} />
           <Tooltip type={'item'} data={47} />
         </div>
       </div>
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-end w-10 ">
         <img src="/growgraphic.svg" alt="" />
-        <p className="flex gap-2 items-center text-green-400">
-          <span>
+        <p className="  flex  justify-center text-green-400">
+          <span className="w-full">
             <BsArrowUpShort />
           </span>
-          <span>2,7%</span>
+          <span className="text-xs">2,7%</span>
         </p>
       </div>
     </div>

@@ -33,25 +33,16 @@ export const Dashboard = () => {
     <div className="p-3 flex flex-col gap-4">
       {/* GRAFIK CARD START */}
       <div className="flex flex-col gap-4 sm:flex-row  sm:overflow-x-scroll pb-2  ">
-        {/* TOTAL ORDER INCOME START */}
-
         {[1, 2].map((item, i) => (
           <CardGrafik key={i} />
         ))}
-
-        {/* TOTAL ORDER INCOME END */}
-
-        {/* THREE EAT TIMES START */}
-
         {[1, 2, 3].map((item, i) => (
           <DetailsCard key={i} />
         ))}
-
-        {/* THREE EAT TIMES END */}
       </div>
       {/* GRAFIK CARD END */}
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         {/* CHART END */}
         <div className="bg-white p-3 rounded-md flex-1 hover:drop-shadow-md transition-all duration-300">
           <MainChart />
