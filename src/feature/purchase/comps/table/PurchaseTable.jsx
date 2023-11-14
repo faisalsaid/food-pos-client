@@ -240,7 +240,7 @@ export default function PurchaseTable() {
             {headerGroups.map((headerGroup, i) => (
               <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column, i) => (
-                  <th key={i} className="bg-green-600  text-white font-semibold p-2 first:rounded-tl-xl last:rounded-tr-xl text-left" {...column.getHeaderProps()}>
+                  <th key={i} {...column.getHeaderProps()} className="bg-green-600  text-white font-semibold p-2 first:rounded-tl-xl last:rounded-tr-xl text-left">
                     {column.render('Header')}
                   </th>
                 ))}

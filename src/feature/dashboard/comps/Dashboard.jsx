@@ -6,6 +6,7 @@ import DoughnutChart from '../../../components/share/DoughnutChart';
 import TableEmployee from '../../../components/table/employee/TableEmployee';
 import DetailsCard from './DetailsCard';
 import TotalTrancsactionCard from './TotalTrancsactionCard';
+import LastOrderTables from './LastOrderTables';
 
 faker.seed(123);
 // Generate card grafik data dummy use faker
@@ -33,7 +34,7 @@ export const Dashboard = () => {
       {/* GRAFIK CARD START */}
       <div className="flex flex-col gap-4">
         {/* TOTAL ORDER INCOME START */}
-        <div className="flex  items-center gap-4 overflow-x-scroll pb-2">
+        <div className="flex  items-center gap-4 overflow-x-scroll ">
           {[1, 2].map((item, i) => (
             <CardGrafik key={i} />
           ))}
@@ -41,7 +42,7 @@ export const Dashboard = () => {
         {/* TOTAL ORDER INCOME END */}
 
         {/* THREE EAT TIMES START */}
-        <div className="flex items-center gap-4 overflow-x-scroll pb-2">
+        <div className="flex items-center gap-4 overflow-x-scroll ">
           {[1, 2, 3].map((item, i) => (
             <DetailsCard key={i} />
           ))}
@@ -66,8 +67,8 @@ export const Dashboard = () => {
         </div>
       </div>
       <div className="flex flex-col gap-3">
-        <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 overflow-x-scroll">
-          <TableEmployee />
+        <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 ">
+          <LastOrderTables />
         </div>
         <div className="bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300">
           <DoughnutChart />
