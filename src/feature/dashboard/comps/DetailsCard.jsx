@@ -19,7 +19,7 @@ const Tooltip = ({ type, data }) => {
 
 export default function DetailsCard() {
   return (
-    <div className="bg-white p-4 rounded-2xl flex gap-4 min-w-fit">
+    <div className="bg-white p-4 rounded-2xl justify-between flex gap-4 min-w-fit sm:h-32">
       <div className="flex flex-col gap-1">
         <div className="flex gap-2 items-end">
           <p className="font-semibold">Breakfast</p> <span className="text-sm text-slate-400">Last 7 days</span>

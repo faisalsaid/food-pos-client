@@ -30,23 +30,23 @@ export const Dashboard = () => {
   });
 
   return (
-    <div className="p-3 flex flex-col gap-4 bg-green-50 ">
+    <div className="p-3 flex flex-col gap-4">
       {/* GRAFIK CARD START */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row  sm:overflow-x-scroll pb-2  ">
         {/* TOTAL ORDER INCOME START */}
-        <div className="flex  items-center gap-4 overflow-x-scroll ">
-          {[1, 2].map((item, i) => (
-            <CardGrafik key={i} />
-          ))}
-        </div>
+
+        {[1, 2].map((item, i) => (
+          <CardGrafik key={i} />
+        ))}
+
         {/* TOTAL ORDER INCOME END */}
 
         {/* THREE EAT TIMES START */}
-        <div className="flex items-center gap-4 overflow-x-scroll ">
-          {[1, 2, 3].map((item, i) => (
-            <DetailsCard key={i} />
-          ))}
-        </div>
+
+        {[1, 2, 3].map((item, i) => (
+          <DetailsCard key={i} />
+        ))}
+
         {/* THREE EAT TIMES END */}
       </div>
       {/* GRAFIK CARD END */}
