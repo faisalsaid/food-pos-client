@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import dashboardService from './dashboardService';
 
 // Get all menu
-export const fetchAllMenu = createAsyncThunk('menu/fetchDashboardData', async (_, thunkAPI) => {
+export const fetchDashboardData = createAsyncThunk('menu/fetchDashboardData', async (_, thunkAPI) => {
   try {
     const token = thunkAPI.getState().user.curentUser.token;
-    return await dashboardService.getAllMenu(token);
+    return await dashboardService.getDashboardData(token);
   } catch (error) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
     return thunkAPI.getDashboardData(message);

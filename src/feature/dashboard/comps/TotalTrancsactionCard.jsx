@@ -4,29 +4,30 @@ const Tooltip = ({ type, data }) => {
   const [bgColor, setBgColor] = useState('');
 
   useEffect(() => {
-    setBgColor(type === 'menu' ? 'bg-green-200' : type === 'item' ? 'bg-orange-200' : 'bg-slate-100');
+    setBgColor(type === 'order' ? 'bg-green-200' : type === 'item' ? 'bg-orange-200' : 'bg-slate-100');
   }, [type]);
 
   return (
     <div className={`${bgColor} py-1 px-2 rounded-xl text-xs`}>
       <span className="mr-1">{data}</span>
-      <span>{type === 'menu' ? 'Menu' : 'Item'}</span>
+      <span>{type === 'order' ? 'Order' : 'Item'}</span>
     </div>
   );
 };
 
-export default function TotalTrancsactionCard() {
+export default function TotalTrancsactionCard({ data }) {
+  console.log(data);
   return (
     <div className="bg-white p-4 rounded-xl border flex gap-4 items-center min-w-fit ">
       <div className="bg-sky-200 rounded-lg w-16 h-16 flex items-center justify-center text-white">
-        <div className="text-2xl">2023</div>
+        <div className="text-2xl">{data.label}</div>
       </div>
       <div className="flex flex-col  ">
-        <p>Today</p>
-        <p className="font-semibold text-lg">$434.43</p>
+        <p>{data.title}</p>
+        <p className="font-semibold text-lg">${data.income.toFixed(2)}</p>
         <div className="flex gap-1 ">
-          <Tooltip type={'menu'} data={12} />
-          <Tooltip type={'item'} data={47} />
+          <Tooltip type={'order'} data={data.totalOrders} />
+          <Tooltip type={'item'} data={data.totalItems} />
         </div>
       </div>
     </div>
