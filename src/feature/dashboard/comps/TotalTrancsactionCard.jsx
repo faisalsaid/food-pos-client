@@ -24,10 +24,10 @@ export default function TotalTrancsactionCard({ data }) {
       </div>
       <div className="flex flex-col  ">
         <p>{data.title}</p>
-        <p className="font-semibold text-lg">${data.income.toFixed(2)}</p>
+        <p className="font-semibold text-lg">${data?.income.toFixed(2)}</p>
         <div className="flex gap-1 ">
-          <Tooltip type={'order'} data={data.totalOrders} />
-          <Tooltip type={'item'} data={data.totalItems} />
+          <Tooltip type={'order'} data={data?.totalOrders} />
+          <Tooltip type={'item'} data={data?.totalItems} />
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ export default function CardGrafik({ data }) {
     <div className="flex  bg-white hover:drop-shadow-md p-3 rounded-2xl transition-all gap-3 duration-700 items-end min-w-fit  sm:items-center ">
       <div className="flex-1 gap-1">
         <p className="text-slate-400">{data?.title}</p>
-        <p className="text-xl font-semibold">{data?.title === 'Total Income' ? `$${(data?.value).toFixed(2)}` : data?.value}</p>
+        <p className="text-xl font-semibold">{data?.title === 'Total Income' ? `$${parseFloat(data?.value).toFixed(2)}` : data?.value}</p>
         <p className="flex items-center text-xs text-green-600">
           <BiSolidUpArrowAlt /> <span>10%</span>
         </p>
