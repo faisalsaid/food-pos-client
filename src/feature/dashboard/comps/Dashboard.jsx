@@ -52,8 +52,8 @@ export const Dashboard = () => {
     <div className="p-3 flex flex-col gap-4">
       {/* GRAFIK CARD START */}
       <div className="flex flex-col gap-4 sm:flex-row  sm:overflow-x-scroll pb-2  ">
-        <CardGrafik data={displayDashData?.totalItems} />
-        <CardGrafik data={displayDashData?.totalIncome} />
+        {displayDashData?.dataTotal ? displayDashData?.dataTotal.map((data, i) => <CardGrafik key={i} data={data} />) : '..loading'}
+
         {displayDashData?.mealTime.slice(0, 3).map((mealtTime, i) => (
           <DetailsCard key={i} data={mealtTime} />
         ))}
