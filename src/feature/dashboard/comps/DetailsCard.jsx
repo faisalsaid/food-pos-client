@@ -27,8 +27,8 @@ export default function DetailsCard({ data }) {
         </div>
         <p className="text-xl font-semibold">${data?.income > 0 ? data?.income : (0).toFixed(2)}</p>
         <div className="flex gap-2">
-          <Tooltip type={'order'} data={data.totalOrders} />
-          <Tooltip type={'item'} data={data.totalItems} />
+          <Tooltip type={'order'} data={data.totalOrders > 0 ? data.totalOrders : 0} />
+          <Tooltip type={'item'} data={data.totalItems > 0 ? data.totalItems : 0} />
         </div>
       </div>
       <div className="flex flex-col justify-end w-10 ">
