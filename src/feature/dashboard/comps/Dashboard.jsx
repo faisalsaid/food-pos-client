@@ -79,7 +79,8 @@ export const Dashboard = () => {
         <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 ">
           <LastOrderTables />
         </div>
-        <div className="bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300">
+        <div className="bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 min-w-fit min-h-fit w-36 h-[480px]">
+          <p className="font-semibold mb-2">Popular Menu :</p>
           <DoughnutChart topMenu={displayDashData?.popularMenu} />
         </div>
       </div>
