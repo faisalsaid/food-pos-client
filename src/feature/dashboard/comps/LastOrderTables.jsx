@@ -76,7 +76,7 @@ const tableColumns = [
     ),
 
     accessor: 'createdAt',
-    Cell: ({ cell: { value } }) => new Date(value).toDateString(),
+    Cell: ({ cell: { value } }) => new Date(value).toLocaleString('en-ID', { timeZone: 'UTC' }),
   },
 ];
 
