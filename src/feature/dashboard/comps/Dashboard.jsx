@@ -66,7 +66,7 @@ export const Dashboard = () => {
           <MainChart />
         </div>
         {/* CHART END */}
-        <div className="bg-white p-3 rounded-md gap  hover:drop-shadow-md transition-all duration-300 ">
+        <div className="bg-white p-3 rounded-md gap  hover:drop-shadow-md transition-all duration-300 min-w-fit sm:w-32">
           <p className="text-lg font-semibold text-slate-500 mb-3">Total Transaction :</p>
           <div className="flex gap-3 flex-col">
             {displayDashData?.totalTransaction.map((item, i) => (
