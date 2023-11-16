@@ -19,8 +19,17 @@ export default function TotalTrancsactionCard({ data }) {
   console.log(data);
   return (
     <div className="bg-white p-4 rounded-xl border flex gap-4 items-center min-w-fit ">
-      <div className="bg-sky-200 rounded-lg w-16 h-16 flex items-center justify-center text-white">
-        <div className="text-2xl">{data.label}</div>
+      <div className="relative">
+        <div className="absolute -top-1 ">
+          <div className="flex justify-between w-16 px-2">
+            <div className=" h-4 w-2 rounded-md bg-slate-700 "></div>
+            <div className=" h-4 w-2 rounded-md bg-slate-700 "></div>
+          </div>
+        </div>
+        <div className="bg-sky-200 rounded-lg  h-16 flex  text-white flex-col overflow-hidden ">
+          <div className=" w-16 h-5 bg-red-600"></div>
+          <div className="text-2xl text-center items-center flex justify-center mt-1 text-blue-900">{data.label}</div>
+        </div>
       </div>
       <div className="flex flex-col  ">
         <p>{data.title}</p>
