@@ -36,10 +36,10 @@ export const Dashboard = () => {
 
   const dispatch = useDispatch();
   const { dashboardData, isSuccess, isLoading, message, isError } = useSelector((state) => state.dashboard);
-  console.log('REDUX DASHBOARD >>', dashboardData, isSuccess, isLoading, message, isError);
+  // console.log('REDUX DASHBOARD >>', dashboardData, isSuccess, isLoading, message, isError);
 
   const [displayDashData, setDisplayDashData] = useState(null);
-  console.log(displayDashData);
+  // console.log(displayDashData);
 
   useEffect(() => {
     dispatch(fetchDashboardData());
@@ -54,9 +54,7 @@ export const Dashboard = () => {
       <div className="flex flex-col gap-4 sm:flex-row  sm:overflow-x-scroll pb-2  ">
         {displayDashData?.dataTotal ? displayDashData?.dataTotal.map((data, i) => <CardGrafik key={i} data={data} />) : '..loading'}
 
-        {displayDashData?.mealTime.slice(0, 3).map((mealtTime, i) => (
-          <DetailsCard key={i} data={mealtTime} />
-        ))}
+        {displayDashData?.mealTime ? displayDashData?.mealTime.slice(0, 3).map((mealtTime, i) => <DetailsCard key={i} data={mealtTime} />) : '...loading'}
       </div>
       {/* GRAFIK CARD END */}
 
