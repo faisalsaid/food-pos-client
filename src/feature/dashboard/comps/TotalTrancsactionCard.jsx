@@ -18,7 +18,7 @@ const Tooltip = ({ type, data }) => {
 export default function TotalTrancsactionCard({ data }) {
   console.log(data);
   return (
-    <div className="bg-white p-4 rounded-xl border flex gap-4 items-center min-w-fit ">
+    <div className="bg-white p-4 rounded-xl border flex gap-4 items-center min-w-fit w-full ">
       <div className="relative">
         <div className="absolute -top-1 ">
           <div className="flex justify-between w-16 px-2">

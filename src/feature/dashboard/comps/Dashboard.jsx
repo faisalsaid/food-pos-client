@@ -60,11 +60,11 @@ export const Dashboard = () => {
 
       <div className="flex flex-col gap-4 sm:flex-row">
         {/* CHART END */}
-        <div className="bg-white p-3 rounded-md flex-1 hover:drop-shadow-md transition-all duration-300">
+        <div className="bg-white p-3 rounded-md flex-1 hover:drop-shadow-md transition-all duration-300 flex-shrink">
           <MainChart />
         </div>
         {/* CHART END */}
-        <div className="bg-white p-3 rounded-md gap  hover:drop-shadow-md transition-all duration-300 min-w-fit sm:w-32">
+        <div className="bg-white p-3 rounded-md gap  hover:drop-shadow-md transition-all duration-300 min-w-fit sm:w-64">
           <p className="text-lg font-semibold text-slate-500 mb-3">Total Transaction :</p>
           <div className="flex gap-3 flex-col">
             {displayDashData?.totalTransaction ? displayDashData?.totalTransaction.map((item, i) => <TotalTrancsactionCard key={i} data={item} />) : '...loading'}
@@ -75,7 +75,7 @@ export const Dashboard = () => {
         <div className="flex-1 bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 ">
           <LastOrderTables />
         </div>
-        <div className="bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 min-w-fit min-h-fit w-36 h-[480px]">
+        <div className="bg-white rounded-md p-3 hover:drop-shadow-md transition-all duration-300 min-w-fit min-h-fit w-full sm:w-36 h-[480px]">
           <p className="font-semibold mb-2">Popular Menu :</p>
           <DoughnutChart topMenu={displayDashData?.popularMenu} />
         </div>
