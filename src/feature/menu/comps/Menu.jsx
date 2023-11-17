@@ -14,7 +14,7 @@ import { PiHamburger, PiCoffee } from 'react-icons/pi';
 import { BiBowlRice } from 'react-icons/bi';
 import { MdOutlineLocalDrink } from 'react-icons/md';
 
-const listTag = [
+export const listTag = [
   {
     label: 'All Menu',
     value: 'all',

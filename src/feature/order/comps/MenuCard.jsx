@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { BiPlus, BiMinus, BiAddToQueue } from 'react-icons/bi';
 import { addOrderList } from '../config/orderSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { printOption } from '../../../config/helper';
+import { listTag } from '../../menu/comps/Menu';
 
 export default function MenuCard({ menuInfo }) {
   const { createdAt, updatedAt, __v, ...payload } = menuInfo; // desctruction menuInfo to get order payload
@@ -21,7 +23,7 @@ export default function MenuCard({ menuInfo }) {
         <div className="flex flex-col gap-1">
           <h5 className="text-lg font-semibold text-slate-700">{menuInfo.title}</h5>
           <p className="flex-1 text-xs text-slate-400">{menuInfo.description}</p>
-          <p className="text-sm text-teal-500">{menuInfo.category}</p>
+          <p className="text-sm text-teal-500">{printOption(menuInfo.category, listTag)}</p>
         </div>
       </div>
       <div className="flex items-center mt-2 gap-3">
