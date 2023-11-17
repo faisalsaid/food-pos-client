@@ -10,6 +10,8 @@ import LastOrderTables from './LastOrderTables';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDashboardData } from '../config/dashboardSlice';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 // Generate card grafik data dummy use faker
 faker.seed(123);
@@ -52,9 +54,11 @@ export const Dashboard = () => {
     <div className="p-3 flex flex-col gap-4">
       {/* GRAFIK CARD START */}
       <div className="flex flex-col gap-4 sm:flex-row  sm:overflow-x-scroll pb-2  ">
-        {displayDashData?.dataTotal ? displayDashData?.dataTotal.map((data, i) => <CardGrafik key={i} data={data} />) : '..loading'}
+        {!displayDashData?.dataTotal ? [1, 2].map((data, i) => <SkeletonListCard key={i} />) : displayDashData?.dataTotal.map((data, i) => <CardGrafik key={i} data={data} />)}
 
-        {displayDashData?.mealTime ? displayDashData?.mealTime.slice(0, 3).map((mealtTime, i) => <DetailsCard key={i} data={mealtTime} />) : '...loading'}
+        {!displayDashData?.mealTime
+          ? [1, 2, 3].map((data, i) => <SkeletonListCard key={i} />)
+          : displayDashData?.mealTime.slice(0, 3).map((mealtTime, i) => <DetailsCard key={i} data={mealtTime} />)}
       </div>
       {/* GRAFIK CARD END */}
 
@@ -67,7 +71,9 @@ export const Dashboard = () => {
         <div className="bg-white p-3 rounded-md gap  hover:drop-shadow-md transition-all duration-300 min-w-fit sm:w-64 ">
           <p className="text-lg font-semibold text-slate-500 mb-3">Total Transaction :</p>
           <div className="flex gap-3 flex-col">
-            {displayDashData?.totalTransaction ? displayDashData?.totalTransaction.map((item, i) => <TotalTrancsactionCard key={i} data={item} />) : '...loading'}
+            {!displayDashData?.totalTransaction
+              ? [1, 2, 3].map((data, i) => <SkeletonListCard key={i} />)
+              : displayDashData?.totalTransaction.map((item, i) => <TotalTrancsactionCard key={i} data={item} />)}
           </div>
         </div>
       </div>
@@ -79,6 +85,21 @@ export const Dashboard = () => {
           <p className="font-semibold mb-2">Popular Menu :</p>
           <DoughnutChart topMenu={displayDashData?.popularMenu} />
         </div>
+      </div>
+    </div>
+  );
+};
+
+const SkeletonListCard = () => {
+  return (
+    <div className=" flex flex-row gap-2">
+      <div className="h-10 w-10">
+        <Skeleton circle={true} className="h-10 w-10" />
+      </div>
+      <div>
+        <Skeleton className="w-32" />
+        <Skeleton className="w-32" />
+        <Skeleton className="w-32" />
       </div>
     </div>
   );
