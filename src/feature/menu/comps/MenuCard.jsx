@@ -1,11 +1,13 @@
+import { RiDeleteBinLine } from 'react-icons/ri';
+// import icons
+
 import React from 'react';
 import { BiEditAlt } from 'react-icons/bi';
 import AddMenuModal from './AddMenuModal';
 import { useDispatch } from 'react-redux';
 import { deleteMenu } from '../config/menuSlice';
-
-// import icons
-import { RiDeleteBinLine } from 'react-icons/ri';
+import { printOption } from '../../../config/helper';
+import { listTag } from './Menu';
 
 export default function MenuCard({ menuInfo, ...rest }) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -36,7 +38,7 @@ export default function MenuCard({ menuInfo, ...rest }) {
           <div>
             <h6 className="font-semibold text-slate-600">{menuInfo.title}</h6>
             <p className="text-xs text-slate-400">{menuInfo.description}</p>
-            <p className="text-sm text-green-400">{menuInfo.category}</p>
+            <p className="text-sm text-green-400">{printOption(menuInfo.category, listTag)}</p>
           </div>
         </div>
         <div className="flex justify-between mt-2">
