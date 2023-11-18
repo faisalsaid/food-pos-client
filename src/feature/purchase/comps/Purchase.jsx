@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { faker } from '@faker-js/faker';
 import CardGrafik from '../../../components/share/CardGrafik';
 import PurchaseTable from './table/PurchaseTable';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDashboardData } from '../../dashboard/config/dashboardSlice';
+import TotalTrancsactionCard from '../../dashboard/comps/TotalTrancsactionCard';
 
 const orderDataFramework = () => {
   return {
@@ -21,13 +24,27 @@ const dataCardGrafik = ordersData.map((data, i) => {
 });
 
 export default function Purchase() {
+  const dispatch = useDispatch();
+  const { dashboardData } = useSelector((state) => state.dashboard);
+  const [totalTransData, setTotalTransData] = useState({});
+
+  useEffect(() => {
+    dispatch(fetchDashboardData());
+  }, []);
+
+  useEffect(() => {
+    dashboardData && setTotalTransData(dashboardData.totalTransaction);
+  }, [dashboardData]);
+
+  // useEffect(() => {
+  //   totalTransData && console.log(totalTransData);
+  // }, [totalTransData]);
+
   return (
     <div className="p-4 flex flex-col gap-4">
-      <p className="font-semibold text-xl">Purchase List</p>
+      <p className="font-semibold text-xl">Total Transaction :</p>
       <div className="flex flex-col sm:flex-row gap-2">
-        {dataCardGrafik.map((item, i) => (
-          <CardGrafik key={i} data={item} />
-        ))}
+        {totalTransData.length > 0 ? totalTransData.map((item, i) => <TotalTrancsactionCard key={i} data={item} />) : '...loading'}
       </div>
       <PurchaseTable />
     </div>
