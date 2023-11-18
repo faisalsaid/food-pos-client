@@ -5,6 +5,7 @@ import PurchaseTable from './table/PurchaseTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDashboardData } from '../../dashboard/config/dashboardSlice';
 import TotalTrancsactionCard from '../../dashboard/comps/TotalTrancsactionCard';
+import SkeletonCard1 from '../../../components/skeleton/SkeletonCard1';
 
 const orderDataFramework = () => {
   return {
@@ -44,7 +45,7 @@ export default function Purchase() {
     <div className="p-4 flex flex-col gap-4">
       <p className="font-semibold text-xl">Total Transaction :</p>
       <div className="flex flex-col sm:flex-row gap-2">
-        {totalTransData.length > 0 ? totalTransData.map((item, i) => <TotalTrancsactionCard key={i} data={item} />) : '...loading'}
+        {totalTransData.length > 0 ? totalTransData.map((item, i) => <TotalTrancsactionCard key={i} data={item} />) : [1, 2, 3].map((data, i) => <SkeletonCard1 key={i} />)}
       </div>
       <PurchaseTable />
     </div>
